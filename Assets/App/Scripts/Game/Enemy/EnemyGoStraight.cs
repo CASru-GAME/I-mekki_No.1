@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Scripts.Game.Enemy.Issue8
+namespace App.Scripts.Game.Enemy.Issue3
 {
     public class EnemyGoStraight : MonoBehaviour
     {
