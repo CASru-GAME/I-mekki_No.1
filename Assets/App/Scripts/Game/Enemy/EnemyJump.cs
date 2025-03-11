@@ -10,7 +10,7 @@ namespace App.Scripts.Game.Enemy.Issue3
         private float t = 0f;
         void FixedUpdate()
         {
-            t += Time.deltaTime;
+            t += Time.fixedDeltaTime;
             Vector2 movementEnemyJump = new Vector2(HorizontalSpeed * t, JumpHeight * Mathf.Abs(Mathf.Sin(JumpPitch * t)));
             transform.position = movementEnemyJump;
         }
