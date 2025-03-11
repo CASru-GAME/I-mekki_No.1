@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace App.Scripts.Game.Enemy.Issue3
@@ -31,8 +30,7 @@ namespace App.Scripts.Game.Enemy.Issue3
         {
             UpdatePosition();
         }
-
-        void UpdatePosition()
+        private void UpdatePosition()
         {
             tX += Time.fixedDeltaTime;
             tY += Time.fixedDeltaTime;

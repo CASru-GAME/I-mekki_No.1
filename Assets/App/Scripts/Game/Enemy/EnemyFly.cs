@@ -1,19 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace App.Scripts.Game.Enemy.Issue3
 {
-    public class EnemyGoStraight : MonoBehaviour
+    public class EnemyFly : MonoBehaviour
     {
-        [SerializeField] private float HorizontalSpeed = 1.0f;
-        private int direction = 1;
-        private float tX = 0f;
+        [SerializeField] private float FlyHeight = 1.0f;
+        [SerializeField] private float FlyWidtht = 1.0f;
+        [SerializeField] private float FlyPitch = 1.0f;
+        private float t = 0f;
         private float startPositionX;
         private float startPositionY;
-        private float positionX ;
-        private float positionY ;
+        private float positionX;
+        private float positionY;
         Rigidbody2D rb;
-
-        private void Start()
+        void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             Vector2 posi = transform.position;
@@ -21,29 +23,22 @@ namespace App.Scripts.Game.Enemy.Issue3
             startPositionY = posi.y;
             positionX = startPositionX;
             positionY = startPositionY;
-
         }
         void FixedUpdate()
         {
-            UpdatePosition();
+                UpdatePosition();
         }
-
         private void UpdatePosition()
         {
-            tX += Time.fixedDeltaTime;
-            positionX = startPositionX + direction * HorizontalSpeed * tX;
+            t += Time.fixedDeltaTime;
+            positionX = startPositionX + FlyWidtht * Mathf.Sin(FlyPitch * t);
+            positionY = startPositionY + FlyHeight * Mathf.Sin(FlyPitch * t);
             Vector2 movementEnemyGoStraight = new Vector2(positionX, positionY);
             transform.position = movementEnemyGoStraight;
         }
-
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Wall"))
-            {
-                tX = 0f; 
-                startPositionX = positionX;
-                direction = direction * -1;
-            }
+            
         }
     }
 }
