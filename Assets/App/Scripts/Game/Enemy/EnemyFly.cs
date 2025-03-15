@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.Scripts.Game.Enemy.Issue3
+namespace App.Scripts.Game.Enemy
 {
     public class EnemyFly : MonoBehaviour
     {
-        [SerializeField] private float FlyHeight = 1.0f;
-        [SerializeField] private float FlyWidtht = 1.0f;
-        [SerializeField] private float FlyPitch = 1.0f;
+        [SerializeField] private float flyHeight = 1.0f;
+        [SerializeField] private float flyWidtht = 1.0f;
+        [SerializeField] private float flyPitch = 1.0f;
         private float t = 0f;
         private float startPositionX;
         private float startPositionY;
@@ -31,8 +31,8 @@ namespace App.Scripts.Game.Enemy.Issue3
         private void UpdatePosition()
         {
             t += Time.fixedDeltaTime;
-            positionX = startPositionX + FlyWidtht * Mathf.Sin(FlyPitch * t);
-            positionY = startPositionY + FlyHeight * Mathf.Sin(FlyPitch * t);
+            positionX = startPositionX + flyWidtht * Mathf.Sin(flyPitch * t);
+            positionY = startPositionY + flyHeight * Mathf.Sin(flyPitch * t);
             Vector2 movementEnemyGoStraight = new Vector2(positionX, positionY);
             transform.position = movementEnemyGoStraight;
         }

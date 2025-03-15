@@ -1,16 +1,16 @@
 using UnityEngine;
 
-namespace App.Scripts.Game.Enemy.Issue3
+namespace App.Scripts.Game.Enemy
 {
     public class EnemyGoStraight : MonoBehaviour
     {
-        [SerializeField] private float HorizontalSpeed = 1.0f;
+        [SerializeField] private float horizontalSpeed = 1.0f;
         private int direction = 1;
         private float tX = 0f;
         private float startPositionX;
         private float startPositionY;
-        private float positionX ;
-        private float positionY ;
+        private float positionX;
+        private float positionY;
         Rigidbody2D rb;
 
         private void Start()
@@ -31,7 +31,7 @@ namespace App.Scripts.Game.Enemy.Issue3
         private void UpdatePosition()
         {
             tX += Time.fixedDeltaTime;
-            positionX = startPositionX + direction * HorizontalSpeed * tX;
+            positionX = startPositionX + direction * horizontalSpeed * tX;
             Vector2 movementEnemyGoStraight = new Vector2(positionX, positionY);
             transform.position = movementEnemyGoStraight;
         }
