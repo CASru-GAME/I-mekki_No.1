@@ -1,38 +1,41 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+
 namespace Game.Player.Move
 {
     public class Dash : MonoBehaviour
     {
         private Rigidbody2D rb;
         private bool isYAxisFixed = false;
-        Jump jump = new Jump();
+        private Jump jump = new Jump();
+        [SerializeField] private float airTime = 1f; // 空中にいる時間を設定するプロパティ
 
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
         }
 
-        public void PerformDash(GameObject gameObject,InputAction.CallbackContext context)
+        public void PerformDash(GameObject gameObject, InputAction.CallbackContext context)
         {
             if (jump.IsGrounded(gameObject))
             {
                 return;
             }
-            if(context.phase == InputActionPhase.Started)
-            StartCoroutine(FixYAxisForOneSecond());
+            if (context.phase == InputActionPhase.Started)
+            {
+                StartCoroutine(FixYAxisForDuration(airTime));
+            }
         }
 
-        private IEnumerator FixYAxisForOneSecond()
+        private IEnumerator FixYAxisForDuration(float duration)
         {
             isYAxisFixed = true;
             float originalY = rb.position.y;
 
             float elapsedTime = 0f;
-            while (elapsedTime < 1f)
+            while (elapsedTime < duration)
             {
                 rb.position = new Vector2(rb.position.x, originalY);
                 elapsedTime += Time.deltaTime;
