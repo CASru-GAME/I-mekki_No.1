@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace App.Game.Process
 {
@@ -44,7 +46,6 @@ namespace App.Game.Process
         public void LoadNextScene()
         {
             string nextSceneName = nextScene[(_difficulty, _stage)];
-            Debug.Log(nextSceneName);
             // SceneManager.LoadScene(nextSceneName);
         }
 
