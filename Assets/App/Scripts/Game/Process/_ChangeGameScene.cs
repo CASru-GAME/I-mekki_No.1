@@ -46,6 +46,7 @@ namespace App.Game.Process
         public void LoadNextScene()
         {
             string nextSceneName = nextScene[(_difficulty, _stage)];
+            UnityEngine.Debug.Log(nextSceneName);
             // SceneManager.LoadScene(nextSceneName);
         }
 
