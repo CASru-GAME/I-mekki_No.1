@@ -26,7 +26,7 @@ namespace App.Scripts.Game.Enemy
         }
         void FixedUpdate()
         {
-                UpdatePosition();
+            UpdatePosition();
         }
         private void UpdatePosition()
         {
