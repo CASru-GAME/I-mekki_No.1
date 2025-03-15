@@ -1,9 +1,9 @@
 using UnityEngine;
 using App.Common.MainCamera;
 
-namespace App.Debug.Issue6
+namespace App._Debug_.Issue6
 {
-    public class Debug : MonoBehaviour
+    public class _Debug_ : MonoBehaviour
     {
         [SerializeField] private float _masterVolume = 0f;
         [SerializeField] private float _bgmVolume = 0f;
