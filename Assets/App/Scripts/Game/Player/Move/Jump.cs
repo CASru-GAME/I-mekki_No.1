@@ -2,12 +2,54 @@ using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using DG.Tweening;
 
-namespace Game.Player.Move
+namespace App.Scripts.Game.Player.Move
 {
     public class Jump
     {
-        public bool IsGrounded(GameObject player)
+        private GameObject player;
+        private Tween jumpTween;
+
+        public Jump(GameObject player)
+        {
+            this.player = player;
+        }
+
+        public void PerformJump(float jumpForce, float maxJumpForce, InputAction.CallbackContext context)
+        {
+            // プレイヤーが地面についているか確認
+            if (IsGrounded())
+            {
+                if (context.phase == InputActionPhase.Started)
+                {
+                    if (context.interaction is PressInteraction || context.interaction is HoldInteraction)
+                    {
+                        Debug.Log("Jump Started");
+                        player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, jumpForce);
+                        jumpTween = player.transform.DOMoveY(player.transform.position.y + jumpForce, 0.5f).SetEase(Ease.OutQuad);
+                    }
+                }
+                if (context.phase == InputActionPhase.Performed && context.interaction is HoldInteraction hold)
+                {
+                    Debug.Log("Jump Hold");
+                    float holdTime = (float)context.duration;
+                    float adjustedJumpForce = Mathf.Lerp(jumpForce, maxJumpForce, holdTime / hold.duration);
+                    player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, adjustedJumpForce);
+                    jumpTween = player.transform.DOMoveY(player.transform.position.y + adjustedJumpForce, 0.5f).SetEase(Ease.OutQuad);
+                }
+            }
+        }
+
+        public void CancelJump()
+        {
+            if (jumpTween != null && jumpTween.IsActive())
+            {
+                jumpTween.Kill();
+            }
+        }
+
+        public bool IsGrounded()
         {
             // プレイヤーのコライダーのサイズを取得
             Collider2D collider = player.GetComponent<Collider2D>();
@@ -28,29 +70,6 @@ namespace Game.Player.Move
                 return true;
             }
             return false;
-        }
-        public Jump()
-        {
-        }
-        public Jump(GameObject player, float jumpForce, float maxJumpForce, InputAction.CallbackContext context)
-        {
-            // プレイヤーが地面についているか確認
-            if (IsGrounded(player))
-            {
-                if (context.phase == InputActionPhase.Started)
-                {
-                    if (context.interaction is PressInteraction || context.interaction is HoldInteraction)
-                    {
-                        //Debug.Log("Jump Started");
-                        player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, jumpForce);
-                    }
-                }
-                if (context.phase == InputActionPhase.Performed && context.interaction is HoldInteraction hold)
-                {
-                    Debug.Log("Jump Hold");
-                    player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, maxJumpForce);
-                }
-            }
         }
     }
 }

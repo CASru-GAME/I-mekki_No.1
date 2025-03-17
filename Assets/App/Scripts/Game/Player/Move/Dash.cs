@@ -1,35 +1,44 @@
 using UnityEngine;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using DG.Tweening;
 
-namespace Game.Player.Move
+namespace App.Scripts.Game.Player.Move
 {
-    public class Dash : MonoBehaviour
+    public class Dash
     {
         private Rigidbody2D rb;
         private bool isYAxisFixed = false;
-        private Jump jump = new Jump();
-        [SerializeField] private float airTime = 1f; // 空中にいる時間を設定するプロパティ
+        private Jump jump;
+        private float airTime;
+        private bool canDash = true; // ダッシュが使用可能かどうかを管理するフラグ
 
-        void Start()
+        public Dash(Rigidbody2D rigidbody2D, Jump jumpInstance, float airTimeDuration)
         {
-            rb = GetComponent<Rigidbody2D>();
+            rb = rigidbody2D;
+            jump = jumpInstance;
+            airTime = airTimeDuration;
         }
 
-        public void PerformDash(GameObject gameObject, InputAction.CallbackContext context)
+        public async UniTask PerformDash(InputAction.CallbackContext context)
         {
-            if (jump.IsGrounded(gameObject))
+            if (!canDash || jump.IsGrounded())
             {
                 return;
             }
             if (context.phase == InputActionPhase.Started)
             {
-                StartCoroutine(FixYAxisForDuration(airTime));
+                canDash = false; // ダッシュを使用したのでフラグを無効にする
+                jump.CancelJump(); // ジャンプをキャンセル
+                rb.transform.DOMoveX(rb.transform.position.x + 1f, 0.5f)
+                .SetLoops(2, LoopType.Yoyo)
+                .SetEase(Ease.OutCirc);
+                await FixYAxisForDuration(airTime);
             }
         }
 
-        private IEnumerator FixYAxisForDuration(float duration)
+        private async UniTask FixYAxisForDuration(float duration)
         {
             isYAxisFixed = true;
             float originalY = rb.position.y;
@@ -39,18 +48,25 @@ namespace Game.Player.Move
             {
                 rb.position = new Vector2(rb.position.x, originalY);
                 elapsedTime += Time.deltaTime;
-                yield return null;
+                await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
             }
 
             isYAxisFixed = false;
         }
 
-        void FixedUpdate()
+        public void FixedUpdate()
         {
             if (isYAxisFixed)
             {
                 // y軸を固定するために速度をゼロに設定
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+                
+            }
+
+            // 地面に着いたらダッシュを再度使用可能にする
+            if (jump.IsGrounded())
+            {
+                canDash = true;
             }
         }
     }

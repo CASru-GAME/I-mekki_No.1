@@ -1,36 +1,46 @@
 using UnityEngine;
-using Game.Player.Move;
+using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
-using NUnit.Framework;
+using App.Scripts.Game.Player.Move;
 
-namespace Game.Player
+namespace App.Scripts.Game.Player
 {
     public class Player : MonoBehaviour
     {
         [SerializeField] private GameObject gameobject;
         [SerializeField] private float jumpForce = 5f;
         [SerializeField] private float jumping = 1f;
+        [SerializeField] private float airTime = 1f;
         private Dash dash;
+        private Jump jump;
 
         void Start()
         {
-            dash = GetComponent<Dash>();
-            if (dash == null)
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb == null)
             {
-                Debug.LogError("Dash component not found on the player.");
+                Debug.LogError("Rigidbody2D component not found on the player.");
+                return;
             }
+
+            jump = new Jump(gameobject);
+            dash = new Dash(rb, jump, airTime);
         }
 
         public void OnJump(InputAction.CallbackContext context)
         {
             // Jump
-            new Move.Jump(gameobject, jumpForce, jumping, context);
+            jump.PerformJump(jumpForce, jumping, context);
         }
 
-        public void OnDash(InputAction.CallbackContext context)
+        public async void OnDash(InputAction.CallbackContext context)
         {
-                Debug.Log("Dash");
-                dash.PerformDash(gameObject,context);
+            await dash.PerformDash(context);
+        }
+
+        void FixedUpdate()
+        {
+            dash.FixedUpdate();
         }
     }
 }

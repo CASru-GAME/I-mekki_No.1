@@ -11,7 +11,7 @@
                     "id": "dcf7f8f4-a1af-4f1a-9a21-452ff0c08040",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.4,pressPoint=0.5)",
+                    "interactions": "Hold(duration=0.35,pressPoint=0.5)",
                     "initialStateCheck": false
                 },
                 {
@@ -49,6 +49,17 @@
                 },
                 {
                     "name": "",
+                    "id": "136a366a-4c92-40d4-81bb-80d8c9f41417",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f590b2eb-784b-4d95-9ac1-7230dcfb64d9",
                     "path": "<Keyboard>/anyKey",
                     "interactions": "",
@@ -62,6 +73,17 @@
                     "name": "",
                     "id": "a99136b7-bf22-4b64-a8e7-0fe01c30699b",
                     "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78afee55-13e1-4a9a-b4c3-b614ccf8e491",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
