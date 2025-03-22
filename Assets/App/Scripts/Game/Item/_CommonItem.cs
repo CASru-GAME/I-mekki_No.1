@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 namespace App.Game.Item
 {
@@ -11,7 +12,10 @@ namespace App.Game.Item
 
         protected void DeleteItem(GameObject item)
         {
-            Destroy(item);
+            //　DoTweenでアイテムを消すアニメーション
+            item.transform.DOScale(Vector3.zero, 0.5f);
+            item.transform.DOFade(0, 0.5f).OnComplete(() => Destroy(item));
+
         }
 
         protected void OnTriggerEnter2D(Collider2D collision)
