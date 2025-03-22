@@ -19,6 +19,7 @@ namespace App.Game.Item
         {
             // Playerのclassを持っているかどうかでplayerの判定
             /*if (collision.gameObject.GetComponent<App.Game.Player.Player>() != null)*/  ItemEffect();
+            DeleteItem(this.gameObject);
         }
     }
 }

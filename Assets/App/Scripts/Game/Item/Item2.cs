@@ -12,7 +12,6 @@ namespace App.Game.Item
             /* 一定時間無敵
             　　staticにint型の変数を用意して、その値を==_invincibleTimeする
             　　その後、その値が1以上の場合は、ダメージを無効にしてください*/
-            DeleteItem(this.gameObject);
         }
     }
 }

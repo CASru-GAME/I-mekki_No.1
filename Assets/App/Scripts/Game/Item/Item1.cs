@@ -11,7 +11,6 @@ namespace App.Game.Item
             /* ダメージ一回無効
             　　staticにint型の変数を用意して、その値を++する
             　　その後、その値が1以上の場合は、ダメージを無効にしてください*/
-            DeleteItem(this.gameObject);
         }
     }
 }
