@@ -12,10 +12,10 @@ namespace App.Game.Item
 
         protected void DeleteItem(GameObject item)
         {
-            //　DoTweenでアイテムを消すアニメーション
+            // アニメーションして削除
+            CanvasGroup canvasGroup = item.AddComponent<CanvasGroup>();
+            canvasGroup.DOFade(0, 0.5f).OnComplete(() => Destroy(item));
             item.transform.DOScale(Vector3.zero, 0.5f);
-            item.transform.DOFade(0, 0.5f).OnComplete(() => Destroy(item));
-
         }
 
         protected void OnTriggerEnter2D(Collider2D collision)
