@@ -6,12 +6,11 @@ namespace App.Game.Item
     {
         public virtual void ItemEffect()
         {
-            // 共通のアイテム効果
+            // 共通のアイテム効果、アイテムごとにオーバーライドしてください
         }
 
         protected void DeleteItem(GameObject item)
         {
-            // アイテム削除のロジック
             Destroy(item);
         }
 
