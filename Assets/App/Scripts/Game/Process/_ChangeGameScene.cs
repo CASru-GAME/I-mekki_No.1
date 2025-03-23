@@ -54,7 +54,5 @@ namespace App.Game.Process
         {
             // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-
-
     }
 }
