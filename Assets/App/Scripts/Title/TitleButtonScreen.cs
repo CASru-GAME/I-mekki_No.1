@@ -11,6 +11,7 @@ namespace Assets.App.Scripts.Title
         private Vector3 _mainPos;
         private Vector3 _nowPos;
         private Vector3 _waitPos;
+        private Vector3 _defaultScale;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,10 +21,19 @@ namespace Assets.App.Scripts.Title
             _mainPos = _targetScreen.transform.position;
             _nowPos = _nowScreen.transform.position;
             _waitPos = _waitScreen.transform.position;
+
+            _defaultScale = transform.localScale;
         }
 
         public void OnClickMenu()
         {
+            //ボタンのアニメーション
+            this.transform.DOScale(1.1f, 0.5f).SetEase(Ease.OutElastic).OnComplete(()=> 
+            {
+                //this.transform.DOKill();
+                transform.localScale = _defaultScale;
+            });
+
             //メインメニュー上のボタンが押されたら、遷移先の画面を表示
             _nowScreen.transform.position = _waitPos;
             _nowScreen.transform.DOMove(_mainPos, 0.5f).SetEase(Ease.InOutQuad);
