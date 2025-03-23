@@ -16,6 +16,7 @@ namespace App.Scripts.Game.Player
         private Jump jump;
         private MoveRight moveright;
 
+
         void Start()
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -28,6 +29,7 @@ namespace App.Scripts.Game.Player
             jump = new Jump(gameobject);
             dash = new Dash(rb, jump, airTime);
             moveright = new MoveRight(gameobject, speed);
+
         }
 
         public void OnJump(InputAction.CallbackContext context)
@@ -45,6 +47,7 @@ namespace App.Scripts.Game.Player
         {
             dash.FixedUpdate();
             moveright.Move();
+
         }
     }
 }
