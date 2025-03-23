@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-namespace Assets.App.Scripts.Title
+namespace App.Scripts.Title
 {
     public class TitleButtonScreen : MonoBehaviour
     {
