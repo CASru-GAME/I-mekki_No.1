@@ -34,6 +34,9 @@ namespace App.Scripts.Game.Player.Move
                 rb.transform.DOMoveX(rb.transform.position.x + 1f, 0.5f)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetEase(Ease.OutCirc);
+                /*rb.transform.DOMoveX(rb.transform.position.x + 1f, 0.5f)
+                .SetLoops(1, LoopType.Yoyo)
+                    .SetEase(Ease.OutCirc);*/
                 await FixYAxisForDuration(airTime);
             }
         }
