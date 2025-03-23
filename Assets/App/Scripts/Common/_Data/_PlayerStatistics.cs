@@ -4,8 +4,8 @@ namespace App.Common._Data
     {
         static private int _coins;
         public static int Coins => _coins;
-        static private int _dictionallyNum;
-        public static int DictionallyNum => _dictionallyNum;
+        static private int _dictionaryNum;
+        public static int DictionaryNum => _dictionaryNum;
         static private int _clearedStageNum;
         public static int ClearedStageNum => _clearedStageNum;
         static public void ClearAll()
@@ -16,26 +16,35 @@ namespace App.Common._Data
         }
         static public void AddCoins(int coins)
         {
-            _coins += coins;
             if (_coins == null)
             {
-                _coins = 0;
+                _coins = 1;
+            }
+            else
+            {
+                _coins += coins;
             }
         }
-        static public void AddDictionallyNum(int dictionallyNum)
+        static public void AddDictionaryNum(int dictionaryNum)
         {
-            _dictionallyNum += dictionallyNum;
-            if (_dictionallyNum == null)
+            if (_dictionaryNum == null)
             {
-                _dictionallyNum = 0;
+                _dictionaryNum = 1;
+            }
+            else
+            {
+                _dictionaryNum += dictionaryNum;
             }
         }
         static public void AddClearedStageNum(int clearedStageNum)
         {
-            _clearedStageNum += clearedStageNum;
             if (_clearedStageNum == null)
             {
-                _clearedStageNum = 0;
+                _clearedStageNum = 1;
+            }
+            else
+            {
+                _clearedStageNum += clearedStageNum;
             }
         }
     }
