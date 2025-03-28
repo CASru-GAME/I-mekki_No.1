@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 123374427}
   m_Layer: 0
   m_Name: Circle (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6a3db633f883140b5e46c719d1d4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalSpeed: -2
+  horizontalSpeed: -2
 --- !u!70 &123374428
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123374426}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -924,7 +924,7 @@ GameObject:
   - component: {fileID: 1176770214}
   m_Layer: 0
   m_Name: Circle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -941,9 +941,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c714d72893232444484e5a2c0a59e611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalSpeed: -2
-  JumpHeight: 3
-  JumpPitch: 2
+  horizontalSpeed: -4
+  jumpHeight: 1
+  jumpPitch: 4
 --- !u!212 &1176770211
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1022,7 +1022,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176770209}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 1336990742}
   m_Layer: 0
   m_Name: Circle (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1110,9 +1110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f94271a4b0dbe41bf8ca92336e1831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlyHeight: 3
-  FlyWidtht: 0
-  FlyPitch: 1
+  horizontalSpeed: 0
+  flyHeight: -1
+  flyWidtht: 1
+  flyPitch: 3
 --- !u!70 &1336990743
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

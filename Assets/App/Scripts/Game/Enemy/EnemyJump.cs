@@ -6,49 +6,51 @@ namespace App.Scripts.Game.Enemy
     {
         [SerializeField] private float jumpHeight = 1.0f;
         [SerializeField] private float jumpPitch = 1.0f;
+        private float t = 0f;
+        private float startPositionY;
+
+        void Start()
+        {
+            startPositionY = transform.position.y;
+        }
 
         void FixedUpdate()
         {
             UpdatePosition();
         }
+
         private void UpdatePosition()
         {
-            tX += Time.fixedDeltaTime;
-            tY += Time.fixedDeltaTime;
-            if (positionY < startPositionY)
+            Vector2 currentPosition = transform.position; // 現在の位置を取得
+            t += Time.fixedDeltaTime;
+            if (currentPosition.y < startPositionY)
             {
-                positionX = startPositionX + direction * horizontalSpeed * tX;
-                positionY = startPositionY - jumpHeight * jumpPitch * (tY - Mathf.PI / jumpPitch) - jumpHeight * Mathf.Pow(jumpPitch, 2) / 2 * Mathf.Pow((tY - Mathf.PI / jumpPitch), 2);
-                Vector2 movementEnemyJump = new Vector2(positionX, positionY);
-                transform.position = movementEnemyJump;
+                Vector2 newPosition = new Vector2(
+                    horizontalSpeed * direction * Time.fixedDeltaTime + currentPosition.x,
+                    startPositionY - jumpHeight * jumpPitch * (t - Mathf.PI / jumpPitch) - jumpHeight * Mathf.Pow(jumpPitch, 2) / 2 * Mathf.Pow((t - Mathf.PI / jumpPitch), 2)
+                ); // 新しい位置を計算
+                transform.position = newPosition; // 位置を更新
             }
             else
             {
-                positionX = startPositionX + direction * horizontalSpeed * tX;
-                positionY = startPositionY + jumpHeight* Mathf.Sin(jumpPitch * tY);
-                Vector2 movementEnemyJump = new Vector2(positionX, positionY);
-                transform.position = movementEnemyJump;
-                positionY = movementEnemyJump.y;
+                Vector2 newPosition = new Vector2(
+                    horizontalSpeed * direction * Time.fixedDeltaTime + currentPosition.x,
+                    startPositionY + jumpHeight * Mathf.Sin(jumpPitch * t)
+                ); // 新しい位置を計算
+                transform.position = newPosition; // 位置を更新
             }
         }
 
         private new void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Wall"))
+            if (t < Mathf.PI / (2 * jumpPitch))
             {
-                tX = 0f; 
-                startPositionX = positionX;
-                direction = direction * -1;
-            }
-            else if(tY < Mathf.PI / (2 * jumpPitch))
-            {
-                tY = Mathf.PI / jumpPitch - tY;
+                t = Mathf.PI / jumpPitch - t;
             }
             else
             {
-                tY = 0f;
-                startPositionY = positionY;
-                
+                t = 0f;
+                startPositionY = transform.position.y;
             }
             base.OnCollisionEnter2D(collision);
         }
