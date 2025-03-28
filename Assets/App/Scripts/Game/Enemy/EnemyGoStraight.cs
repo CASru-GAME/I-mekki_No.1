@@ -2,30 +2,17 @@ using UnityEngine;
 
 namespace App.Scripts.Game.Enemy
 {
-    public class EnemyGoStraight : MonoBehaviour
+    public class EnemyGoStraight : EnemyCrushed
     {
-        [SerializeField] private float horizontalSpeed = 1.0f;
-        private int direction = 1;
-        private float tX = 0f;
-        private float startPositionX;
-        private float startPositionY;
-        private float positionX;
-        private float positionY;
-        Rigidbody2D rb;
-
-        private void Start()
-        {
-            rb = GetComponent<Rigidbody2D>();
-            Vector2 posi = transform.position;
-            startPositionX = posi.x;
-            startPositionY = posi.y;
-            positionX = startPositionX;
-            positionY = startPositionY;
-
-        }
         void FixedUpdate()
+        //void Update()
         {
             UpdatePosition();
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Space!");
+                horizontalSpeed = 0f;
+            }
         }
 
         private void UpdatePosition()
@@ -36,7 +23,7 @@ namespace App.Scripts.Game.Enemy
             transform.position = movementEnemyGoStraight;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private new void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Wall"))
             {
@@ -44,6 +31,7 @@ namespace App.Scripts.Game.Enemy
                 startPositionX = positionX;
                 direction = direction * -1;
             }
+            base.OnCollisionEnter2D(collision);
         }
     }
 }

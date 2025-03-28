@@ -4,20 +4,14 @@ using UnityEngine;
 
 namespace App.Scripts.Game.Enemy
 {
-    public class EnemyFly : MonoBehaviour
+    public class EnemyFly : EnemyCrushed
     {
         [SerializeField] private float flyHeight = 1.0f;
         [SerializeField] private float flyWidtht = 1.0f;
         [SerializeField] private float flyPitch = 1.0f;
-        private float t = 0f;
-        private float startPositionX;
-        private float startPositionY;
-        private float positionX;
-        private float positionY;
-        Rigidbody2D rb;
+         private float t = 0f;
         void Start()
         {
-            rb = GetComponent<Rigidbody2D>();
             Vector2 posi = transform.position;
             startPositionX = posi.x;
             startPositionY = posi.y;
@@ -36,9 +30,9 @@ namespace App.Scripts.Game.Enemy
             Vector2 movementEnemyGoStraight = new Vector2(positionX, positionY);
             transform.position = movementEnemyGoStraight;
         }
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
+        // private void OnCollisionEnter2D(Collision2D collision)
+        // {
             
-        }
+        // }
     }
 }

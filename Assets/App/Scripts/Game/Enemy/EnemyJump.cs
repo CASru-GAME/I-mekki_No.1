@@ -2,30 +2,11 @@ using UnityEngine;
 
 namespace App.Scripts.Game.Enemy
 {
-    public class EnemyJump : MonoBehaviour
+    public class EnemyJump : EnemyCrushed
     {
-        [SerializeField] private float horizontalSpeed = 1.0f;
         [SerializeField] private float jumpHeight = 1.0f;
         [SerializeField] private float jumpPitch = 1.0f;
-        private int direction = 1;
-        private float tX = 0f;
-        private float tY = 0f;
-        private float startPositionX;
-        private float startPositionY;
-        private float positionX;
-        private float positionY;
-        Rigidbody2D rb;
 
-        private void Start()
-        {
-            rb = GetComponent<Rigidbody2D>();
-            Vector2 posi = transform.position;
-            startPositionX = posi.x;
-            startPositionY = posi.y;
-            positionX = startPositionX;
-            positionY = startPositionY;
-
-        }
         void FixedUpdate()
         {
             UpdatePosition();
@@ -51,7 +32,7 @@ namespace App.Scripts.Game.Enemy
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private new void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Wall"))
             {
@@ -69,6 +50,7 @@ namespace App.Scripts.Game.Enemy
                 startPositionY = positionY;
                 
             }
+            base.OnCollisionEnter2D(collision);
         }
     }
 }
