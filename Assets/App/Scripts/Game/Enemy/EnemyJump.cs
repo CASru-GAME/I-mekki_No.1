@@ -7,11 +7,11 @@ namespace App.Scripts.Game.Enemy
         [SerializeField] private float jumpHeight = 1.0f;
         [SerializeField] private float jumpPitch = 1.0f;
         private float t = 0f;
-        private float startPositionY;
+        private float startPosY;
 
         void Start()
         {
-            startPositionY = transform.position.y;
+            startPosY = transform.position.y;
         }
 
         void FixedUpdate()
@@ -21,23 +21,23 @@ namespace App.Scripts.Game.Enemy
 
         private void UpdatePosition()
         {
-            Vector2 currentPosition = transform.position; // 現在の位置を取得
+            Vector2 currentPos = transform.position; // 現在の位置を取得
             t += Time.fixedDeltaTime;
-            if (currentPosition.y < startPositionY)
+            if (currentPos.y < startPosY)
             {
-                Vector2 newPosition = new Vector2(
-                    horizontalSpeed * direction * Time.fixedDeltaTime + currentPosition.x,
-                    startPositionY - jumpHeight * jumpPitch * (t - Mathf.PI / jumpPitch) - jumpHeight * Mathf.Pow(jumpPitch, 2) / 2 * Mathf.Pow((t - Mathf.PI / jumpPitch), 2)
+                Vector2 newPos = new Vector2(
+                    horizontalSpeed * direction * Time.fixedDeltaTime + currentPos.x,
+                    startPosY - jumpHeight * jumpPitch * (t - Mathf.PI / jumpPitch) - jumpHeight * Mathf.Pow(jumpPitch, 2) / 2 * Mathf.Pow((t - Mathf.PI / jumpPitch), 2)
                 ); // 新しい位置を計算
-                transform.position = newPosition; // 位置を更新
+                transform.position = newPos; // 位置を更新
             }
             else
             {
-                Vector2 newPosition = new Vector2(
-                    horizontalSpeed * direction * Time.fixedDeltaTime + currentPosition.x,
-                    startPositionY + jumpHeight * Mathf.Sin(jumpPitch * t)
+                Vector2 newPos = new Vector2(
+                    horizontalSpeed * direction * Time.fixedDeltaTime + currentPos.x,
+                    startPosY + jumpHeight * Mathf.Sin(jumpPitch * t)
                 ); // 新しい位置を計算
-                transform.position = newPosition; // 位置を更新
+                transform.position = newPos; // 位置を更新
             }
         }
 
@@ -50,7 +50,7 @@ namespace App.Scripts.Game.Enemy
             else
             {
                 t = 0f;
-                startPositionY = transform.position.y;
+                startPosY = transform.position.y;
             }
             base.OnCollisionEnter2D(collision);
         }

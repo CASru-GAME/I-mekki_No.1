@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeed: -2
+  FadeOutDur: 1
+  FadeOutDist: -2
 --- !u!70 &123374428
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -624,7 +626,7 @@ GameObject:
   - component: {fileID: 829270483}
   m_Layer: 0
   m_Name: Square (2)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -942,6 +944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeed: -4
+  FadeOutDur: 1
+  FadeOutDist: -2
   jumpHeight: 1
   jumpPitch: 4
 --- !u!212 &1176770211
@@ -1111,8 +1115,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeed: 0
-  flyHeight: -1
-  flyWidtht: 1
+  FadeOutDur: 1
+  FadeOutDist: -2
+  flyHeight: 3
+  flyInterval: 0.5
   flyPitch: 3
 --- !u!70 &1336990743
 CapsuleCollider2D:
@@ -1159,7 +1165,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336990741}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
