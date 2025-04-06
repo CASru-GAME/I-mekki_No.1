@@ -11,8 +11,11 @@ namespace App.Scripts.Game.Player
         [SerializeField] private float jumpForce = 5f;
         [SerializeField] private float jumping = 1f;
         [SerializeField] private float airTime = 1f;
+        [SerializeField] private float speed = 1f;
         private Dash dash;
         private Jump jump;
+        private MoveRight moveright;
+
 
         void Start()
         {
@@ -25,6 +28,8 @@ namespace App.Scripts.Game.Player
 
             jump = new Jump(gameobject);
             dash = new Dash(rb, jump, airTime);
+            moveright = new MoveRight(gameobject, speed);
+
         }
 
         public void OnJump(InputAction.CallbackContext context)
@@ -41,6 +46,8 @@ namespace App.Scripts.Game.Player
         void FixedUpdate()
         {
             dash.FixedUpdate();
+            moveright.Move();
+
         }
     }
 }
