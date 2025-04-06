@@ -5,8 +5,8 @@ namespace App.Scripts.Game.Camera
 {
     public class CameraMove : MonoBehaviour
     {
-        [SerializeField] public GameObject _camera;
-        [SerializeField] public float speed = 0.1f;
+        [SerializeField] private GameObject _camera;
+        [SerializeField] private float speed = 0.1f;
         Rigidbody2D rb;
         private void Start()
         {
