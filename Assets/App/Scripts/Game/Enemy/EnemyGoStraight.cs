@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace App.Scripts.Game.Enemy
 {
-    public class EnemyGoStraight : EnemyCrushed
+    public class EnemyGoStraight : _EnemyCrushed
     {
         void FixedUpdate()
         {

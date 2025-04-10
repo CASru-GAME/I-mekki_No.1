@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace App.Scripts.Game.Enemy
 {
-    public class EnemyCrushed : MonoBehaviour
+    public class _EnemyCrushed : MonoBehaviour
     {
         [SerializeField] protected float horizontalSpeed;
         [SerializeField] protected float FadeOutDur = 1.0f;
@@ -13,7 +13,7 @@ namespace App.Scripts.Game.Enemy
         protected Vector2 myPos;
         protected CapsuleCollider2D capsuleCollider2D; //Colliderの種類は必要に応じて変更する
 
-        void Start()
+        private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             capsuleCollider2D = GetComponent<CapsuleCollider2D>();

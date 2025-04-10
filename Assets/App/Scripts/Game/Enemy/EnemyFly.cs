@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace App.Scripts.Game.Enemy
 {
-    public class EnemyFly : EnemyCrushed
+    public class EnemyFly : _EnemyCrushed
     {
         [SerializeField] private float flyHeight = 1.0f;
         [SerializeField] private float flyInterval = 1.0f;

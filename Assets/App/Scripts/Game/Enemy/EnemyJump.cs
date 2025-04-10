@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace App.Scripts.Game.Enemy
 {
-    public class EnemyJump : EnemyCrushed
+    public class EnemyJump : _EnemyCrushed
     {
         [SerializeField] private float jumpHeight = 1.0f;
         [SerializeField] private float jumpPitch = 1.0f;
