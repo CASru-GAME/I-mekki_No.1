@@ -11,7 +11,7 @@ namespace App.Common._Data
         static public void ClearAll()
         {
             _coins = 0;
-            _dictionallyNum = 0;
+            _dictionaryNum = 0;
             _clearedStageNum = 0;
         }
         static public void AddCoins(int coins)
