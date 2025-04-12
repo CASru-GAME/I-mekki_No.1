@@ -28,7 +28,7 @@ namespace App.Common._Data
             }
             if (ProcessSystem.isDictionary.Count == 0)
             {
-                for (int i = 0; i < 24; i++)
+                for (int i = 0; i < isDictionaryWrapper.maxCount; i++)
                 {
                     ProcessSystem.isDictionary.Add(true);
                 }
@@ -52,7 +52,7 @@ namespace App.Common._Data
             }
             else
             {
-                for (int i = 0; i< 24; i++)
+                for (int i = 0; i< isDictionaryWrapper.maxCount; i++)
                 {
                     ProcessSystem.isDictionary.Add(false);
                 }
@@ -66,6 +66,7 @@ namespace App.Common._Data
 {
     public class _isDictionaryWrapper
     {
+        public int maxCount = 24;
         public List<bool> isDictionary = ProcessSystem.isDictionary;
     }
 }
