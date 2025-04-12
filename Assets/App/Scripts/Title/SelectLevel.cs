@@ -9,6 +9,11 @@ namespace App.Scripts.Title
         [SerializeField] private GameObject _leftArrow;
         [SerializeField] private float _moveDistance;
 
+        void FixedUpdate()
+        {
+            //指でスライドしたときにも画面遷移できるようにする
+        }
+
         public void Onclick(string _direction)
         {
             //右矢印が押されたら右に移動
