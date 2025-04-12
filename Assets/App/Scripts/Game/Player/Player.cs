@@ -47,7 +47,7 @@ namespace App.Scripts.Game.Player
         {
             dash.FixedUpdate();
             moveright.Move();
-
+            jump.FixedUpdate();
         }
     }
 }

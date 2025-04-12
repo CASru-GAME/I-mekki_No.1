@@ -71,5 +71,33 @@ namespace App.Scripts.Game.Player.Move
             }
             return false;
         }
+        public bool IsTouchingCeiling(){
+            // プレイヤーのコライダーのサイズを取得
+            Collider2D collider = player.GetComponent<Collider2D>();
+            if (collider == null)
+            {
+                Debug.LogError("Player does not have a Collider2D component.");
+                return false;
+            }
+
+            // プレイヤーの頭上にレイキャストを飛ばして天井に接触しているか確認
+            Vector2 origin = new Vector2(player.transform.position.x, player.transform.position.y + collider.bounds.extents.y + 0.1f);
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.up, 0.2f);
+            Debug.DrawRay(origin, Vector2.up * 0.2f, Color.red);
+
+            if (hit.collider != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void FixedUpdate()
+        {
+            // プレイヤーのY座標を固定する処理をここに追加
+            if (IsTouchingCeiling())
+            {
+                CancelJump();
+            }
+        }
     }
 }
