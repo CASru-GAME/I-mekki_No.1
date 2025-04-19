@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-namespace App.Scripts.ShowResult
+namespace App.Scripts.Result
 {
     public class ShowResult : MonoBehaviour
     {
