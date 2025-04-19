@@ -13,7 +13,6 @@ namespace App.Scripts.Title
         private Vector3 _waitPos;
         private Vector3 _defaultScale;
 
-
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -30,7 +29,6 @@ namespace App.Scripts.Title
             //ボタンのアニメーション
             this.transform.DOScale(1.1f, 0.5f).SetEase(Ease.OutElastic).OnComplete(()=> 
             {
-                //this.transform.DOKill();
                 transform.localScale = _defaultScale;
             });
 
