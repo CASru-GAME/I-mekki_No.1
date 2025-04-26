@@ -9,29 +9,64 @@ namespace App.Scripts.Title
         [SerializeField] private GameObject _leftArrow;
         [SerializeField] private float _moveDistance;
 
+        [SerializeField] private float _swipeThreshold = 50f; // スワイプの閾値（ピクセル数）
+        private Vector2 _startTouchPosition; // タッチ開始位置
+        private Vector2 _endTouchPosition; // タッチ終了位置
+
+        private bool _runAnimation = false;
+
         void FixedUpdate()
         {
             //指でスライドしたときにも画面遷移できるようにする
+            // タッチ開始
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                _startTouchPosition = Input.GetTouch(0).position;
+            }
+
+            // タッチ終了
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                _endTouchPosition = Input.GetTouch(0).position;
+                DetectSwipeDirection();
+            }
         }
 
-        public void Onclick(string _direction)
+        private void DetectSwipeDirection()
         {
+            float _horizontalSwipe = _endTouchPosition.x - _startTouchPosition.x;
+
+            if (Mathf.Abs(_horizontalSwipe) > _swipeThreshold)
+            {
+                if (_horizontalSwipe > 0)
+                {
+                    OnClick("left"); // 右スワイプで左へ移動
+                }
+                else
+                {
+                    OnClick("right"); // 左スワイプで右へ移動
+                }
+            }
+        }
+
+        public void OnClick(string _direction)
+        {
+            if (_runAnimation) return; 
             //右矢印が押されたら右に移動
             //左矢印が押されたら左に移動
-
-            Vector3 moveDirection = Vector3.zero;
-
+            _runAnimation = true;
+            Vector3 _moveDirection = Vector3.zero;
             if (_direction == "right")
             {
-                moveDirection = new Vector3(-_moveDistance, 0, 0);
+                _moveDirection = new Vector3(-_moveDistance, 0, 0);
             }
             else if (_direction == "left")
             {
-                moveDirection = new Vector3(_moveDistance, 0, 0);
+                _moveDirection = new Vector3(_moveDistance, 0, 0);
             }
 
             // DoTweenで移動アニメーションを実行
-            this.transform.DOMove(this.transform.position + moveDirection, 0.5f).OnComplete(() =>
+            this.transform.DOMove(this.transform.position + _moveDirection, 0.5f).OnComplete(() =>
             {
                 // アニメーション終了後に矢印の状態を更新
                 if(this.transform.position.x >= 0)
@@ -50,6 +85,7 @@ namespace App.Scripts.Title
                 {
                     _rightArrow.SetActive(true);
                 }
+                _runAnimation = false;
             });
         }
     }

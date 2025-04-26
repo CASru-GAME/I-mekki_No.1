@@ -40,7 +40,7 @@ namespace App.Scripts.Title
         public void OnClickBack()
         {
             //戻るボタンが押されたら、遷移前の場所に戻る
-            _nowScreen.transform.DOMove(_waitPos, 0.5f).OnComplete(() =>
+            _nowScreen.transform.DOMove(_waitPos, 0.5f).SetEase(Ease.InOutQuad).OnComplete(() =>
             {
                 _nowScreen.transform.position = _nowPos;
             });
