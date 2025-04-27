@@ -1,13 +1,13 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 namespace App.Scripts.Game.Enemy
 {
     public class _EnemyCrushed : MonoBehaviour
     {
         [SerializeField] protected float horizontalSpeed;
-        [SerializeField] protected float FadeOutDur = 1.0f;
-        [SerializeField] protected float FadeOutDist = -2.0f;
+        [SerializeField] protected float FadeOutDur = 0.2f;
         protected int direction = 1;
         protected Rigidbody2D rb;
         protected Vector2 myPos;
@@ -41,8 +41,11 @@ namespace App.Scripts.Game.Enemy
         protected void FadeOut()
         {
             Sequence fadeOut = DOTween.Sequence();
-            fadeOut.Append(transform.DOMoveY(myPos.y + FadeOutDist,FadeOutDur));
-            fadeOut.Join(transform.DOScale(0,FadeOutDur));
+            fadeOut.Append(transform.DOScale(0,FadeOutDur));
+            fadeOut.OnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
         }
     }
 }
