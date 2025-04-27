@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using DG.Tweening;
 
-namespace App.Scripts.Game.Player.Move
+namespace App.Game.Player.Move
 {
     public class Dash
     {

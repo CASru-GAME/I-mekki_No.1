@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-namespace App.Scripts.Game.Enemy
+namespace App.Game.Enemy
 {
     public class EnemyFly : _EnemyCrushed
     {

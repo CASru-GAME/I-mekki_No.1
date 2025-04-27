@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-namespace App.Scripts.Game.Player.Move
+namespace App.Game.Player.Move
 {
     public class MoveRight
     {
