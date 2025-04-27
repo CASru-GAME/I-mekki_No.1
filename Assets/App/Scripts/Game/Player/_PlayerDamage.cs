@@ -1,8 +1,9 @@
 using UnityEngine;
 using DG.Tweening;
-using App.Scripts.Game.Enemy;
+using App.Game.Enemy;
+using App.Common._Data;
 
-namespace App.Scripts.Game.Player
+namespace App.Game.Player
 {
     public class _PlayerDamage
     {
@@ -52,6 +53,10 @@ namespace App.Scripts.Game.Player
         {
             // ダメージ処理
             Debug.Log("Player took damage!");
+
+            // プレイヤーのHPを減少
+            _PlayerStatus.SubHp();
+
             isInvincible = true;
 
             // 一時的に当たり判定を無効化

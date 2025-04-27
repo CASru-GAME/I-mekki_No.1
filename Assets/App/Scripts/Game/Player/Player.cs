@@ -1,9 +1,9 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
-using App.Scripts.Game.Player.Move;
+using App.Game.Player.Move;
 
-namespace App.Scripts.Game.Player
+namespace App.Game.Player
 {
     public class Player : MonoBehaviour
     {

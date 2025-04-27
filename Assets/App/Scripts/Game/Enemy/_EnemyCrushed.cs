@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
-namespace App.Scripts.Game.Enemy
+namespace App.Game.Enemy
 {
     public class _EnemyCrushed : MonoBehaviour
     {
