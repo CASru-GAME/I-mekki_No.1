@@ -1,13 +1,13 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
-namespace App.Scripts.Game.Enemy
+namespace App.Game.Enemy
 {
     public class _EnemyCrushed : MonoBehaviour
     {
         [SerializeField] protected float horizontalSpeed;
-        [SerializeField] protected float FadeOutDur = 1.0f;
-        [SerializeField] protected float FadeOutDist = -2.0f;
+        [SerializeField] protected float FadeOutDur = 0.2f;
         protected int direction = 1;
         protected Rigidbody2D rb;
         protected Vector2 myPos;
@@ -21,28 +21,21 @@ namespace App.Scripts.Game.Enemy
 
         protected void OnCollisionEnter2D(Collision2D collision)
         {
-            GameObject otherObject = collision.gameObject;
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                Vector2 otherPos = otherObject.transform.position;
-                Vector2 myPos = transform.position;
-                if (myPos.y < otherPos.y)
-                {
-                    horizontalSpeed = 0f;
-                    FadeOut();
-                }
-            }
-            else if (collision.gameObject.CompareTag("Wall"))
+            if (collision.gameObject.CompareTag("Wall"))
             {
                 direction = direction * -1;
             }
         }
 
-        protected void FadeOut()
+        public void FadeOut()
         {
+            horizontalSpeed = 0f;
             Sequence fadeOut = DOTween.Sequence();
-            fadeOut.Append(transform.DOMoveY(myPos.y + FadeOutDist,FadeOutDur));
-            fadeOut.Join(transform.DOScale(0,FadeOutDur));
+            fadeOut.Append(transform.DOScale(0,FadeOutDur));
+            fadeOut.OnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
         }
     }
 }

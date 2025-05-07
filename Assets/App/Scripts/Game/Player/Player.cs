@@ -1,9 +1,9 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
-using App.Scripts.Game.Player.Move;
+using App.Game.Player.Move;
 
-namespace App.Scripts.Game.Player
+namespace App.Game.Player
 {
     public class Player : MonoBehaviour
     {
@@ -12,14 +12,19 @@ namespace App.Scripts.Game.Player
         [SerializeField] private float jumping = 1f;
         [SerializeField] private float airTime = 1f;
         [SerializeField] private float speed = 1f;
+        [SerializeField] private Collider2D playerCollider;
+        [SerializeField] private Collider2D PlayerStompCollider;
+        [SerializeField] private float invincibleTime = 2f;
         private Dash dash;
         private Jump jump;
         private MoveRight moveright;
+        private _PlayerDamage playerDamage;
 
 
         void Start()
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            playerDamage = new _PlayerDamage(playerCollider, PlayerStompCollider, rb, invincibleTime);
             if (rb == null)
             {
                 Debug.LogError("Rigidbody2D component not found on the player.");

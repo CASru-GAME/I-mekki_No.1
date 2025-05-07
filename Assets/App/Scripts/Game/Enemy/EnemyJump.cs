@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Scripts.Game.Enemy
+namespace App.Game.Enemy
 {
     public class EnemyJump : _EnemyCrushed
     {

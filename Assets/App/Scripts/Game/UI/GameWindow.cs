@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-namespace App.Scripts.Game.UI
+namespace App.Game.UI
 {
     public class GameWindow : MonoBehaviour
     {
