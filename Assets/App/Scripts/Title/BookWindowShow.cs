@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-namespace App.Scripts.Title
+namespace App.Title
 {
     public class BookWindowShow : MonoBehaviour
     {
@@ -15,6 +15,7 @@ namespace App.Scripts.Title
 
         private void Start()
         {
+            //RectTransformを取得
             if (_bookWindow != null)
             {
                 _bookWindowScript = _bookWindow.GetComponent<BookWindow>();
@@ -25,10 +26,11 @@ namespace App.Scripts.Title
 
         public void OnClickDelete()
         {
+            //×ボタンでウインドウを消す
+            _bookWindowScript.CheckShowArrow(1);
             _bookExpCanvasGroup.DOFade(0f, 0.25f);
             _windowTransfom.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).OnComplete(() =>
             {
-                _bookWindow.SetActive(false);
                 _shadow.SetActive(false);
                 _bookExplations.SetActive(false);
                 _shadow.GetComponent<Image>().DOFade(0f, 0.5f);
@@ -37,19 +39,20 @@ namespace App.Scripts.Title
 
         public void OnClickBook(int _bookNumber)
         {
+            //本をクリックしたときにウインドウを表示
             _windowTransfom.localScale = Vector3.zero; 
-            _bookWindow.SetActive(true); 
             _shadow.SetActive(true); 
             _shadow.GetComponent<Image>().DOFade(0.5f, 0.5f);
             _windowTransfom.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
             {
-                if (_bookWindowScript != null)
-                {
-                    _bookWindowScript.DecideBookNumber(_bookNumber);
-                    _bookWindowScript.CheckShowArrow();
-                }
+                //bookNumberを渡す
+                _bookWindowScript.DecideBookNumber(_bookNumber);
+                
                 _bookExplations.SetActive(true);
-                _bookExpCanvasGroup.DOFade(1f, 0.25f);
+                _bookExpCanvasGroup.DOFade(1f, 0.25f).OnComplete(() =>
+                {
+                    _bookWindowScript.CheckShowArrow(0);
+                });
             });
         }
     }

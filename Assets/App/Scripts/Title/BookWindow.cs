@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-namespace App.Scripts.Title
+namespace App.Title
 {
     public class BookWindow : MonoBehaviour
     {
@@ -33,10 +33,19 @@ namespace App.Scripts.Title
             }
         }
 
-        public void CheckShowArrow()
+        public void CheckShowArrow(int _number)
         {
-            _leftArrow.SetActive(_bookNumber > 0);
-            _rightArrow.SetActive(_bookNumber < _books.Length - 1);
+            if(_number == 0) //通常時(ウインドウ表示時)
+            {
+                _leftArrow.SetActive(_bookNumber > 0);
+                _rightArrow.SetActive(_bookNumber < _books.Length - 1);
+            }
+
+            if(_number == 1) //ウインドウ非表示時
+            {
+                _leftArrow.SetActive(false);
+                _rightArrow.SetActive(false);
+            }
         }
 
         void FixedUpdate()
@@ -101,7 +110,7 @@ namespace App.Scripts.Title
                 _books[_bookNumber].transform.DOMove(_books[_bookNumber].transform.position + _moveDirection, 0.5f).OnComplete(() =>
                 {
                     _bookNumber --;
-                    CheckShowArrow();
+                    CheckShowArrow(0);
                     _runAnimation = false;
                 });
                 
@@ -114,7 +123,7 @@ namespace App.Scripts.Title
                 {
                     _books[_bookNumber].transform.position = _waitPosRight.transform.position;
                     _bookNumber ++;
-                    CheckShowArrow();
+                    CheckShowArrow(0);
                     _runAnimation = false;
                 });
             }

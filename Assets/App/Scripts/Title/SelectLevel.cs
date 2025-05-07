@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-namespace App.Scripts.Title
+namespace App.Title
 {
     public class SelectLevel : MonoBehaviour
     {
