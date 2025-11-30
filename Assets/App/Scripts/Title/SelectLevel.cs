@@ -8,6 +8,7 @@ namespace App.Scripts.Title
         [SerializeField] private GameObject _rightArrow;
         [SerializeField] private GameObject _leftArrow;
         [SerializeField] private float _moveDistance;
+        private bool isMove = false;
 
         void FixedUpdate()
         {
@@ -16,6 +17,10 @@ namespace App.Scripts.Title
 
         public void Onclick(string _direction)
         {
+            if(isMove) return;
+
+            isMove = true;
+
             //右矢印が押されたら右に移動
             //左矢印が押されたら左に移動
 
@@ -50,6 +55,8 @@ namespace App.Scripts.Title
                 {
                     _rightArrow.SetActive(true);
                 }
+
+                isMove = false;
             });
         }
     }
