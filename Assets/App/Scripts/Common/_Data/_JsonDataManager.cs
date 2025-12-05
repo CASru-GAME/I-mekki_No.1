@@ -20,7 +20,6 @@ namespace App.Common._Data
         {
             isDictionaryWrapper.isDictionary = ProcessSystem.isDictionary;
             string filePath = Application.persistentDataPath + "/isDictionary.json";
-            Debug.Log("filePath: " + filePath);
             string directoryPath = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(directoryPath))
             {

@@ -16,36 +16,15 @@ namespace App.Common._Data
         }
         static public void AddCoins(int coins)
         {
-            if (_coins == null)
-            {
-                _coins = 1;
-            }
-            else
-            {
-                _coins += coins;
-            }
+            _coins += coins;
         }
         static public void AddDictionaryNum(int dictionaryNum)
         {
-            if (_dictionaryNum == null)
-            {
-                _dictionaryNum = 1;
-            }
-            else
-            {
-                _dictionaryNum += dictionaryNum;
-            }
+            _dictionaryNum += dictionaryNum;
         }
         static public void AddClearedStageNum(int clearedStageNum)
         {
-            if (_clearedStageNum == null)
-            {
-                _clearedStageNum = 1;
-            }
-            else
-            {
-                _clearedStageNum += clearedStageNum;
-            }
+            _clearedStageNum += clearedStageNum;
         }
     }
 }
