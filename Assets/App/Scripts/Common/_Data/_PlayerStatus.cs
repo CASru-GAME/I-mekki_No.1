@@ -17,19 +17,11 @@ namespace App.Common._Data
         }
         static public void AddHp()
         {
-            if(_hp == null)
-            {
-                return;
-            }
-            _hp ++;
-        }        
+            _hp++;
+        }
         static public void SubHp()
         {
-            if(_hp == null)
-            {
-                return;
-            }
-            _hp --;
+            _hp--;
         }
     }
 }
