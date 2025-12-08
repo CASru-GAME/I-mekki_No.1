@@ -10,7 +10,8 @@ namespace App.Game.Player.Move
     {
         private GameObject player;
         private Tween jumpTween;
-
+        private float jumpCooldown = 0.3f; // ジャンプ後のクールタイム（秒）
+        private float lastJumpTime = -1f;
         public Jump(GameObject player)
         {
             this.player = player;
@@ -18,6 +19,8 @@ namespace App.Game.Player.Move
 
         public void PerformJump(float jumpForce, float maxJumpForce, InputAction.CallbackContext context)
         {
+            if (Time.time - lastJumpTime < jumpCooldown)
+                return;
             // プレイヤーが地面についているか確認
             if (IsGrounded())
             {
@@ -28,6 +31,7 @@ namespace App.Game.Player.Move
                         Debug.Log("Jump Started");
                         player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, jumpForce);
                         jumpTween = player.transform.DOMoveY(player.transform.position.y + jumpForce, 0.5f).SetEase(Ease.OutQuad);
+                        lastJumpTime = Time.time;
                     }
                 }
                 if (context.phase == InputActionPhase.Performed && context.interaction is HoldInteraction hold)
@@ -37,6 +41,7 @@ namespace App.Game.Player.Move
                     float adjustedJumpForce = Mathf.Lerp(jumpForce, maxJumpForce, holdTime / hold.duration);
                     player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, adjustedJumpForce);
                     jumpTween = player.transform.DOMoveY(player.transform.position.y + adjustedJumpForce, 0.5f).SetEase(Ease.OutQuad);
+                    lastJumpTime = Time.time;
                 }
             }
         }
@@ -64,9 +69,9 @@ namespace App.Game.Player.Move
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 0.2f);
             Debug.DrawRay(origin, Vector2.down * 0.2f, Color.red);
 
-            if (hit.collider != null)
+            if (hit.collider != null && !hit.collider.gameObject.CompareTag("Player"))
             {
-                //Debug.Log("Grounded");
+                Debug.Log("Grounded");
                 return true;
             }
             return false;
