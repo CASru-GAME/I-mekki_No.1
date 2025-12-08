@@ -32,7 +32,7 @@ namespace App.Game.Player
             }
 
             jump = new Jump(gameobject);
-            dash = new Dash(rb, jump, airTime);
+            dash = new Dash(rb, jump, airTime, speed);
             moveright = new MoveRight(gameobject, speed);
 
         }

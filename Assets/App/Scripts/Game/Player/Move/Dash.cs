@@ -14,12 +14,14 @@ namespace App.Game.Player.Move
         private float airTime;
         private bool canDash = true; // ダッシュが使用可能かどうかを管理するフラグ
         private Tween dashTween; // ダッシュアニメーション用のTweenを保持する変数
+        private float PlayerSpeed;
 
-        public Dash(Rigidbody2D rigidbody2D, Jump jumpInstance, float airTimeDuration)
+        public Dash(Rigidbody2D rigidbody2D, Jump jumpInstance, float airTimeDuration, float playerSpeed)
         {
             rb = rigidbody2D;
             jump = jumpInstance;
             airTime = airTimeDuration;
+            PlayerSpeed = playerSpeed;
         }
 
         public async UniTask PerformDash(InputAction.CallbackContext context)
@@ -34,11 +36,28 @@ namespace App.Game.Player.Move
                 jump.CancelJump(); // ジャンプをキャンセル
 
                 // DOTweenを使用してダッシュアニメーションを開始
-                dashTween = rb.transform.DOMoveX(rb.transform.position.x + 1f, 0.25f)
+                /*dashTween = rb.transform.DOMoveX(rb.transform.position.x + 1, 0.25f)
                     .SetLoops(2, LoopType.Yoyo)
                     .SetEase(Ease.OutCirc)
-                    .OnKill(() => rb.linearVelocity = new Vector2(0, rb.linearVelocity.y)); // キャンセル時に速度をリセット
-
+                    .OnKill(() => {
+                        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+                        rb.transform.position = new Vector3(rb.transform.position.x + PlayerSpeed * 0.5f, rb.transform.position.y, 0);
+                }); // キャンセル時に速度をリセット*/
+                var seq = DOTween.Sequence();
+                dashTween = rb.transform.DOMoveX(rb.transform.position.x + 1, 0.5f)
+                    .SetLoops(1, LoopType.Yoyo)
+                    .SetEase(Ease.OutCirc)
+                    .OnKill(() => {
+                        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+                    });
+                seq.Append(dashTween);
+                dashTween = rb.transform.DOMoveX(rb.transform.position.x + PlayerSpeed * 0.75f, 0.25f)
+                    .SetLoops(1, LoopType.Yoyo)
+                    .SetEase(Ease.OutCirc)
+                    .OnKill(() => {
+                        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+                    });
+                seq.Append(dashTween);
                 await FixYAxisForDuration(airTime);
             }
         }

@@ -71,7 +71,6 @@ namespace App.Game.Player.Move
 
             if (hit.collider != null && !hit.collider.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Grounded");
                 return true;
             }
             return false;
