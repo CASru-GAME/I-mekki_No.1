@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      zukan_box_0: -9075915435200437780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

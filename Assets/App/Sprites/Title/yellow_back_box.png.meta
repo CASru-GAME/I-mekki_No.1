@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      yellow_back_box_0: 8197438362609457895
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
