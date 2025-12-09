@@ -555,8 +555,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameobject: {fileID: 1803887170}
-  jumpForce: 6
-  jumping: 3
+  jumpForce: 4
+  FirstjumpForce: 1.5
+  maxJumpCount: 1
   airTime: 0.4
   speed: 1.1
   playerCollider: {fileID: 0}
@@ -577,7 +578,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 99ffbf7de62a9924eb860c465641e989, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
