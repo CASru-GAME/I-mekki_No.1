@@ -44,7 +44,7 @@ namespace App.Game.Player.Move
                         rb.transform.position = new Vector3(rb.transform.position.x + PlayerSpeed * 0.5f, rb.transform.position.y, 0);
                 }); // キャンセル時に速度をリセット*/
                 var seq = DOTween.Sequence();
-                dashTween = rb.transform.DOMoveX(rb.transform.position.x + 1, 0.5f)
+                dashTween = rb.transform.DOMoveX(rb.transform.position.x + PlayerSpeed * 0.75f, 0.5f)
                     .SetLoops(1, LoopType.Yoyo)
                     .SetEase(Ease.OutCirc)
                     .OnKill(() => {
