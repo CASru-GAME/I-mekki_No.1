@@ -2460,8 +2460,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u8AAC\u660E"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2c6b5e73a8bf32d4c9e969c6533da52d, type: 2}
+  m_sharedMaterial: {fileID: -597183488574851165, guid: 2c6b5e73a8bf32d4c9e969c6533da52d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4836,7 +4836,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rightArrow: {fileID: 165881059}
   _leftArrow: {fileID: 217978680}
-  _moveDistance: 676
+  _selectPanels:
+  - {fileID: 1484130326}
+  - {fileID: 1882507296}
+  - {fileID: 2144489988}
 --- !u!224 &1355829279
 RectTransform:
   m_ObjectHideFlags: 0
