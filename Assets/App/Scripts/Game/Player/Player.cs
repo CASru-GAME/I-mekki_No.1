@@ -10,7 +10,7 @@ namespace App.Game.Player
         [SerializeField] private GameObject gameobject;
         [SerializeField] private float jumpForce = 5f;
         [SerializeField] private float jumping = 1f;
-        [SerializeField] private float airTime = 1f;
+        [SerializeField] private float airTime = 0.4f;
         [SerializeField] private float speed = 1f;
         [SerializeField] private Collider2D playerCollider;
         [SerializeField] private Collider2D PlayerStompCollider;
