@@ -8,8 +8,9 @@ namespace App.Game.Player
     public class Player : MonoBehaviour
     {
         [SerializeField] private GameObject gameobject;
-        [SerializeField] private float jumpForce = 5f;
-        [SerializeField] private float jumping = 1f;
+        [SerializeField] private float jumpForce = 30f;
+        [SerializeField] private float FirstjumpForce = 5f;
+        [SerializeField] private int maxJumpCount = 25;
         [SerializeField] private float airTime = 0.4f;
         [SerializeField] private float speed = 1f;
         [SerializeField] private Collider2D playerCollider;
@@ -31,7 +32,7 @@ namespace App.Game.Player
                 return;
             }
 
-            jump = new Jump(gameobject);
+            jump = new Jump(gameobject, jumpForce, FirstjumpForce, maxJumpCount);
             dash = new Dash(rb, jump, airTime, speed);
             moveright = new MoveRight(gameobject, speed);
 
@@ -40,7 +41,7 @@ namespace App.Game.Player
         public void OnJump(InputAction.CallbackContext context)
         {
             // Jump
-            jump.PerformJump(jumpForce, jumping, context);
+            jump.PerformJump(context);
         }
 
         public async void OnDash(InputAction.CallbackContext context)

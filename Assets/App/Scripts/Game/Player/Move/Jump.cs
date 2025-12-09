@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using DG.Tweening;
+using UnityEditor.Callbacks;
 
 namespace App.Game.Player.Move
 {
@@ -11,38 +12,42 @@ namespace App.Game.Player.Move
         private Tween jumpTween;
         private float jumpCooldown = 0.3f; // ジャンプ後のクールタイム（秒）
         private float lastJumpTime = -1f;
-        public Jump(GameObject player)
+        private bool isJumping = false;
+        private float jumpForce = 30f;
+        private float FirstjumpForce = 5f;
+        private int maxJumpCount = 25;
+        private int count = 0;
+        public Jump(GameObject player, float jumpForceValue, float firstJumpForceValue, int maxJumpCountValue)
         {
             this.player = player;
+            this.jumpForce = jumpForceValue;
+            this.FirstjumpForce = firstJumpForceValue;
+            this.maxJumpCount = maxJumpCountValue;
         }
 
-        public void PerformJump(float jumpForce, float maxJumpForce, InputAction.CallbackContext context)
+        public void PerformJump(InputAction.CallbackContext context)
         {
-            if (Time.time - lastJumpTime < jumpCooldown)
+            if (Time.time - lastJumpTime < jumpCooldown){
+                isJumping = false;
                 return;
-            // プレイヤーが地面についているか確認
+            }
+            
             if (IsGrounded())
             {
-                if (context.phase == InputActionPhase.Started)
-                {
-                    if (context.interaction is PressInteraction || context.interaction is HoldInteraction)
-                    {
-                        Debug.Log("Jump Started");
-                        player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, jumpForce);
-                        jumpTween = player.transform.DOMoveY(player.transform.position.y + jumpForce, 0.5f).SetEase(Ease.OutQuad);
-                        lastJumpTime = Time.time;
-                    }
-                }
-                if (context.phase == InputActionPhase.Performed && context.interaction is HoldInteraction hold)
-                {
-                    Debug.Log("Jump Hold");
-                    float holdTime = (float)context.duration;
-                    float adjustedJumpForce = Mathf.Lerp(jumpForce, maxJumpForce, holdTime / hold.duration);
-                    player.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(player.GetComponent<Rigidbody2D>().linearVelocity.x, adjustedJumpForce);
-                    jumpTween = player.transform.DOMoveY(player.transform.position.y + adjustedJumpForce, 0.5f).SetEase(Ease.OutQuad);
+                if (context.phase == InputActionPhase.Started){
+                    Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+                    rb.AddForce(new Vector2(0, FirstjumpForce), ForceMode2D.Impulse);
+                    count = 0;
+                    isJumping = true;
                     lastJumpTime = Time.time;
                 }
             }
+            // ジャンプボタンを離したら上昇終了
+                if (context.phase == InputActionPhase.Canceled)
+                {
+                    isJumping = false;
+                    count = 0;
+                }
         }
 
         public void CancelJump()
@@ -96,10 +101,24 @@ namespace App.Game.Player.Move
         }
         public void FixedUpdate()
         {
+            if (count >= maxJumpCount)
+            {
+                isJumping = false;
+            }
+            // ジャンプ中は毎フレーム上向きの力を加える
+            if (isJumping)
+            {
+                count ++;
+                Debug.Log("Applying Jump Force");
+                Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Force);
+            }
             // プレイヤーのY座標を固定する処理をここに追加
             if (IsTouchingCeiling())
             {
                 CancelJump();
+                isJumping = false;
+                count = 0;
             }
         }
     }
