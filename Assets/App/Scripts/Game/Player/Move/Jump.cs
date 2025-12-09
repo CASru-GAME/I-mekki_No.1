@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using DG.Tweening;
 using UnityEditor.Callbacks;
+using System;
 
 namespace App.Game.Player.Move
 {
@@ -14,16 +15,33 @@ namespace App.Game.Player.Move
         private float jumpCooldown = 0.3f; // ジャンプ後のクールタイム（秒）
         private float lastJumpTime = -1f;
         private bool isJumping = false;
-        private float jumpForce = 30f;
-        private float FirstjumpForce = 5f;
+        //private float jumpForce = 30f;
+        //private float FirstjumpForce = 5f;
+        private float FisrtJumpVelocity;
+        private float MaxJumpForce;
+        private float jumprange;
         private int maxJumpCount = 25;
         private int count = 0;
-        public Jump(GameObject player, float jumpForceValue, float firstJumpForceValue, int maxJumpCountValue)
+        private float gravityScale;
+        private float mass;
+        private float maxjumptime;
+        private float jumpstarttime;
+        private float maxjump;
+        private float gravity;
+        private float jumprangetime;
+        Rigidbody2D rb;
+        public Jump(GameObject player, float maxjump, float minjump, float jumprange, float maxjumptime = 0.1f, float jumprangetime = 0.05f)
         {
             this.player = player;
-            this.jumpForce = jumpForceValue;
-            this.FirstjumpForce = firstJumpForceValue;
-            this.maxJumpCount = maxJumpCountValue;
+            rb = player.GetComponent<Rigidbody2D>();
+            gravityScale = rb.gravityScale;
+            gravity = Math.Abs(Physics2D.gravity.y * gravityScale);
+            mass = rb.mass;
+            this.FisrtJumpVelocity = Mathf.Sqrt(2 * gravity * minjump);
+            this.maxjump = maxjump;
+            this.jumprange = jumprange;
+            this.maxjumptime = maxjumptime;
+            this.jumprangetime = jumprangetime;
         }
 
         public void PerformJump(InputAction.CallbackContext context)
@@ -36,18 +54,30 @@ namespace App.Game.Player.Move
             if (IsGrounded())
             {
                 if (context.phase == InputActionPhase.Started){
-                    Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-                    rb.AddForce(new Vector2(0, FirstjumpForce), ForceMode2D.Impulse);
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
                     count = 0;
                     isJumping = true;
                     lastJumpTime = Time.time;
+                    jumpstarttime = Time.time;
                 }
             }
             // ジャンプボタンを離したら上昇終了
                 if (context.phase == InputActionPhase.Canceled)
                 {
+                    //Debug.Log(Time.time - lastJumpTime);
                     isJumping = false;
                     count = 0;
+                    /*float holdtime = Time.time - lastJumpTime;
+                    if(holdtime < maxjumptime-jumprangetime){
+                        float jumpVelocity = Mathf.Sqrt(2 * gravity * (maxjump - jumprange));
+                        rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
+                    }else if(holdtime < maxjumptime){
+                        float jumpVelocity = Mathf.Sqrt(2 * gravity * maxjump);
+                        rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
+                    }else{
+                        float jumpVelocity = Mathf.Sqrt(2 * gravity * (maxjump + jumprange));
+                        rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
+                    }*/
                 }
         }
 
@@ -102,24 +132,43 @@ namespace App.Game.Player.Move
         }
         public void FixedUpdate()
         {
-            if (count >= maxJumpCount)
-            {
-                isJumping = false;
-            }
-            // ジャンプ中は毎フレーム上向きの力を加える
-            if (isJumping)
+
+            if(isJumping)
             {
                 count ++;
-                Debug.Log("Applying Jump Force");
-                Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Force);
+                Debug.Log(Time.time - jumpstarttime);
+                if(Time.time - jumpstarttime > maxjumptime){
+                    float jumpVelocity = Mathf.Sqrt(2 * gravity * maxjump);
+                    rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
+                    isJumping = false;
+                    jumpstarttime = 0f;
+                }
+                
+                /*if(Time.time - jumpstarttime > maxjumptime - jumprangetime){
+                    float jumpVelocity = Mathf.Sqrt(2 * gravity * (maxjump - jumprange));
+                    rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
+                    //isJumping = false;
+                    //jumpstarttime = 0f;
+                }else if(Time.time - jumpstarttime > maxjumptime){
+                    float jumpVelocity = Mathf.Sqrt(2 * gravity * maxjump);
+                    rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
+                    //isJumping = false;
+                    //jumpstarttime = 0f;
+                }else if(Time.time - jumpstarttime > maxjumptime + jumprangetime){
+                    float jumpVelocity = Mathf.Sqrt(2 * gravity * (maxjump + jumprange));
+                    rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
+                    isJumping = false;
+                    jumpstarttime = 0f;
+                }*/
             }
+
             // プレイヤーのY座標を固定する処理をここに追加
             if (IsTouchingCeiling())
             {
                 CancelJump();
                 isJumping = false;
                 count = 0;
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, -1f)); // 落下を促すためにy軸の速度を調整
             }
         }
     }
