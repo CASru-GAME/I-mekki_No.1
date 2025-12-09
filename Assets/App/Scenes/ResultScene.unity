@@ -1949,8 +1949,8 @@ MonoBehaviour:
   _resultTitle: {fileID: 383369579}
   _resultView: {fileID: 199087683}
   _goTitleButton: {fileID: 1153381025}
-  _resultTitlePos: {x: 200, y: 0, z: 0}
-  _resultViewPos: {x: 595, y: 0, z: 0}
+  _resultTitleOffsetX: 0.29
+  _resultViewOffsetX: 0.827
 --- !u!114 &1027016786
 MonoBehaviour:
   m_ObjectHideFlags: 0
