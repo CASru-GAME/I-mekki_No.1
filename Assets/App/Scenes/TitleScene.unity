@@ -312,8 +312,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\u5236\u4F5C\u3000\u91D1\u6CA2\u5927\u5B66\u516C\u8A8D\u30B5\u30FC\u30AF\u30EB
-    \n\u3000\u3000\u3000CAS\u308B \u30B2\u30FC\u30E0\u73ED\n\n\u5354\u529B\u3000\u77F3\u5DDD\u30E1\u30C3\u30AD\u5DE5\u696D\u682A\u5F0F\u4F1A\u793E\n\nXXX   
-    XXXXXXXX\n"
+    \n\u3000\u3000\u3000CAS\u308B \u30B2\u30FC\u30E0\u73ED\n\n\u5354\u529B\u3000\u77F3\u5DDD\u30E1\u30C3\u30AD\u5DE5\u696D\u682A\u5F0F\u4F1A\u793E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c6b5e73a8bf32d4c9e969c6533da52d, type: 2}
   m_sharedMaterial: {fileID: -597183488574851165, guid: 2c6b5e73a8bf32d4c9e969c6533da52d, type: 2}
@@ -404,7 +403,7 @@ GameObject:
   - component: {fileID: 309498432}
   - component: {fileID: 309498431}
   m_Layer: 5
-  m_Name: Title (1)
+  m_Name: "\u30AF\u30EC\u30B8\u30C3\u30C8\u30A6\u30A3\u30F3\u30C9\u30A6"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -481,7 +480,7 @@ GameObject:
   - component: {fileID: 318174855}
   - component: {fileID: 318174854}
   m_Layer: 5
-  m_Name: "\u30AF\u30EC\u30B8\u30C3\u30C8\u3092\u898B\u308B (1)"
+  m_Name: "\u30AF\u30EC\u30B8\u30C3\u30C8\u3092\u898B\u308B_\u5F71"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1425,7 +1424,7 @@ GameObject:
   - component: {fileID: 1092246401}
   - component: {fileID: 1092246400}
   m_Layer: 5
-  m_Name: "\u3082\u3069\u308B (1)"
+  m_Name: "\u3082\u3069\u308B_\u5F71"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

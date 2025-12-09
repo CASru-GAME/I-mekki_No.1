@@ -2460,8 +2460,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u8AAC\u660E"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1a1ee2d55c279ad4cbb3e5105934539f, type: 2}
-  m_sharedMaterial: {fileID: 2820478514036826218, guid: 1a1ee2d55c279ad4cbb3e5105934539f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2893,7 +2893,7 @@ GameObject:
   - component: {fileID: 1000327104}
   - component: {fileID: 1000327103}
   m_Layer: 5
-  m_Name: Title
+  m_Name: Window1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3111,7 +3111,7 @@ GameObject:
   - component: {fileID: 1013716497}
   - component: {fileID: 1013716496}
   m_Layer: 5
-  m_Name: Title2
+  m_Name: Window2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3755,7 +3755,7 @@ GameObject:
   - component: {fileID: 1214576157}
   - component: {fileID: 1214576156}
   m_Layer: 5
-  m_Name: Title4
+  m_Name: Window4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5968,7 +5968,7 @@ GameObject:
   - component: {fileID: 1691646234}
   - component: {fileID: 1691646233}
   m_Layer: 5
-  m_Name: Title3
+  m_Name: Window3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
