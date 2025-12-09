@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 using DG.Tweening;
-using UnityEditor.Callbacks;
 
 namespace App.Game.Player.Move
 {
