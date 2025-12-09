@@ -1950,7 +1950,7 @@ MonoBehaviour:
   _resultView: {fileID: 199087683}
   _goTitleButton: {fileID: 1153381025}
   _resultTitleOffsetX: 0.29
-  _resultViewOffsetX: 0.827
+  _resultViewOffsetX: 0.825
 --- !u!114 &1027016786
 MonoBehaviour:
   m_ObjectHideFlags: 0
