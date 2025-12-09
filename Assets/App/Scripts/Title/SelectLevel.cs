@@ -7,8 +7,26 @@ namespace App.Scripts.Title
     {
         [SerializeField] private GameObject _rightArrow;
         [SerializeField] private GameObject _leftArrow;
-        [SerializeField] private float _moveDistance;
+        [SerializeField] private GameObject[] _selectPanels; // 3つのパネルを配列で指定
+        
         private bool isMove = false;
+        private float _panelDistance;
+        private int _currentPanelIndex = 0; // 現在のパネルインデックス
+
+        void Start()
+        {
+            // 最初の2つのパネル間の距離を計算
+            if (_selectPanels.Length >= 2)
+            {
+                _panelDistance = Vector3.Distance(
+                    _selectPanels[0].transform.position,
+                    _selectPanels[1].transform.position
+                );
+            }
+
+            _currentPanelIndex = 0;
+            UpdateArrowState();
+        }
 
         void FixedUpdate()
         {
@@ -21,43 +39,42 @@ namespace App.Scripts.Title
 
             isMove = true;
 
-            //右矢印が押されたら右に移動
-            //左矢印が押されたら左に移動
-
+            // パネル間の距離分移動
             Vector3 moveDirection = Vector3.zero;
 
-            if (_direction == "right")
+            if (_direction == "right" && _currentPanelIndex < _selectPanels.Length - 1)
             {
-                moveDirection = new Vector3(-_moveDistance, 0, 0);
+                moveDirection = new Vector3(-_panelDistance, 0, 0);
+                _currentPanelIndex++;
             }
-            else if (_direction == "left")
+            else if (_direction == "left" && _currentPanelIndex > 0)
             {
-                moveDirection = new Vector3(_moveDistance, 0, 0);
+                moveDirection = new Vector3(_panelDistance, 0, 0);
+                _currentPanelIndex--;
+            }
+            else
+            {
+                isMove = false;
+                return;
             }
 
             // DoTweenで移動アニメーションを実行
             this.transform.DOMove(this.transform.position + moveDirection, 0.5f).OnComplete(() =>
             {
-                // アニメーション終了後に矢印の状態を更新
-                if(this.transform.position.x >= 0)
-                {
-                    _leftArrow.SetActive(false);
-                }
-                else
-                {
-                    _leftArrow.SetActive(true);
-                }
-                if (this.transform.position.x <= -_moveDistance*2+500)
-                {
-                    _rightArrow.SetActive(false);
-                }
-                else
-                {
-                    _rightArrow.SetActive(true);
-                }
-
+                UpdateArrowState();
                 isMove = false;
             });
+        }
+
+        private void UpdateArrowState()
+        {
+            // 左矢印：最初のパネルなら非表示
+            _leftArrow.SetActive(_currentPanelIndex > 0);
+
+            // 右矢印：最後のパネルなら非表示
+            _rightArrow.SetActive(_currentPanelIndex < _selectPanels.Length - 1);
+
+            Debug.Log("Current Panel Index: " + _currentPanelIndex);
         }
     }
 }
