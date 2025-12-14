@@ -8,9 +8,9 @@ namespace App.Game.Player
     public class Player : MonoBehaviour
     {
         [SerializeField] private GameObject gameobject;
-        [SerializeField] private float jumpForce = 30f;
-        [SerializeField] private float FirstjumpForce = 5f;
-        [SerializeField] private int maxJumpCount = 25;
+        [SerializeField] private float maxjump = 30f;
+        [SerializeField] private float minjump = 5f;
+        [SerializeField] private float jumprange = 25f;
         [SerializeField] private float airTime = 0.4f;
         [SerializeField] private float speed = 1f;
         [SerializeField] private Collider2D playerCollider;
@@ -20,8 +20,6 @@ namespace App.Game.Player
         private Jump jump;
         private MoveRight moveright;
         private _PlayerDamage playerDamage;
-
-
         void Start()
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -32,7 +30,7 @@ namespace App.Game.Player
                 return;
             }
 
-            jump = new Jump(gameobject, jumpForce, FirstjumpForce, maxJumpCount);
+            jump = new Jump(gameobject, maxjump, minjump, jumprange);
             dash = new Dash(rb, jump, airTime, speed);
             moveright = new MoveRight(gameobject, speed);
 

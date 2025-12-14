@@ -1515,9 +1515,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameobject: {fileID: 786708977}
-  jumpForce: 30
-  FirstjumpForce: 5
-  maxJumpCount: 25
+  maxjump: 5
+  minjump: 1
+  jumprange: 3
   airTime: 0.5
   speed: 2.73
   playerCollider: {fileID: 0}
