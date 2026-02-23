@@ -20,6 +20,7 @@ namespace App.Game.Player
         private Jump jump;
         private MoveRight moveright;
         private _PlayerDamage playerDamage;
+        private _StompEnemy stompEnemy;
 
 
         void Start()
@@ -35,7 +36,7 @@ namespace App.Game.Player
             jump = new Jump(gameobject, jumpForce, FirstjumpForce, maxJumpCount);
             dash = new Dash(rb, jump, airTime, speed);
             moveright = new MoveRight(gameobject, speed);
-
+            stompEnemy = new _StompEnemy(playerCollider.bounds.size.y);
         }
 
         public void OnJump(InputAction.CallbackContext context)
@@ -47,6 +48,16 @@ namespace App.Game.Player
         public async void OnDash(InputAction.CallbackContext context)
         {
             await dash.PerformDash(context);
+        }
+
+        public void OnCollisionEnter2D(Collision2D collisionInfo)
+        {
+            GameObject stompedEnemy = stompEnemy.OnCollisionEnemy(transform.position.y, collisionInfo);
+            if (stompedEnemy != null)
+            {
+                Destroy(stompedEnemy);
+                jump.StompEnemyJump(); // ジャンプさせる
+            }
         }
 
         void FixedUpdate()
