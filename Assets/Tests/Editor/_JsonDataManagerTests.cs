@@ -7,31 +7,6 @@ namespace App.Common._Data.Tests
 {
     public class _JsonDataManagerTests
     {
-        private string testFilePath;
-
-        [SetUp]
-        public void Setup()
-        {
-            // テスト用の一時ディレクトリを設定
-            testFilePath = Path.Combine(Application.persistentDataPath, "test_isDictionaryOpen.json");
-            // プレイヤー統計をリセット
-            _PlayerStatistics.ClearStageData();
-            for (int i = 0; i < _PlayerStatistics.isDictionaryOpen.Length; i++)
-            {
-                _PlayerStatistics.isDictionaryOpen[i] = false;
-            }
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            // テストファイルをクリーンアップ
-            if (File.Exists(testFilePath))
-            {
-                File.Delete(testFilePath);
-            }
-        }
-
         [Test]
         public void SaveDictionaryData_SavesFileSuccessfully()
         {
