@@ -41,7 +41,13 @@ namespace App.Game.Player.Move
             this.maxjumptime = maxjumptime;
             this.jumprangetime = jumprangetime;
         }
-
+        public void StompEnemyJump(){
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
+            count = 0;
+            isJumping = true;
+            lastJumpTime = Time.time;
+            jumpstarttime = Time.time;
+        }
         public void PerformJump(InputAction.CallbackContext context)
         {
             if (Time.time - lastJumpTime < jumpCooldown){
