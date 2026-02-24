@@ -2,58 +2,48 @@ using System.Collections.Generic;
 using System.IO;
 using App.Game.Process;
 using UnityEngine;
+using System.Linq;
 
 namespace App.Common._Data
 {
-    public class _JsonDataManager
+    public static class _JsonDataManager
     {
-        public static _isDictionaryWrapper isDictionaryWrapper = new _isDictionaryWrapper();
-        public void SaveData()
+        private static _DictionaryWrapper dictionaryWrapper = new _DictionaryWrapper();
+        public static void SaveDictionaryData()
         {
-            SaveDictionaryData();
-        }
-        public void LoadData()
-        {
-            LoadDictionaryData();
-        }
-        private void SaveDictionaryData()
-        {
-            isDictionaryWrapper.isDictionary = ProcessSystem.isDictionary;
-            string filePath = Application.persistentDataPath + "/isDictionary.json";
+            dictionaryWrapper.isDictionaryOpen = _PlayerStatistics.isDictionaryOpen;
+            string filePath = Application.persistentDataPath + "/isDictionaryOpen.json";
             string directoryPath = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
-            if (ProcessSystem.isDictionary.Count == 0)
-            {
-                for (int i = 0; i < isDictionaryWrapper.maxCount; i++)
-                {
-                    ProcessSystem.isDictionary.Add(true);
-                }
-            }
-            var json = JsonUtility.ToJson(isDictionaryWrapper, true);
+            var json = JsonUtility.ToJson(dictionaryWrapper, true);
             File.WriteAllText(filePath, json);
         }
-        private void LoadDictionaryData()
+        public static void LoadDictionaryData()
         {
-            string filePath = Application.persistentDataPath + "/isDictionary.json";
+            string filePath = Application.persistentDataPath + "/isDictionaryOpen.json";
             string directoryPath = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
+                SaveDictionaryData();
             }
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                isDictionaryWrapper = JsonUtility.FromJson<_isDictionaryWrapper>(json);
-                ProcessSystem.isDictionary = isDictionaryWrapper.isDictionary;
+                dictionaryWrapper = JsonUtility.FromJson<_DictionaryWrapper>(json);
+                for (int i = 0; i < dictionaryWrapper.isDictionaryOpen.Length; i++)
+                {
+                    _PlayerStatistics.isDictionaryOpen[i] = dictionaryWrapper.isDictionaryOpen[i];
+                }
             }
             else
             {
-                for (int i = 0; i< isDictionaryWrapper.maxCount; i++)
+                for (int i = 0; i< dictionaryWrapper.isDictionaryOpen.Length; i++)
                 {
-                    ProcessSystem.isDictionary.Add(false);
+                    dictionaryWrapper.isDictionaryOpen[i] = false;
                 }
                 SaveDictionaryData();
             }
@@ -63,9 +53,13 @@ namespace App.Common._Data
 
 namespace App.Common._Data
 {
-    public class _isDictionaryWrapper
+    public class _DictionaryWrapper
     {
-        public int maxCount = 24;
-        public List<bool> isDictionary = ProcessSystem.isDictionary;
+        public bool[] isDictionaryOpen = new bool[_PlayerStatistics.DictionaryNumMax];
+
+        public _DictionaryWrapper()
+        {
+            isDictionaryOpen = _PlayerStatistics.isDictionaryOpen;
+        }
     }
 }
