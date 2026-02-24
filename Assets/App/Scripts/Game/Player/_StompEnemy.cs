@@ -19,7 +19,7 @@ public class _StompEnemy
             enemy = collisionInfo.gameObject;
             enemyY = enemy.transform.position.y;
             enemyHeight = enemy.GetComponent<SpriteRenderer>().bounds.size.y;
-            if(enemyY + enemyHeight / 2 < pleyerY - playerheight / 2)
+            if(enemyY - enemyHeight / 2 < pleyerY - playerheight / 2)
             {
                 Debug.Log("Enemy Stomped");
                 return enemy;
