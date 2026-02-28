@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10a17276e1a4c94bb0f0f20566be4c5, type: 3}
+  m_Name: DictionaryDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::App.Scripts.Title.DictionaryDatabase
+  _items:
+  - title: No.1
+    description: "\u672C\u6587"
+  - title: No.2
+    description: "\u672C\u6587"
+  - title: No.3
+    description: "\u672C\u6587"
+  - title: No.4
+    description: "\u672C\u6587"
+  - title: No.5
+    description: "\u672C\u6587"
+  - title: No.6
+    description: "\u672C\u6587"
+  - title: No.7
+    description: "\u672C\u6587"
+  - title: No.8
+    description: "\u672C\u6587"
+  - title: No.9
+    description: "\u672C\u6587"
+  - title: No.10
+    description: "\u672C\u6587"
+  - title: No.11
+    description: "\u672C\u6587"
+  - title: No.12
+    description: "\u672C\u6587"
+  - title: No.13
+    description: "\u672C\u6587"
+  - title: No.14
+    description: "\u672C\u6587"
+  - title: No.15
+    description: "\u672C\u6587"
+  - title: No.16
+    description: "\u672C\u6587"
+  - title: No.17
+    description: "\u672C\u6587"
+  - title: No.18
+    description: "\u672C\u6587"
+  - title: No.19
+    description: "\u672C\u6587"
+  - title: No.20
+    description: "\u672C\u6587"
+  - title: No.21
+    description: "\u672C\u6587"
+  - title: No.22
+    description: "\u672C\u6587"
+  - title: No.23
+    description: "\u672C\u6587"
+  - title: No.24
+    description: "\u672C\u6587"

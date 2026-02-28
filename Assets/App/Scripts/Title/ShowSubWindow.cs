@@ -15,6 +15,7 @@ namespace App.Scripts.Title
             _windowTransfom = _window.GetComponent<RectTransform>();
         }
 
+        //図鑑タブのオープン
         public void OnClickDictonary()
         {
             _windowTransfom.localScale = Vector3.zero; // 初期サイズを0に設定
@@ -24,6 +25,7 @@ namespace App.Scripts.Title
             _windowTransfom.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack); // サイズを拡大してアニメーション
         }
 
+        //図鑑タブのクローズ
         public void OnClickDelete()
         {
             _windowTransfom.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).OnComplete(() =>
