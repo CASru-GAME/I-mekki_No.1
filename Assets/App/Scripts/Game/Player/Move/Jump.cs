@@ -140,7 +140,7 @@ namespace App.Game.Player.Move
             if(isJumping)
             {
                 count ++;
-                Debug.Log(Time.time - jumpstarttime);
+                //Debug.Log(Time.time - jumpstarttime);
                 if(Time.time - jumpstarttime > maxjumptime){
                     float jumpVelocity = Mathf.Sqrt(2 * gravity * maxjump);
                     rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
@@ -167,13 +167,13 @@ namespace App.Game.Player.Move
             }
 
             // プレイヤーのY座標を固定する処理をここに追加
-            if (IsTouchingCeiling())
+            /*if (IsTouchingCeiling())
             {
                 CancelJump();
                 isJumping = false;
                 count = 0;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, -1f)); // 落下を促すためにy軸の速度を調整
-            }
+            }*/
         }
     }
 }
