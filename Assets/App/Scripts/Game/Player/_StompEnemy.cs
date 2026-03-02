@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using App.Game.Player;
 public class _StompEnemy
 {
     float pleyerY;
@@ -7,11 +7,13 @@ public class _StompEnemy
     float enemyY;
     float enemyHeight;
     GameObject enemy;
-    public _StompEnemy(float playerheight)
+    _PlayerDamage playerDamage;
+    public _StompEnemy(float playerheight, _PlayerDamage playerDamage)
     {
         this.playerheight = playerheight;
+        this.playerDamage = playerDamage;
     }
-    public GameObject OnCollisionEnemy(float playerY, Collision2D collisionInfo)
+    public GameObject OnCollisionEnemy(float playerY, Collider2D collisionInfo)
     {
         if (collisionInfo.gameObject.tag == "Enemy")
         {
@@ -23,6 +25,8 @@ public class _StompEnemy
             {
                 Debug.Log("Enemy Stomped");
                 return enemy;
+            }else{
+                playerDamage.TakeDamage();
             }
         }
         return null;
