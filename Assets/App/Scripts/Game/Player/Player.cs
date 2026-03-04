@@ -24,6 +24,7 @@ namespace App.Game.Player
         private _StompEnemy stompEnemy;
         int playerLayer;
         int enemyLayer;
+        private Animator animator;
 
         void Start()
         {
@@ -33,9 +34,9 @@ namespace App.Game.Player
                 Debug.LogError("Rigidbody2D component not found on the player.");
                 return;
             }
-
-            jump = new Jump(gameobject, maxjumpheight, minjumpheight, maxJumpCount);
-            dash = new Dash(rb, jump, airTime, speed);
+            animator = GetComponent<Animator>();
+            jump = new Jump(animator, gameobject, maxjumpheight, minjumpheight, maxJumpCount);
+            dash = new Dash(rb, jump, airTime, speed, animator);
             moveright = new MoveRight(gameobject, speed);
             playerLayer = LayerMask.NameToLayer("Player");
             enemyLayer  = LayerMask.NameToLayer("Enemy");
@@ -70,6 +71,13 @@ namespace App.Game.Player
             moveright.Move();
             jump.FixedUpdate();
             //playerDamage.FixedUpdate();
+
+            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")){
+                Debug.Log("Jumping");
+            }
+            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dash")){
+                Debug.Log("Dashing");
+            }
         }
     }
 }
