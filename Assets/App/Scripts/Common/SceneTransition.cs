@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 using DG.Tweening;
 
 namespace App.Scripts.Common
@@ -14,7 +16,10 @@ namespace App.Scripts.Common
         private float duration = 0.5f;
         private float delay = 0.1f;
         private Vector3[] startPos;
-        private Sequence seq;
+        private Sequence barSeq;
+        private Sequence fadeSeq;
+
+        [SerializeField]private bool  isRverse = false;
 
         void Awake()
         {
@@ -41,56 +46,92 @@ namespace App.Scripts.Common
                 if (_bar[i] == null) continue;
                 startPos[i] = _bar[i].transform.position;
             }
-
-            FadeTransition();
         }
 
-        public void BarTransition()
+        public void BarTransition(int type)
         {
-            seq?.Kill();
-            seq = DOTween.Sequence();
+            barSeq?.Kill();
+            barSeq = DOTween.Sequence();
 
-            //閉じる
-            for (int i = 0; i < _bar.Length; i++)
+            if(type == 0)
             {
-                Transform t = _bar[i].transform;
+                //閉じる
+                for (int i = 0; i < _bar.Length; i++)
+                {
+                    Transform t = _bar[i].transform;
 
-                seq.Insert(
-                    i * delay,
-                    t.DOMoveX(startPos[i].x + moveDistance, duration)
-                    .SetEase(Ease.OutCubic)
+                    barSeq.Insert(
+                        i * delay,
+                        t.DOMoveX(startPos[i].x + moveDistance, duration)
+                        .SetEase(Ease.OutCubic)
+                    );
+                }
+            }
+
+            if(type == 1)
+            {
+                //開く
+                for (int i = 0; i < _bar.Length; i++)
+                {
+                    Transform t = _bar[i].transform;
+
+                    barSeq.Insert(
+                        i * delay,
+                        t.DOMoveX(startPos[i].x, duration)
+                        .SetEase(Ease.InCubic)
+                    );
+                }
+            }
+        }
+
+        public void FadeTransition(int type)
+        {
+            fadeSeq?.Kill();
+            fadeSeq = DOTween.Sequence();
+
+            if(type == 0)
+            {
+                fadeSeq.Append(
+                    _fadeImage.DOFade(1f, 2f)
                 );
             }
 
-            float closeTime = (_bar.Length - 1) * delay + duration;
-
-            //開く
-            for (int i = 0; i < _bar.Length; i++)
+            if(type == 1)
             {
-                Transform t = _bar[i].transform;
-
-                seq.Insert(
-                    closeTime + i * delay,
-                    t.DOMoveX(startPos[i].x, duration)
-                    .SetEase(Ease.InCubic)
+                fadeSeq.Append(
+                    _fadeImage.DOFade(0f, 2f)
                 );
             }
         }
 
-        public void FadeTransition()
+        public void LoadSceneWithTransition(string sceneName)
         {
-            seq?.Kill();
-            seq = DOTween.Sequence();
+            StartCoroutine(TransitionAndLoad(sceneName));
+        }
 
-            seq.Append(
-                _fadeImage.DOFade(1f, 3f)
-            );
+        private IEnumerator TransitionAndLoad(string sceneName)
+        {
+            if (sceneName == "TitleScene") // TitleScene のときはフェードだけ
+            {
+                FadeTransition(0);
+                yield return new WaitForSeconds(2.5f);
+                yield return SceneManager.LoadSceneAsync(sceneName);
+                FadeTransition(1);
+                yield break;
+            }
 
-            seq.Append(
-                _fadeImage.DOFade(0f, 3f)
-            );
+            // 閉じる
+            BarTransition(0);
 
-            seq.SetUpdate(true);
+            // アニメーションが終わるまで待機
+            float waitTime = duration + (_bar.Length - 1) * delay;
+            yield return new WaitForSeconds(waitTime);
+
+            // シーン読み込み
+            yield return SceneManager.LoadSceneAsync(sceneName);
+
+            // 開く
+            BarTransition(1);
         }
     }
 }

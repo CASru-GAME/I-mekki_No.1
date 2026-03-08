@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
-
-public class LoadScene : MonoBehaviour
+namespace App.Scripts.Common
 {
-    public void LoadNextScene(string sceneName)
+    public class LoadScene : MonoBehaviour
     {
-        if (!string.IsNullOrEmpty(sceneName))
+        public void LoadNextScene(string sceneName)
         {
-            SceneManager.LoadScene(sceneName);
-        }
-        else
-        {
-            Debug.Log("シーン名が入力されていません");
+            if (!string.IsNullOrEmpty(sceneName))
+            {
+                SceneTransition.Instance.LoadSceneWithTransition(sceneName);
+            }
+            else
+            {
+                Debug.Log("シーン名が入力されていません");
+            }
         }
     }
 }
