@@ -772,7 +772,7 @@ MonoBehaviour:
   sceneNames:
     TitleScene: TitleScene
     DifficultySelectScene: DifficultySelectScene
-    InGameSceneEasyOne: InGameSceneEasy1
+    InGameSceneEasyOne: DemoGameScene
     InGameSceneEasyTwo: InGameSceneEasy2
     InGameSceneEasyThree: InGameSceneEasy3
     InGameSceneNormalOne: InGameSceneNormal1
