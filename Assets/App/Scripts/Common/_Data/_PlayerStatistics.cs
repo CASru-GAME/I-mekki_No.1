@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace App.Common._Data
 {
@@ -18,18 +19,22 @@ namespace App.Common._Data
             _coins = 0;
             _dictionaryNum = 0;
             _clearedStageNum = 0;
+            UnityEngine.Debug.Log("Player statistics cleared: Coins, DictionaryNum, ClearedStageNum reset to 0.");
         }
         static public void AddCoins(int coins)
         {
             _coins += coins;
+            UnityEngine.Debug.Log($"Coins added: {coins}, Total: {_coins}");
         }
         static public void AddDictionaryNum(int dictionaryNum)
         {
             _dictionaryNum += dictionaryNum;
+            UnityEngine.Debug.Log($"Dictionary items added: {dictionaryNum}, Total: {_dictionaryNum}");
         }
         static public void AddClearedStageNum(int clearedStageNum)
         {
             _clearedStageNum += clearedStageNum;
+            UnityEngine.Debug.Log($"Cleared stages added: {clearedStageNum}, Total: {_clearedStageNum}");
         }
 
     }

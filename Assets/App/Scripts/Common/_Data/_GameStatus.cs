@@ -2,20 +2,28 @@ namespace App.Common._Data
 {
     public static class _GameStatus
     {
-        enum difficulty
+        public enum gameStatus
         {
-            Easy,
-            Normal,
-            Hard
+            Title,
+            SelectDifficulty,
+            InGame,
+            Result
         }
-
-        enum stage
+        public enum difficulty
         {
+            Easy = 0,
+            Normal = 1,
+            Hard = 2
+        }
+        public enum stage
+        {
+            BeforeStage,
             Stage1,
             Stage2,
             Stage3
         }
-        static difficulty _difficulty;
-        static stage _stage;
+        public static stage _stage = stage.BeforeStage;
+        public static gameStatus _gameStatus = gameStatus.Title;
+        public static difficulty _difficulty = difficulty.Easy;
     }
 }
