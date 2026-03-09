@@ -13,10 +13,14 @@ namespace App.Game.Player
         [SerializeField] private int maxJumpCount = 25;
         [SerializeField] private float airTime = 0.4f;
         [SerializeField] private float speed = 1f;
+        [SerializeField] private float outofscreenaddspeed = 0.5f;
         [SerializeField] private Collider2D playerCollider;
         [SerializeField] private Collider2D PlayerStompCollider;
         [SerializeField] private float invincibleTime = 2f;
         [SerializeField] private float flashDuration = 0.1f;
+        [SerializeField] private float offScreenTimeout = 2f;
+        [SerializeField] private GameObject camera;
+        [SerializeField] private bool inwater = false;
         private Dash dash;
         private Jump jump;
         private MoveRight moveright;
@@ -35,9 +39,9 @@ namespace App.Game.Player
                 return;
             }
             animator = GetComponent<Animator>();
-            jump = new Jump(animator, gameobject, maxjumpheight, minjumpheight, maxJumpCount);
-            dash = new Dash(rb, jump, airTime, speed, animator);
-            moveright = new MoveRight(gameobject, speed);
+            jump = new Jump(animator, gameobject, maxjumpheight, minjumpheight, maxJumpCount, inwater);
+            dash = new Dash(rb, jump, airTime, speed, inwater, animator);
+            moveright = new MoveRight(gameobject, speed, offScreenTimeout, camera, outofscreenaddspeed);
             playerLayer = LayerMask.NameToLayer("Player");
             enemyLayer  = LayerMask.NameToLayer("Enemy");
             playerDamage = new _PlayerDamage(playerLayer, enemyLayer, invincibleTime, flashDuration, GetComponent<SpriteRenderer>());
