@@ -4,10 +4,19 @@ namespace App.Game.Enemy
 {
     public class EnemyGoStraight : _EnemyCrushed
     {
+        private bool inScreen = false;
+        void OnBecameVisible()
+        {
+            inScreen = true;
+        }
         void FixedUpdate()
         {
-            UpdatePosition();
+            if(inScreen)
+            {
+                UpdatePosition();
+            }
         }
+
 
         private void UpdatePosition()
         {

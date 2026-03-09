@@ -16,18 +16,24 @@ namespace App.Game.Player.Move
         private Tween dashTween; // ダッシュアニメーション用のTweenを保持する変数
         private float PlayerSpeed;
         private Animator animator;
+        private bool inwater;
+        private Sequence seq;
 
-        public Dash(Rigidbody2D rigidbody2D, Jump jumpInstance, float airTimeDuration, float playerSpeed, Animator animator = null)
+        public Dash(Rigidbody2D rigidbody2D, Jump jumpInstance, float airTimeDuration, float playerSpeed, bool inwater, Animator animator = null)
         {
             rb = rigidbody2D;
             jump = jumpInstance;
             airTime = airTimeDuration;
             PlayerSpeed = playerSpeed;
             this.animator = animator;
+            this.inwater = inwater;
         }
 
         public async UniTask PerformDash(InputAction.CallbackContext context)
         {
+            if(inwater){
+                return;
+            }
             if (!canDash || jump.IsGrounded())
             {
                 return;
@@ -49,7 +55,7 @@ namespace App.Game.Player.Move
                         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
                         rb.transform.position = new Vector3(rb.transform.position.x + PlayerSpeed * 0.5f, rb.transform.position.y, 0);
                 }); // キャンセル時に速度をリセット*/
-                var seq = DOTween.Sequence();
+                seq = DOTween.Sequence();
                 dashTween = rb.transform.DOMoveX(rb.transform.position.x + PlayerSpeed * 0.75f, 0.5f)
                     .SetLoops(1, LoopType.Yoyo)
                     .SetEase(Ease.OutCirc)
@@ -77,6 +83,7 @@ namespace App.Game.Player.Move
                 Debug.LogError("Player does not have a Collider2D component.");
                 return false;
             }
+            
 
             // プレイヤーの位置を取得
             Vector2 playerPosition = rb.position;
@@ -86,16 +93,17 @@ namespace App.Game.Player.Move
             Vector2 origin = new Vector2(playerPosition.x + bounds.extents.x + 0.1f, playerPosition.y);
             // コライダーの境界を使用して、壁に接触しているかどうかを確認
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right, bounds.extents.x + 0.1f);
+            Debug.DrawRay(origin, Vector2.right * (bounds.extents.x + 0.1f), Color.red);
             return hit.collider != null;
         }
         public void CancelDash()
         {
+            Debug.Log("Dash canceled due to wall collision.");
             // ダッシュをキャンセルするための処理
-            if (dashTween != null && dashTween.IsActive())
+            if (seq != null && seq.IsActive())
             {
-                dashTween.Kill(); // アニメーションを停止
+                seq.Kill();
             }
-
             // x軸の速度をゼロに設定し、y軸に小さな下向きの力を加える
             rb.linearVelocity = new Vector2(0, Mathf.Min(rb.linearVelocity.y, -1f)); // 落下を促すためにy軸の速度を調整
             isYAxisFixed = false; // y軸の固定を解除

@@ -31,7 +31,8 @@ namespace App.Game.Player.Move
         private bool intheair = false;
         Rigidbody2D rb;
         private int count2 = 0;
-        public Jump(Animator animator,GameObject player, float maxjump, float minjump, float jumprange, float maxjumptime = 0.1f, float jumprangetime = 0.05f)
+        private bool inwater;
+        public Jump(Animator animator,GameObject player, float maxjump, float minjump, float jumprange, bool inwater, float maxjumptime = 0.1f, float jumprangetime = 0.05f)
         {
             this.player = player;
             rb = player.GetComponent<Rigidbody2D>();
@@ -44,6 +45,7 @@ namespace App.Game.Player.Move
             this.maxjumptime = maxjumptime;
             this.jumprangetime = jumprangetime;
             this.animator = animator;
+            this.inwater = inwater;
         }
         public void StompEnemyJump(){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
@@ -54,6 +56,17 @@ namespace App.Game.Player.Move
         }
         public void PerformJump(InputAction.CallbackContext context)
         {
+            if(inwater){
+                if (context.phase == InputActionPhase.Started){
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
+                    isJumping = true;
+                    lastJumpTime = Time.time;
+                    jumpstarttime = Time.time;
+                    intheair = true;
+                    animator.SetBool("Jump", true);
+                }
+                return;
+            }
             if (Time.time - lastJumpTime < jumpCooldown){
                 isJumping = false;
                 return;
@@ -118,7 +131,7 @@ namespace App.Game.Player.Move
 
             if (hit.collider != null && !hit.collider.gameObject.CompareTag("Player"))
             {
-                Debug.Log(hit.collider.gameObject.name);
+                //Debug.Log(hit.collider.gameObject.name);
                 return true;
             }
             return false;
