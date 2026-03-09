@@ -1,7 +1,6 @@
 using UnityEngine;
 using App.Common._Data;
 using TMPro;
-using Unity.Multiplayer.Center.Common;
 
 namespace App.Result
 {

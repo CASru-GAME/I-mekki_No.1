@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.IO;
-using App.Game.Process;
 using UnityEngine;
-using System.Linq;
 
 namespace App.Common._Data
 {
@@ -20,6 +17,7 @@ namespace App.Common._Data
             }
             var json = JsonUtility.ToJson(dictionaryWrapper, true);
             File.WriteAllText(filePath, json);
+            Debug.Log("Dictionary data saved to: " + filePath);
         }
         public static void LoadDictionaryData()
         {
@@ -47,6 +45,7 @@ namespace App.Common._Data
                 }
                 SaveDictionaryData();
             }
+            Debug.Log("Dictionary data loaded from: " + filePath);
         }
     }
 }
