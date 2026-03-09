@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
+using App.Common;
 
 namespace App.Scripts.Common.UI
 {
@@ -16,6 +15,16 @@ namespace App.Scripts.Common.UI
             {
                 Debug.Log("シーン名が入力されていません");
             }
+        }
+
+        public void LoadDifficultySelectScene()
+        {
+            SceneLoader.Instance.LoadDifficultySelectScene();
+        }
+
+        public void LoadNextWithFlagInGameScene(int difficulty)
+        {
+            SceneLoader.Instance.LoadNextWithFlagInGameScene(difficulty);
         }
     }
 }
