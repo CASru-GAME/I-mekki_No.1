@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using App.Common._Data;
 
 public class Goal : MonoBehaviour
 {

@@ -13,7 +13,7 @@ namespace App.Common._Data
         }
         static public void ClearAll()
         {
-            _hp = 0;
+            _hp = 3;
         }
         static public void AddHp()
         {
