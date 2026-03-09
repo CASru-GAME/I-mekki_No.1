@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using DG.Tweening;
 
-namespace App.Scripts.Common
+namespace App.Scripts.Common.UI
 {
     public class SceneTransition : MonoBehaviour
     {
@@ -19,11 +19,10 @@ namespace App.Scripts.Common
         private Sequence barSeq;
         private Sequence fadeSeq;
 
-        [SerializeField]private bool  isRverse = false;
+        [SerializeField] private TransitionColorChange _colorChanger;
 
         void Awake()
         {
-            // Singletonチェック
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
@@ -111,14 +110,20 @@ namespace App.Scripts.Common
 
         private IEnumerator TransitionAndLoad(string sceneName)
         {
-            if (sceneName == "TitleScene") // TitleScene のときはフェードだけ
+            if (sceneName == "TitleScene") // TitleScene のときはフェード
             {
+                _colorChanger.ChangeColor(0);
                 FadeTransition(0);
                 yield return new WaitForSeconds(2.5f);
                 yield return SceneManager.LoadSceneAsync(sceneName);
                 FadeTransition(1);
                 yield break;
             }
+
+            //色の変更
+            if(sceneName == "EasyGameScene") _colorChanger.ChangeColor(1);
+            if(sceneName == "NormalGameScene") _colorChanger.ChangeColor(2);
+            if(sceneName == "HardGameScene") _colorChanger.ChangeColor(3);
 
             // 閉じる
             BarTransition(0);

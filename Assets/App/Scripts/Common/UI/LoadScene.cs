@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-namespace App.Scripts.Common
+namespace App.Scripts.Common.UI
 {
     public class LoadScene : MonoBehaviour
     {
