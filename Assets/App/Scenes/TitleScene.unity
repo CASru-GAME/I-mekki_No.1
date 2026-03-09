@@ -1136,7 +1136,7 @@ MonoBehaviour:
   - {fileID: 999954730}
   - {fileID: 1356400491}
   _fadeImage: {fileID: 46883957}
-  _colorChanger: {fileID: 0}
+  _colorChanger: {fileID: 853731066}
 --- !u!114 &615884952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,6 +1464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 853731065}
+  - component: {fileID: 853731066}
   m_Layer: 5
   m_Name: bar
   m_TagString: Untagged
@@ -1501,6 +1502,30 @@ RectTransform:
   m_AnchoredPosition: {x: -746, y: 19}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &853731066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853731064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1233165fd2a2d1b4d867323351e680c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Scripts.Common.UI.TransitionColorChange
+  _bar:
+  - {fileID: 749613110}
+  - {fileID: 1387935260}
+  - {fileID: 757622932}
+  - {fileID: 2040865059}
+  - {fileID: 253640347}
+  - {fileID: 882470555}
+  - {fileID: 1596030748}
+  - {fileID: 2052166536}
+  - {fileID: 1655386857}
+  - {fileID: 999954730}
+  - {fileID: 1356400491}
 --- !u!1 &882470555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1767,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 194035320}
+  m_TargetGraphic: {fileID: 1035960333}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
