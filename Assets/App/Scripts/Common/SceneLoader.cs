@@ -18,6 +18,11 @@ namespace App.Common
             DontDestroyOnLoad(gameObject);
         }
 
+        public void LoadScene(string sceneName)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        }
+
         public void LoadDifficultySelectScene()
         {
             _GameStatus._stage = _GameStatus.stage.BeforeStage;
