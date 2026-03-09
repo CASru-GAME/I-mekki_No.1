@@ -10,7 +10,7 @@ namespace App.Common._Data
         static public int DictionaryNum => _dictionaryNum;
         static private int _clearedStageNum;
         static public int ClearedStageNum => _clearedStageNum;
-        static private int dictionaryNum = 24;
+        static private int dictionaryNum = 21;
         static public int DictionaryNumMax => dictionaryNum;
         static public bool[] isDictionaryOpen = new bool[dictionaryNum];
         static public void ClearStageData()
