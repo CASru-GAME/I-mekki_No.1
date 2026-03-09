@@ -27,8 +27,11 @@ namespace App.Game.Player.Move
         private float maxjump;
         private float gravity;
         private float jumprangetime;
+        private Animator animator;
+        private bool intheair = false;
         Rigidbody2D rb;
-        public Jump(GameObject player, float maxjump, float minjump, float jumprange, float maxjumptime = 0.1f, float jumprangetime = 0.05f)
+        private int count2 = 0;
+        public Jump(Animator animator,GameObject player, float maxjump, float minjump, float jumprange, float maxjumptime = 0.1f, float jumprangetime = 0.05f)
         {
             this.player = player;
             rb = player.GetComponent<Rigidbody2D>();
@@ -40,6 +43,7 @@ namespace App.Game.Player.Move
             this.jumprange = jumprange;
             this.maxjumptime = maxjumptime;
             this.jumprangetime = jumprangetime;
+            this.animator = animator;
         }
         public void StompEnemyJump(){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
@@ -54,7 +58,9 @@ namespace App.Game.Player.Move
                 isJumping = false;
                 return;
             }
-            
+
+
+
             if (IsGrounded())
             {
                 if (context.phase == InputActionPhase.Started){
@@ -63,6 +69,8 @@ namespace App.Game.Player.Move
                     isJumping = true;
                     lastJumpTime = Time.time;
                     jumpstarttime = Time.time;
+                    intheair = true;
+                    animator.SetBool("Jump", true);
                 }
             }
             // ジャンプボタンを離したら上昇終了
@@ -110,6 +118,7 @@ namespace App.Game.Player.Move
 
             if (hit.collider != null && !hit.collider.gameObject.CompareTag("Player"))
             {
+                Debug.Log(hit.collider.gameObject.name);
                 return true;
             }
             return false;
@@ -136,7 +145,8 @@ namespace App.Game.Player.Move
         }
         public void FixedUpdate()
         {
-
+            
+            
             if(isJumping)
             {
                 count ++;
@@ -174,6 +184,24 @@ namespace App.Game.Player.Move
                 count = 0;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, -1f)); // 落下を促すためにy軸の速度を調整
             }*/
+            if(intheair){
+                if(count2 < 30)
+                {
+                    count2++;
+                }else{
+                    if(IsGrounded()){
+                        intheair = false;
+                        Debug.Log("Landed");
+                        count2 = 0;
+                    }
+                }
+            }
+            //アニメーション処理
+            if(intheair){
+                animator.SetBool("Jump", true);
+            }else{
+                animator.SetBool("Jump", false);
+            }
         }
     }
 }

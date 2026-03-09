@@ -15,13 +15,15 @@ namespace App.Game.Player.Move
         private bool canDash = true; // ダッシュが使用可能かどうかを管理するフラグ
         private Tween dashTween; // ダッシュアニメーション用のTweenを保持する変数
         private float PlayerSpeed;
+        private Animator animator;
 
-        public Dash(Rigidbody2D rigidbody2D, Jump jumpInstance, float airTimeDuration, float playerSpeed)
+        public Dash(Rigidbody2D rigidbody2D, Jump jumpInstance, float airTimeDuration, float playerSpeed, Animator animator = null)
         {
             rb = rigidbody2D;
             jump = jumpInstance;
             airTime = airTimeDuration;
             PlayerSpeed = playerSpeed;
+            this.animator = animator;
         }
 
         public async UniTask PerformDash(InputAction.CallbackContext context)
@@ -32,6 +34,10 @@ namespace App.Game.Player.Move
             }
             if (context.phase == InputActionPhase.Started)
             {
+                //アニメーション処理
+                animator.SetBool("Dash", true);
+
+
                 canDash = false; // ダッシュを使用したのでフラグを無効にする
                 jump.CancelJump(); // ジャンプをキャンセル
 
@@ -59,6 +65,8 @@ namespace App.Game.Player.Move
                     });
                 seq.Append(dashTween);
                 await FixYAxisForDuration(airTime);
+                //アニメーション処理
+                animator.SetBool("Dash", false);
             }
         }
         public bool IsTouchingWall(){
