@@ -10,7 +10,7 @@ namespace App.Scripts.Title
         [SerializeField] private GameObject _rightArrow;
         [SerializeField] private GameObject _leftArrow;
         [SerializeField] private int _showNum=1;
-        [SerializeField] private bool[] _isDictionaryOpen;
+        private bool[] _isDictionaryOpen => _PlayerStatistics.isDictionaryOpen;
         [SerializeField] private GameObject[] _dictionary = new GameObject[21];
         private int _dictionarylength = _PlayerStatistics.DictionaryNumMax;
 
@@ -28,26 +28,15 @@ namespace App.Scripts.Title
         // Update is called once per frame
         void Update()
         {
-            //テスト用
-            if(_testBool)
-            {
-                for (int i = 0; i < _dictionary.Length; i++)
-                {
-                    _dictionary[i].SetActive(_isDictionaryOpen[i]);
-                }
-                _testBool = false;
-            }
+            
         }
 
         public void checkDictionary()
         {
-            //図鑑メニュー移動時に図鑑の開放状況を確認して、図鑑オブジェクトの表示・非表示
-            _isDictionaryOpen = _PlayerStatistics.isDictionaryOpen;
             for (int i = 0; i < _dictionary.Length; i++)
             {
                 _dictionary[i].SetActive(_isDictionaryOpen[i]);
             }
-
         }
 
         public void Onclick(string _direction)

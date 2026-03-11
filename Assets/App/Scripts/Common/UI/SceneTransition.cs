@@ -12,12 +12,15 @@ namespace App.Scripts.Common.UI
 
         [SerializeField] private GameObject[] _bar = new GameObject[11];
         [SerializeField] private Image _fadeImage;
+        [SerializeField] private Image _blockerImage;
         private float moveDistance;
         private float duration = 0.5f;
         private float delay = 0.1f;
         private Vector3[] startPos;
         private Sequence barSeq;
         private Sequence fadeSeq;
+
+        private bool isActive = false;
 
         [SerializeField] private TransitionColorChange _colorChanger;
 
@@ -80,6 +83,13 @@ namespace App.Scripts.Common.UI
                         .SetEase(Ease.InCubic)
                     );
                 }
+
+                barSeq.OnComplete(() =>
+                {
+                    _blockerImage.raycastTarget = false;
+                    isActive = false;
+                });
+
             }
         }
 
@@ -100,30 +110,25 @@ namespace App.Scripts.Common.UI
                 fadeSeq.Append(
                     _fadeImage.DOFade(0f, 2f)
                 );
+                fadeSeq.OnComplete(() =>
+                {
+                    _blockerImage.raycastTarget = false;
+                    isActive = false;
+                });
             }
         }
 
-        public void LoadSceneWithTransition(string sceneName)
+        public void LoadSceneWithTransition(string sceneName, int colorFlag)
         {
+            _colorChanger.ChangeColor(colorFlag);
             StartCoroutine(TransitionAndLoad(sceneName));
         }
 
         private IEnumerator TransitionAndLoad(string sceneName)
         {
-            if (sceneName == "TitleScene") // TitleScene のときはフェード
-            {
-                _colorChanger.ChangeColor(0);
-                FadeTransition(0);
-                yield return new WaitForSeconds(2.5f);
-                yield return SceneManager.LoadSceneAsync(sceneName);
-                FadeTransition(1);
-                yield break;
-            }
-
-            //色の変更
-            if(sceneName == "EasyGameScene") _colorChanger.ChangeColor(1);
-            if(sceneName == "NormalGameScene") _colorChanger.ChangeColor(2);
-            if(sceneName == "HardGameScene") _colorChanger.ChangeColor(3);
+            if(isActive) yield break;
+            isActive = true;
+            _blockerImage.raycastTarget = true;
 
             // 閉じる
             BarTransition(0);
