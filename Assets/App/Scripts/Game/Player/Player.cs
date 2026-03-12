@@ -1,5 +1,4 @@
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
 using App.Game.Player.Move;
 

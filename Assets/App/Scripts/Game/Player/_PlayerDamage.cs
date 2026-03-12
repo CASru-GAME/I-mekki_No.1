@@ -1,8 +1,5 @@
 using UnityEngine;
-using DG.Tweening;
-using App.Game.Enemy;
 using App.Common._Data;
-using System.Collections;
 using System.Threading.Tasks;
 
 namespace App.Game.Player

@@ -25,8 +25,22 @@ namespace App.Common.MainCamera
         private float _bgmLinear = DefaultLinearVolume;
         private float _seLinear = DefaultLinearVolume;
 
+        public void Awake()
+        {
+            if (audioMixer == null)
+            {
+                Debug.LogError("AudioMixer が割り当てられていません。");
+            }
+        }
+        public void Start()
+        {
+            LoadVolume();
+        }
+
         public void LoadVolume()
         {
+            Debug.Log("Loading volume settings...");
+
             _masterLinear = PlayerPrefs.GetFloat(MASTERVOLUMEKEY, DefaultLinearVolume);
             _bgmLinear = PlayerPrefs.GetFloat(BGMVOLUMEKEY, DefaultLinearVolume);
             _seLinear = PlayerPrefs.GetFloat(SEVOLUMEKEY, DefaultLinearVolume);

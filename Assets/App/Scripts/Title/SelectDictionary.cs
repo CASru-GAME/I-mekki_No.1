@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
 using App.Common._Data;
-using TMPro;
 
 namespace App.Scripts.Title
 {

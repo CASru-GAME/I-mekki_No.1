@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using App.Common._Data;
 
 namespace App.Game.Process
 {
