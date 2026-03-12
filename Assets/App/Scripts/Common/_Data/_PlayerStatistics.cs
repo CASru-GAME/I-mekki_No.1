@@ -36,6 +36,5 @@ namespace App.Common._Data
             _clearedStageNum += clearedStageNum;
             UnityEngine.Debug.Log($"Cleared stages added: {clearedStageNum}, Total: {_clearedStageNum}");
         }
-
     }
 }
