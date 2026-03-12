@@ -1,7 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 using DG.Tweening;
 
 namespace App.Game.Player.Move

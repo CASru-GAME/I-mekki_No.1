@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 namespace App.Game.Enemy
 {

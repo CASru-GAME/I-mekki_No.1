@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using UnityEngine;
-
 namespace App.Common._Data
 {
     public static class _PlayerStatistics
