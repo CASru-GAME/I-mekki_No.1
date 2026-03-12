@@ -1,0 +1,13 @@
+Font: M PLUS 2  Style: ExtraBold
+Point Size: 31   Padding: 5   SP/PD Ratio: 16.1%
+
+Characters included: 2435/2436
+Missing characters: 1
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+ID: 9	Hex: 9	Char [	]
+
+Characters excluded from packing:
+----------------------------------------

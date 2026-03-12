@@ -20,22 +20,11 @@ namespace App.Scripts.Title
 
         [SerializeField] private bool _testBool = false;
 
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
         public void checkDictionary()
         {
             for (int i = 0; i < _dictionary.Length; i++)
             {
-                _dictionary[i].SetActive(_isDictionaryOpen[i]);
+                _dictionary[i].SetActive(_testBool || _isDictionaryOpen[i]);
             }
         }
 
@@ -55,7 +44,7 @@ namespace App.Scripts.Title
         private void ShowDictionaryContent()
         {
             // 開放されていない場合
-            if (!_isDictionaryOpen[_showNum])
+            if (!_testBool && !_isDictionaryOpen[_showNum])
             {
                 _titleText.text = "???";
                 _descriptionText.text = "No data.";
@@ -67,7 +56,6 @@ namespace App.Scripts.Title
             _titleText.text = item.Title;
             _descriptionText.text = item.Description;
         }
-
 
         public void showBook(int _bookNum)
         {
