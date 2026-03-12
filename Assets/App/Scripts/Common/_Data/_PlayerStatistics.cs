@@ -1,3 +1,5 @@
+using App.Scripts.Common.UI;
+
 namespace App.Common._Data
 {
     public static class _PlayerStatistics
@@ -39,7 +41,7 @@ namespace App.Common._Data
         static public void SetGameCleared(bool gameCleared)
         {
             _gameCleared = gameCleared;
-            UnityEngine.SceneManagement.SceneManager.LoadScene(SceneLoader.Instance.sceneNames.ResultScene);
+            SceneTransition.Instance.LoadSceneWithTransition(SceneLoader.Instance.sceneNames.ResultScene, 0);
             SceneLoader.Instance.GetTitleBGM().Play();
         }
     }
