@@ -29,6 +29,7 @@ namespace App.Game.Player
         int playerLayer;
         int enemyLayer;
         private Animator animator;
+        private PlayerSE playerSE;
 
         void Start()
         {
@@ -38,14 +39,16 @@ namespace App.Game.Player
                 Debug.LogError("Rigidbody2D component not found on the player.");
                 return;
             }
+            playerSE = GetComponent<PlayerSE>();
             animator = GetComponent<Animator>();
             jump = new Jump(animator, gameobject, maxjumpheight, minjumpheight, maxJumpCount, inwater);
             dash = new Dash(rb, jump, airTime, speed, inwater, animator);
             moveright = new MoveRight(gameobject, speed, offScreenTimeout, camera, outofscreenaddspeed);
             playerLayer = LayerMask.NameToLayer("Player");
             enemyLayer  = LayerMask.NameToLayer("Enemy");
-            playerDamage = new _PlayerDamage(playerLayer, enemyLayer, invincibleTime, flashDuration, GetComponent<SpriteRenderer>());
+            playerDamage = new _PlayerDamage(playerLayer, enemyLayer, invincibleTime, flashDuration, GetComponent<SpriteRenderer>(), playerSE);
             stompEnemy = new _StompEnemy(playerCollider.bounds.size.y, playerDamage);
+            playerSE.Bind(jump, dash);
         }
 
         public void OnJump(InputAction.CallbackContext context)

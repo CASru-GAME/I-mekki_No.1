@@ -14,14 +14,16 @@ namespace App.Game.Player
         private float invincibleTime;
         private float flashDuration;
         private SpriteRenderer spriteRenderer;
+        private PlayerSE se;
 
-        public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration,SpriteRenderer spriteRenderer)
+        public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration,SpriteRenderer spriteRenderer, PlayerSE se)
         {
             this.playerLayer = playerLayer;
             this.enemyLayer = enemyLayer;
             this.invincibleTime = invincibleTime;
             this.flashDuration = flashDuration;
             this.spriteRenderer = spriteRenderer;
+            this.se = se;
         }
         public void TakeDamage()
         {
@@ -33,6 +35,8 @@ namespace App.Game.Player
 
             //プレイヤーを点滅させる
             FlashPlayer(this.spriteRenderer);
+
+            se.PlayDamage();
         }
 
         public async Task InvincibilityCoroutine()
