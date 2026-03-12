@@ -14,11 +14,14 @@ namespace App.Common._Data
         static private int dictionaryNum = 21;
         static public int DictionaryNumMax => dictionaryNum;
         static public bool[] isDictionaryOpen = new bool[dictionaryNum];
+        static private bool _gameCleared;
+        static public bool GameCleared => _gameCleared;
         static public void ClearStageData()
         {
             _coins = 0;
             _dictionaryNum = 0;
             _clearedStageNum = 0;
+            _gameCleared = false;
             UnityEngine.Debug.Log("Player statistics cleared: Coins, DictionaryNum, ClearedStageNum reset to 0.");
         }
         static public void AddCoins(int coins)
@@ -35,6 +38,12 @@ namespace App.Common._Data
         {
             _clearedStageNum += clearedStageNum;
             UnityEngine.Debug.Log($"Cleared stages added: {clearedStageNum}, Total: {_clearedStageNum}");
+        }
+        static public void SetGameCleared(bool gameCleared)
+        {
+            _gameCleared = gameCleared;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(SceneLoader.Instance.sceneNames.ResultScene);
+            SceneLoader.Instance.GetTitleBGM().Play();
         }
     }
 }
