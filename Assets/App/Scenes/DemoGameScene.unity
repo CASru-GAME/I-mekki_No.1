@@ -774,6 +774,7 @@ GameObject:
   - component: {fileID: 264094865}
   - component: {fileID: 264094864}
   - component: {fileID: 264094863}
+  - component: {fileID: 264094867}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -875,6 +876,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &264094867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264094862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85df040d611c5bb4699ac7153aeccb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Game.UI.UIManager
+  dictionaryNumber: {fileID: 194242606}
+  coinNumber: {fileID: 537379297}
+  lifeNumber: {fileID: 361028220}
 --- !u!1 &361028218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,6 +2208,8 @@ GameObject:
   - component: {fileID: 882823679}
   - component: {fileID: 882823678}
   - component: {fileID: 882823677}
+  - component: {fileID: 882823684}
+  - component: {fileID: 882823683}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2358,6 +2376,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &882823683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882823676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e1f9864b5b9ac44bf56f9a7ed5cd4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Common.MainCamera.VolumeSliderManager
+  volumeController: {fileID: 882823684}
+  BGMVolumeSlider: {fileID: 886742664}
+  SEVolumeSlider: {fileID: 2034673683}
+--- !u!114 &882823684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882823676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7787ed8866288541ac078576d97e87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Common.MainCamera.AudioMixerVolumeController
+  audioMixer: {fileID: 24100000, guid: 3b18a562e53c8824389e2b91b708e960, type: 2}
 --- !u!1 &886742662
 GameObject:
   m_ObjectHideFlags: 0
