@@ -1,5 +1,6 @@
 using UnityEngine;
 using App.Common._Data;
+using App.Scripts.Common.UI;
 
 namespace App.Common
 {
@@ -7,6 +8,9 @@ namespace App.Common
     {
         private static SceneLoader instance;
         public SceneNames sceneNames;
+
+        private int colorFlag = 0;
+
         public void Awake()
         {
             if (instance != null && instance != this)
@@ -25,37 +29,45 @@ namespace App.Common
 
         public void LoadDifficultySelectScene()
         {
+            colorFlag = 0;
+
             _GameStatus._stage = _GameStatus.stage.BeforeStage;
             _GameStatus._gameStatus = _GameStatus.gameStatus.SelectDifficulty;
             _PlayerStatus.ClearAll();
             _PlayerStatistics.ClearStageData();
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneNames.DifficultySelectScene);
+            SceneTransition.Instance.LoadSceneWithTransition(sceneNames.DifficultySelectScene, colorFlag);
         }
 
         public void LoadNextWithFlagInGameScene(int difficulty)
         {
+            //シーン切り替えの色の設定
+            colorFlag = (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Easy ? 1
+                      : (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Normal ? 2
+                      : (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Hard ? 3
+                      : 0;
+
             _PlayerStatus.ClearAll();
             _GameStatus._gameStatus = _GameStatus.gameStatus.InGame;
             if (_GameStatus._stage == _GameStatus.stage.BeforeStage)
             {
                 _GameStatus._stage = _GameStatus.stage.Stage1;
-                UnityEngine.SceneManagement.SceneManager.LoadScene(sceneNames.GetNextGameSceneName((_GameStatus.difficulty)difficulty, _GameStatus._stage));
+                SceneTransition.Instance.LoadSceneWithTransition(sceneNames.GetNextGameSceneName((_GameStatus.difficulty)difficulty, _GameStatus._stage), colorFlag);
             }
             else if (_GameStatus._stage == _GameStatus.stage.Stage1)
             {
                 _GameStatus._stage = _GameStatus.stage.Stage2;
-                UnityEngine.SceneManagement.SceneManager.LoadScene(sceneNames.GetNextGameSceneName((_GameStatus.difficulty)difficulty, _GameStatus._stage));
+                SceneTransition.Instance.LoadSceneWithTransition(sceneNames.GetNextGameSceneName((_GameStatus.difficulty)difficulty, _GameStatus._stage), colorFlag);
             }
             else if (_GameStatus._stage == _GameStatus.stage.Stage2)
             {
                 _GameStatus._stage = _GameStatus.stage.Stage3;
-                UnityEngine.SceneManagement.SceneManager.LoadScene(sceneNames.GetNextGameSceneName((_GameStatus.difficulty)difficulty, _GameStatus._stage));
+                SceneTransition.Instance.LoadSceneWithTransition(sceneNames.GetNextGameSceneName((_GameStatus.difficulty)difficulty, _GameStatus._stage), colorFlag);
             }
             else
             {
                 _GameStatus._stage = _GameStatus.stage.BeforeStage;
                 _GameStatus._gameStatus = _GameStatus.gameStatus.Result;
-                UnityEngine.SceneManagement.SceneManager.LoadScene(sceneNames.ResultScene);
+                SceneTransition.Instance.LoadSceneWithTransition(sceneNames.ResultScene, colorFlag);
             }
         }
 

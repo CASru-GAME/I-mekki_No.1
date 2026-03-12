@@ -9,7 +9,7 @@ namespace App.Scripts.Common.UI
         {
             if (!string.IsNullOrEmpty(sceneName))
             {
-                SceneTransition.Instance.LoadSceneWithTransition(sceneName);
+                SceneTransition.Instance.LoadSceneWithTransition(sceneName, 0);
             }
             else
             {
