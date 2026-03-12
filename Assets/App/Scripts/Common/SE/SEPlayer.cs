@@ -5,11 +5,12 @@ namespace App.Common.SE
     public class SEPlayer : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
-        
-        public void PlaySE(AudioClip clip)
+        [SerializeField] private AudioClip seClip;
+
+        public void PlaySE()
         {
-            if (clip == null) return;
-            audioSource.PlayOneShot(clip);
+            if (seClip == null) return;
+            audioSource.PlayOneShot(seClip);
         }
     }
 }
