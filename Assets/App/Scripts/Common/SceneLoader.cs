@@ -10,6 +10,7 @@ namespace App.Common
         public SceneNames sceneNames;
 
         private int colorFlag = 0;
+        private TitleBGM titleBGM;
 
         public void Awake()
         {
@@ -20,8 +21,12 @@ namespace App.Common
             }
             instance = this;
             DontDestroyOnLoad(gameObject);
+            titleBGM = GetComponent<TitleBGM>();
         }
-
+        public TitleBGM GetTitleBGM()
+        {
+            return titleBGM;
+        }
         public void LoadScene(string sceneName)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
@@ -40,6 +45,9 @@ namespace App.Common
 
         public void LoadNextWithFlagInGameScene(int difficulty)
         {
+            //タイトル用のBGMを止める
+            titleBGM.Stop();
+
             //シーン切り替えの色の設定
             colorFlag = (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Easy ? 1
                       : (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Normal ? 2

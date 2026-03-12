@@ -44,7 +44,8 @@ public class Goal : MonoBehaviour
         if (goalPosition.x < posPlayer.x)
         {
             Debug.Log("Goal Triggered");
-            UnityEngine.SceneManagement.SceneManager.LoadScene(ResultSceneName);
+            // ゲームクリアの処理を呼び出す
+            App.Common._Data._PlayerStatistics.SetGameCleared(true);
         }
     }
 }
