@@ -21,6 +21,9 @@ namespace App.Game.Field
             _PlayerStatistics.AddDictionaryNum(1);
             _PlayerStatistics.isDictionaryOpen[dictionaryNumber] = true;
             gameObject.SetActive(false);
+
+            //効果音を再生
+            collision.GetComponent<App.Game.Player.PlayerSE>().PlayDictionary();
         }
     }
 }

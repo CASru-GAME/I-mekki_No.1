@@ -29,6 +29,7 @@ namespace App.Game.Player.Move
             this.inwater = inwater;
         }
 
+        public event System.Action OnDashStarted;
         public async UniTask PerformDash(InputAction.CallbackContext context)
         {
             if(inwater){
@@ -45,6 +46,7 @@ namespace App.Game.Player.Move
 
 
                 canDash = false; // ダッシュを使用したのでフラグを無効にする
+                OnDashStarted?.Invoke(); // ダッシュ開始イベントを発行
                 jump.CancelJump(); // ジャンプをキャンセル
 
                 // DOTweenを使用してダッシュアニメーションを開始

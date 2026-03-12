@@ -32,6 +32,9 @@ namespace App.Game.Field
             }
 
             CollectCoin(cell);
+
+            //効果音を再生
+            collision.GetComponent<App.Game.Player.PlayerSE>().PlayCoin();
         }
 
         private void CollectCoin(Vector3Int tilePosition)

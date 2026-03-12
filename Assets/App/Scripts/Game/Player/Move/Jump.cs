@@ -47,17 +47,22 @@ namespace App.Game.Player.Move
             this.animator = animator;
             this.inwater = inwater;
         }
+        public event System.Action OnJumpStarted;
+        public event System.Action OnStompJump;
+
         public void StompEnemyJump(){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
             count = 0;
             isJumping = true;
             lastJumpTime = Time.time;
             jumpstarttime = Time.time;
+            OnStompJump?.Invoke();
         }
         public void PerformJump(InputAction.CallbackContext context)
         {
             if(inwater){
                 if (context.phase == InputActionPhase.Started){
+                    OnJumpStarted?.Invoke();
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
                     isJumping = true;
                     lastJumpTime = Time.time;
@@ -77,6 +82,7 @@ namespace App.Game.Player.Move
             if (IsGrounded())
             {
                 if (context.phase == InputActionPhase.Started){
+                    OnJumpStarted?.Invoke();
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, FisrtJumpVelocity);
                     count = 0;
                     isJumping = true;
