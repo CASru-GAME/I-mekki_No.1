@@ -22,6 +22,11 @@ namespace App.Common._Data
         static public void SubHp()
         {
             _hp--;
+            if(_hp <= 0)
+            {
+                _hp = 0;
+                _PlayerStatistics.SetGameCleared(false);
+            }
         }
     }
 }
