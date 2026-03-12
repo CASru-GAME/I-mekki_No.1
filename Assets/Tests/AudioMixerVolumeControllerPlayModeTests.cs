@@ -45,7 +45,6 @@ namespace App.Tests.PlayMode
             PlayerPrefs.DeleteKey(BgmVolumeKey);
             PlayerPrefs.DeleteKey(SeVolumeKey);
             PlayerPrefs.Save();
-
         }
 
         [Test]
