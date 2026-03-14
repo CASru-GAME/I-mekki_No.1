@@ -5530,6 +5530,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5353acce401a7c44896c5f00bd7b2eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneNames:
+    TitleScene: TitleScene
+    DifficultySelectScene: DifficultySelectScene
+    InGameSceneEasyOne: InGameSceneEasy1
+    InGameSceneEasyTwo: InGameSceneEasy2
+    InGameSceneEasyThree: InGameSceneEasy3
+    InGameSceneNormalOne: InGameSceneNormal1
+    InGameSceneNormalTwo: InGameSceneNormal2
+    InGameSceneNormalThree: InGameSceneNormal3
+    InGameSceneHardOne: InGameSceneHard1
+    InGameSceneHardTwo: InGameSceneHard2
+    InGameSceneHardThree: InGameSceneHard3
+    ResultScene: ResultScene
 --- !u!114 &1931910409
 MonoBehaviour:
   m_ObjectHideFlags: 0
