@@ -15,6 +15,8 @@ namespace App.Scripts.Title
         [SerializeField] private DictionaryDatabase _database;
         [SerializeField] private TMPro.TMP_Text _titleText;
         [SerializeField] private TMPro.TMP_Text _descriptionText;
+        [SerializeField] private UnityEngine.UI.Image _illustrationImage;
+
 
         [SerializeField] private bool _testBool = false;
 
@@ -46,6 +48,7 @@ namespace App.Scripts.Title
             {
                 _titleText.text = "???";
                 _descriptionText.text = "No data.";
+                _illustrationImage.gameObject.SetActive(false);
                 return;
             }
 
@@ -53,6 +56,9 @@ namespace App.Scripts.Title
             var item = _database.Items[_showNum];
             _titleText.text = item.Title;
             _descriptionText.text = item.Description;
+            _illustrationImage.sprite = item.Illustration;
+            _illustrationImage.gameObject.SetActive(true);
+
         }
 
         public void showBook(int _bookNum)
