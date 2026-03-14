@@ -53,7 +53,7 @@ namespace App.Scripts.Common.UI
         public void BarTransition(int type)
         {
             barSeq?.Kill();
-            barSeq = DOTween.Sequence();
+            barSeq = DOTween.Sequence().SetUpdate(true);
 
             if(type == 0)
             {
@@ -96,7 +96,7 @@ namespace App.Scripts.Common.UI
         public void FadeTransition(int type)
         {
             fadeSeq?.Kill();
-            fadeSeq = DOTween.Sequence();
+            fadeSeq = DOTween.Sequence().SetUpdate(true);
 
             if(type == 0)
             {
@@ -135,7 +135,7 @@ namespace App.Scripts.Common.UI
 
             // アニメーションが終わるまで待機
             float waitTime = duration + (_bar.Length - 1) * delay;
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSecondsRealtime(waitTime);
 
             // シーン読み込み
             yield return SceneManager.LoadSceneAsync(sceneName);

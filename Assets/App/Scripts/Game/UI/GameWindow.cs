@@ -18,27 +18,33 @@ namespace App.Game.UI
 
         public void OnClickMenu()
         {
-            _windowTransfom.localScale = Vector3.zero; // 初期サイズを0に設定
-            _window.SetActive(true); // ウインドウをアクティブに
-            _shadow.SetActive(true); //影をアクティブに
-            _shadow.GetComponent<Image>().DOFade(0.5f, 0.5f);
-            _windowTransfom.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack); // サイズを拡大してアニメーション
+            Time.timeScale = 0f; //ゲーム停止
+
+            _windowTransfom.localScale = Vector3.zero;
+            _window.SetActive(true);
+            _shadow.SetActive(true);
+
+            _shadow.GetComponent<Image>().DOFade(0.5f, 0.5f)
+                .SetUpdate(true);
+
+            _windowTransfom.DOScale(Vector3.one, 0.5f)
+                .SetEase(Ease.OutBack)
+                .SetUpdate(true);
         }
 
         public void OnClickDelete()
         {
-            _windowTransfom.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).OnComplete(() =>
-            {
-                _window.SetActive(false); // アニメーション完了後に非アクティブ化
-                _shadow.SetActive(false);
-                _shadow.GetComponent<Image>().DOFade(0f, 0.5f);
-            });
-        }
+            _windowTransfom.DOScale(Vector3.zero, 0.5f)
+                .SetEase(Ease.InBack)
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    _window.SetActive(false);
+                    _shadow.GetComponent<Image>().DOFade(0f, 0.5f).SetUpdate(true);
+                    _shadow.SetActive(false);
 
-        public void OnclickRetire()
-        {
-            //タイトル画面に遷移
+                    Time.timeScale = 1f;
+                });
         }
-        
     }
 }
