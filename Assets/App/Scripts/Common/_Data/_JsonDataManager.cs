@@ -8,6 +8,7 @@ namespace App.Common._Data
         private static _DictionaryWrapper dictionaryWrapper = new _DictionaryWrapper();
         public static void SaveDictionaryData()
         {
+            Debug.Log("Saving dictionary data...");
             dictionaryWrapper.isDictionaryOpen = _PlayerStatistics.isDictionaryOpen;
             string filePath = Application.persistentDataPath + "/isDictionaryOpen.json";
             string directoryPath = Path.GetDirectoryName(filePath);
@@ -21,6 +22,7 @@ namespace App.Common._Data
         }
         public static void LoadDictionaryData()
         {
+            Debug.Log("Loading dictionary data...");
             string filePath = Application.persistentDataPath + "/isDictionaryOpen.json";
             string directoryPath = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(directoryPath))

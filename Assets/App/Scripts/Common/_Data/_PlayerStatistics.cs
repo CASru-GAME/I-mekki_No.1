@@ -41,8 +41,14 @@ namespace App.Common._Data
         static public void SetGameCleared(bool gameCleared)
         {
             _gameCleared = gameCleared;
-            SceneTransition.Instance.LoadSceneWithTransition(SceneLoader.Instance.sceneNames.ResultScene, 0);
+            SceneLoader.Instance.LoadNextWithFlagInGameScene((int)_GameStatus._difficulty);
+            //SceneTransition.Instance.LoadSceneWithTransition(SceneLoader.Instance.sceneNames.ResultScene, 0);
             SceneLoader.Instance.GetTitleBGM().Play();
+        }
+        static public void ResetGameCleared()
+        {
+            _gameCleared = false;
+            UnityEngine.Debug.Log("Game cleared status reset to false.");
         }
     }
 }
