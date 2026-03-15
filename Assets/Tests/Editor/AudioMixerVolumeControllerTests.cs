@@ -1,3 +1,4 @@
+#if UNITY_INCLUDE_TESTS
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -81,3 +82,4 @@ namespace App.Tests.Editor
         }
     }
 }
+#endif
