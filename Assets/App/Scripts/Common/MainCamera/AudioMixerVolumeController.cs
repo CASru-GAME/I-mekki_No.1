@@ -6,81 +6,131 @@ namespace App.Common.MainCamera
 {
     public class AudioMixerVolumeController : MonoBehaviour
     {
-        public AudioMixer audioMixer;
-        private string _volumeParameterName1 = "Master";
-        private string _volumeParameterName2 = "BGM";
-        private string _volumeParameterName3 = "SE";
+        [SerializeField] public AudioMixer audioMixer;
+
+        private const string MasterParam = "Master";
+        private const string BgmParam = "BGM";
+        private const string SeParam = "SE";
+
         private const string MASTERVOLUMEKEY = "MasterVolume";
         private const string BGMVOLUMEKEY = "BGMVolume";
         private const string SEVOLUMEKEY = "SEVolume";
+
+        private const float DefaultLinearVolume = 75f;
+        private const float MinDb = -80f;
+        private const float MaxDb = 20f;
+
+        // Save時に使う「信頼できる現在値（0-100）」
+        private float _masterLinear = DefaultLinearVolume;
+        private float _bgmLinear = DefaultLinearVolume;
+        private float _seLinear = DefaultLinearVolume;
+
+        public void Awake()
+        {
+            if (audioMixer == null)
+            {
+                Debug.LogError("AudioMixer が割り当てられていません。");
+            }
+        }
+        public void Start()
+        {
+            LoadVolume();
+        }
+
         public void LoadVolume()
         {
-            float masterVolume = PlayerPrefs.GetFloat(MASTERVOLUMEKEY, 75f);
-            float bgmVolume = PlayerPrefs.GetFloat(BGMVOLUMEKEY, 75f);
-            float seVolume = PlayerPrefs.GetFloat(SEVOLUMEKEY, 75f);
+            Debug.Log("Loading volume settings...");
 
-            audioMixer.SetFloat(_volumeParameterName1, ConvertLinearToDecibel(masterVolume));
-            audioMixer.SetFloat(_volumeParameterName2, ConvertLinearToDecibel(bgmVolume));
-            audioMixer.SetFloat(_volumeParameterName3, ConvertLinearToDecibel(seVolume));
+            _masterLinear = PlayerPrefs.GetFloat(MASTERVOLUMEKEY, DefaultLinearVolume);
+            _bgmLinear = PlayerPrefs.GetFloat(BGMVOLUMEKEY, DefaultLinearVolume);
+            _seLinear = PlayerPrefs.GetFloat(SEVOLUMEKEY, DefaultLinearVolume);
+
+            TrySetMixerFloat(MasterParam, ConvertLinearToDecibel(_masterLinear));
+            TrySetMixerFloat(BgmParam, ConvertLinearToDecibel(_bgmLinear));
+            TrySetMixerFloat(SeParam, ConvertLinearToDecibel(_seLinear));
         }
+
         public void SaveVolume()
         {
-            float masterVolume;
-            float bgmVolume;
-            float seVolume;
-
-            audioMixer.GetFloat(_volumeParameterName1, out masterVolume);
-            audioMixer.GetFloat(_volumeParameterName2, out bgmVolume);
-            audioMixer.GetFloat(_volumeParameterName3, out seVolume);
-
-            PlayerPrefs.SetFloat(MASTERVOLUMEKEY, ConvertDecibelToLinear(masterVolume));
-            PlayerPrefs.SetFloat(BGMVOLUMEKEY, ConvertDecibelToLinear(bgmVolume));
-            PlayerPrefs.SetFloat(SEVOLUMEKEY, ConvertDecibelToLinear(seVolume));
-
+            // Mixerから再取得せず、保持中の線形値を保存
+            PlayerPrefs.SetFloat(MASTERVOLUMEKEY, _masterLinear);
+            PlayerPrefs.SetFloat(BGMVOLUMEKEY, _bgmLinear);
+            PlayerPrefs.SetFloat(SEVOLUMEKEY, _seLinear);
             PlayerPrefs.Save();
         }
-        private float ConvertLinearToDecibel(float Linear)
+
+        private float ConvertLinearToDecibel(float linear)
         {
-            // volumeは0から100の範囲で渡されると仮定
-            return Mathf.Lerp(-80f, 20f, Linear / 100f);
+            linear = Mathf.Clamp(linear, 0f, 100f);
+            return Mathf.Lerp(MinDb, MaxDb, linear / 100f);
         }
+
         private float ConvertDecibelToLinear(float decibel)
         {
-            // decibelは-80から20の範囲で渡されると仮定
-            return Mathf.InverseLerp(-80f, 20f, decibel) * 100f;
+            return Mathf.InverseLerp(MinDb, MaxDb, decibel) * 100f;
         }
+
+        private bool TrySetMixerFloat(string parameterName, float value)
+        {
+            if (audioMixer == null) return false;
+            return audioMixer.SetFloat(parameterName, value);
+        }
+
+        private bool TryGetMixerFloat(string parameterName, out float value)
+        {
+            value = 0f;
+            if (audioMixer == null) return false;
+            return audioMixer.GetFloat(parameterName, out value);
+        }
+
         public void SetMasterVolume(float volume)
         {
-            Volume volumeObj = new Volume(volume);
-            audioMixer.SetFloat(_volumeParameterName1, ConvertLinearToDecibel(volumeObj.CurrentValue));
+            var v = new Volume(volume);
+            _masterLinear = v.CurrentValue;
+            TrySetMixerFloat(MasterParam, ConvertLinearToDecibel(_masterLinear));
         }
+
         public void SetBGMVolume(float volume)
         {
-            Volume volumeObj = new Volume(volume);
-            audioMixer.SetFloat(_volumeParameterName2, ConvertLinearToDecibel(volumeObj.CurrentValue));
+            Debug.Log($"SetBGMVolume called with volume: {volume}");
+            var v = new Volume(volume);
+            _bgmLinear = v.CurrentValue;
+            TrySetMixerFloat(BgmParam, ConvertLinearToDecibel(_bgmLinear));
         }
+
         public void SetSEVolume(float volume)
         {
-            Volume volumeObj = new Volume(volume);
-            audioMixer.SetFloat(_volumeParameterName3, ConvertLinearToDecibel(volumeObj.CurrentValue));
+            Debug.Log($"SetSEVolume called with volume: {volume}");
+            var v = new Volume(volume);
+            _seLinear = v.CurrentValue;
+            TrySetMixerFloat(SeParam, ConvertLinearToDecibel(_seLinear));
         }
+
         public float GetMasterVolume()
         {
-            float volume;
-            audioMixer.GetFloat(_volumeParameterName1, out volume);
-            return ConvertDecibelToLinear(volume);
+            if (TryGetMixerFloat(MasterParam, out float db))
+            {
+                _masterLinear = ConvertDecibelToLinear(db);
+            }
+            return _masterLinear;
         }
+
         public float GetBGMVolume()
         {
-            float volume;
-            audioMixer.GetFloat(_volumeParameterName2, out volume);
-            return ConvertDecibelToLinear(volume);
+            if (TryGetMixerFloat(BgmParam, out float db))
+            {
+                _bgmLinear = ConvertDecibelToLinear(db);
+            }
+            return _bgmLinear;
         }
+
         public float GetSEVolume()
         {
-            float volume;
-            audioMixer.GetFloat(_volumeParameterName3, out volume);
-            return ConvertDecibelToLinear(volume);
+            if (TryGetMixerFloat(SeParam, out float db))
+            {
+                _seLinear = ConvertDecibelToLinear(db);
+            }
+            return _seLinear;
         }
     }
 }

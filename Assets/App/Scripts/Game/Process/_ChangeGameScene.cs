@@ -1,5 +1,3 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 namespace App.Game.Process

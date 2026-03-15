@@ -13,23 +13,20 @@ namespace App.Common._Data
         }
         static public void ClearAll()
         {
-            _hp = 0;
+            _hp = 3;
         }
         static public void AddHp()
         {
-            if(_hp == null)
-            {
-                return;
-            }
-            _hp ++;
-        }        
+            _hp++;
+        }
         static public void SubHp()
         {
-            if(_hp == null)
+            _hp--;
+            if(_hp <= 0)
             {
-                return;
+                _hp = 0;
+                _PlayerStatistics.SetGameCleared(false);
             }
-            _hp --;
         }
     }
 }

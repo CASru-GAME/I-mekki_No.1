@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "I-mekki_No.1.sln"
+    "dotnet.defaultSolution": "I-mekki_No.1.slnx"
 }

@@ -1,92 +1,80 @@
 using UnityEngine;
 using DG.Tweening;
 
-namespace App.Title
+namespace App.Scripts.Title
 {
     public class SelectLevel : MonoBehaviour
     {
         [SerializeField] private GameObject _rightArrow;
         [SerializeField] private GameObject _leftArrow;
-        [SerializeField] private float _moveDistance;
+        [SerializeField] private GameObject[] _selectPanels; // 3つのパネルを配列で指定
+        
+        private bool isMove = false;
+        private float _panelDistance;
+        private int _currentPanelIndex = 0; // 現在のパネルインデックス
 
-        [SerializeField] private float _swipeThreshold = 50f; // スワイプの閾値（ピクセル数）
-        private Vector2 _startTouchPosition; // タッチ開始位置
-        private Vector2 _endTouchPosition; // タッチ終了位置
+        void Start()
+        {
+            // 最初の2つのパネル間の距離を計算
+            if (_selectPanels.Length >= 2)
+            {
+                _panelDistance = Vector3.Distance(
+                    _selectPanels[0].transform.position,
+                    _selectPanels[1].transform.position
+                );
+            }
 
-        private bool _runAnimation = false;
+            _currentPanelIndex = 0;
+            UpdateArrowState();
+        }
 
         void FixedUpdate()
         {
             //指でスライドしたときにも画面遷移できるようにする
-            // タッチ開始
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                _startTouchPosition = Input.GetTouch(0).position;
-            }
-
-            // タッチ終了
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                _endTouchPosition = Input.GetTouch(0).position;
-                DetectSwipeDirection();
-            }
         }
 
-        private void DetectSwipeDirection()
+        public void Onclick(string _direction)
         {
-            float _horizontalSwipe = _endTouchPosition.x - _startTouchPosition.x;
+            if(isMove) return;
 
-            if (Mathf.Abs(_horizontalSwipe) > _swipeThreshold)
-            {
-                if (_horizontalSwipe > 0)
-                {
-                    OnClick("left"); // 右スワイプで左へ移動
-                }
-                else
-                {
-                    OnClick("right"); // 左スワイプで右へ移動
-                }
-            }
-        }
+            isMove = true;
 
-        public void OnClick(string _direction)
-        {
-            if (_runAnimation) return; 
-            //右矢印が押されたら右に移動
-            //左矢印が押されたら左に移動
-            _runAnimation = true;
-            Vector3 _moveDirection = Vector3.zero;
-            if (_direction == "right")
+            // パネル間の距離分移動
+            Vector3 moveDirection = Vector3.zero;
+
+            if (_direction == "right" && _currentPanelIndex < _selectPanels.Length - 1)
             {
-                _moveDirection = new Vector3(-_moveDistance, 0, 0);
+                moveDirection = new Vector3(-_panelDistance, 0, 0);
+                _currentPanelIndex++;
             }
-            else if (_direction == "left")
+            else if (_direction == "left" && _currentPanelIndex > 0)
             {
-                _moveDirection = new Vector3(_moveDistance, 0, 0);
+                moveDirection = new Vector3(_panelDistance, 0, 0);
+                _currentPanelIndex--;
+            }
+            else
+            {
+                isMove = false;
+                return;
             }
 
             // DoTweenで移動アニメーションを実行
-            this.transform.DOMove(this.transform.position + _moveDirection, 0.5f).OnComplete(() =>
+            this.transform.DOMove(this.transform.position + moveDirection, 0.5f).OnComplete(() =>
             {
-                // アニメーション終了後に矢印の状態を更新
-                if(this.transform.position.x >= 0)
-                {
-                    _leftArrow.SetActive(false);
-                }
-                else
-                {
-                    _leftArrow.SetActive(true);
-                }
-                if (this.transform.position.x <= -_moveDistance*2+500)
-                {
-                    _rightArrow.SetActive(false);
-                }
-                else
-                {
-                    _rightArrow.SetActive(true);
-                }
-                _runAnimation = false;
+                UpdateArrowState();
+                isMove = false;
             });
+        }
+
+        private void UpdateArrowState()
+        {
+            // 左矢印：最初のパネルなら非表示
+            _leftArrow.SetActive(_currentPanelIndex > 0);
+
+            // 右矢印：最後のパネルなら非表示
+            _rightArrow.SetActive(_currentPanelIndex < _selectPanels.Length - 1);
+
+            Debug.Log("Current Panel Index: " + _currentPanelIndex);
         }
     }
 }
