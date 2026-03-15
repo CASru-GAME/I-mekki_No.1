@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using DG.Tweening;
+using App.Common.SE;
 
 namespace App.Scripts.Title
 {
@@ -16,10 +16,8 @@ namespace App.Scripts.Title
 
         private Vector2 _dragStartPos;
         private float _swipeThreshold = 100f; // スワイプ判定距離(px)
-        private float _followLimit = 150f;    // ドラッグ中の追従最大距離(px)
-
-        private Vector3 _initialPos;          // ドラッグ開始時の位置
         private bool isDragging = false;
+        [SerializeField] private SEPlayer _sePlayer;
 
         void Start()
         {
@@ -39,36 +37,24 @@ namespace App.Scripts.Title
         {
             if (isMove) return;
 
-            // ===== スマホタッチ =====
-            if (Input.touchCount > 0)
+            if (Input.touchCount > 0) //タッチの判定
             {
                 Touch touch = Input.GetTouch(0);
 
-                switch (touch.phase)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    case TouchPhase.Began:
-                        StartDrag(touch.position);
-                        break;
-
-                    case TouchPhase.Moved:
-                        DragMove(touch.position);
-                        break;
-
-                    case TouchPhase.Ended:
-                        DragEnd(touch.position);
-                        break;
+                    StartDrag(touch.position);
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    DragEnd(touch.position);
                 }
             }
-            // ===== マウス操作 =====
-            else
+            else //マウスの判定
             {
                 if (Input.GetMouseButtonDown(0))
                 {
                     StartDrag(Input.mousePosition);
-                }
-                else if (Input.GetMouseButton(0))
-                {
-                    DragMove(Input.mousePosition);
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
@@ -81,12 +67,6 @@ namespace App.Scripts.Title
         {
             isDragging = true;
             _dragStartPos = pos;
-            _initialPos = transform.position;
-        }
-
-        void DragMove(Vector2 currentPos)
-        {
-            
         }
 
         void DragEnd(Vector2 endPos)
@@ -102,10 +82,12 @@ namespace App.Scripts.Title
             if (diffX < 0)
             {
                 Onclick("right");
+                _sePlayer.PlaySE();
             }
             else
             {
                 Onclick("left");
+                _sePlayer.PlaySE();
             }
         }
 
