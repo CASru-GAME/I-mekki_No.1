@@ -86,13 +86,7 @@ namespace App.Scripts.Title
 
         void DragMove(Vector2 currentPos)
         {
-            if (!isDragging) return;
-
-            float diffX = currentPos.x - _dragStartPos.x;
-
-            float followX = Mathf.Clamp(diffX, -_followLimit, _followLimit);
-
-            transform.position = _initialPos + new Vector3(followX, 0, 0);
+            
         }
 
         void DragEnd(Vector2 endPos)
@@ -103,16 +97,15 @@ namespace App.Scripts.Title
 
             float diffX = endPos.x - _dragStartPos.x;
 
-            if (Mathf.Abs(diffX) >= _swipeThreshold)
+            if (Mathf.Abs(diffX) < _swipeThreshold) return;
+
+            if (diffX < 0)
             {
-                if (diffX < 0)
-                    Onclick("right");
-                else
-                    Onclick("left");
+                Onclick("right");
             }
             else
             {
-                transform.DOMove(_initialPos, 0.25f).SetEase(Ease.OutQuad);
+                Onclick("left");
             }
         }
 
