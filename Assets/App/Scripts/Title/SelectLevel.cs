@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using App.Common.SE;
 
 namespace App.Scripts.Title
 {
@@ -13,6 +14,11 @@ namespace App.Scripts.Title
         private float _panelDistance;
         private int _currentPanelIndex = 0; // 現在のパネルインデックス
 
+        private Vector2 _dragStartPos;
+        private float _swipeThreshold = 100f; // スワイプ判定距離(px)
+        private bool isDragging = false;
+        [SerializeField] private SEPlayer _sePlayer;
+
         void Start()
         {
             // 最初の2つのパネル間の距離を計算
@@ -23,14 +29,66 @@ namespace App.Scripts.Title
                     _selectPanels[1].transform.position
                 );
             }
-
             _currentPanelIndex = 0;
             UpdateArrowState();
         }
 
-        void FixedUpdate()
+        void Update()
         {
-            //指でスライドしたときにも画面遷移できるようにする
+            if (isMove) return;
+
+            if (Input.touchCount > 0) //タッチの判定
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    StartDrag(touch.position);
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    DragEnd(touch.position);
+                }
+            }
+            else //マウスの判定
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StartDrag(Input.mousePosition);
+                }
+                else if (Input.GetMouseButtonUp(0))
+                {
+                    DragEnd(Input.mousePosition);
+                }
+            }
+        }
+
+        void StartDrag(Vector2 pos)
+        {
+            isDragging = true;
+            _dragStartPos = pos;
+        }
+
+        void DragEnd(Vector2 endPos)
+        {
+            if (!isDragging) return;
+
+            isDragging = false;
+
+            float diffX = endPos.x - _dragStartPos.x;
+
+            if (Mathf.Abs(diffX) < _swipeThreshold) return;
+
+            if (diffX < 0)
+            {
+                Onclick("right");
+                _sePlayer.PlaySE();
+            }
+            else
+            {
+                Onclick("left");
+                _sePlayer.PlaySE();
+            }
         }
 
         public void Onclick(string _direction)

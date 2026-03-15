@@ -1,5 +1,6 @@
 using UnityEngine;
 using App.Common._Data;
+using App.Common.SE;
 
 namespace App.Scripts.Title
 {
@@ -17,14 +18,74 @@ namespace App.Scripts.Title
         [SerializeField] private TMPro.TMP_Text _descriptionText;
         [SerializeField] private UnityEngine.UI.Image _illustrationImage;
 
+        [SerializeField] private bool _isTest = false;
 
-        [SerializeField] private bool _testBool = false;
+        private Vector2 _dragStartPos;
+        private float _swipeThreshold = 100f; // スワイプ判定距離(px)
+        private bool isDragging = false;
+        [SerializeField] private SEPlayer _sePlayer;
+
+        void Update()
+        {
+            if (Input.touchCount > 0) //タッチの判定
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    StartDrag(touch.position);
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    DragEnd(touch.position);
+                }
+            }
+            else //マウスの判定
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StartDrag(Input.mousePosition);
+                }
+                else if (Input.GetMouseButtonUp(0))
+                {
+                    DragEnd(Input.mousePosition);
+                }
+            }
+        }
+
+        void StartDrag(Vector2 pos)
+        {
+            isDragging = true;
+            _dragStartPos = pos;
+        }
+
+        void DragEnd(Vector2 endPos)
+        {
+            if (!isDragging) return;
+
+            isDragging = false;
+
+            float diffX = endPos.x - _dragStartPos.x;
+
+            if (Mathf.Abs(diffX) < _swipeThreshold) return;
+
+            if (diffX < 0)
+            {
+                Onclick("right");
+                _sePlayer.PlaySE();
+            }
+            else
+            {
+                Onclick("left");
+                _sePlayer.PlaySE();
+            }
+        }
 
         public void checkDictionary()
         {
             for (int i = 0; i < _dictionary.Length; i++)
             {
-                _dictionary[i].SetActive(_testBool || _isDictionaryOpen[i]);
+                _dictionary[i].SetActive(_isTest || _isDictionaryOpen[i]);
             }
         }
 
@@ -44,7 +105,7 @@ namespace App.Scripts.Title
         private void ShowDictionaryContent()
         {
             // 開放されていない場合
-            if (!_testBool && !_isDictionaryOpen[_showNum])
+            if (!_isTest && !_isDictionaryOpen[_showNum])
             {
                 _titleText.text = "???";
                 _descriptionText.text = "No data.";
