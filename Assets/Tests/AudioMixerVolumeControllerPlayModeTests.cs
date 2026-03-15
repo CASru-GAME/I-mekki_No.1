@@ -1,4 +1,4 @@
-using System.Collections;
+#if UNITY_INCLUDE_TESTS
 using NUnit.Framework;
 using UnityEngine;
 using App.Common.MainCamera;
@@ -91,3 +91,4 @@ namespace App.Tests.PlayMode
         }
     }
 }
+#endif

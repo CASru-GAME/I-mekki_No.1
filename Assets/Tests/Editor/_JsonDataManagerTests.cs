@@ -1,7 +1,7 @@
+#if UNITY_INCLUDE_TESTS
 using NUnit.Framework;
 using System.IO;
 using UnityEngine;
-using App.Common._Data;
 
 namespace App.Common._Data.Tests
 {
@@ -68,3 +68,4 @@ namespace App.Common._Data.Tests
         }
     }
 }
+#endif
