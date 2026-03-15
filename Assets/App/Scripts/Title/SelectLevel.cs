@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
 namespace App.Scripts.Title
@@ -13,6 +14,13 @@ namespace App.Scripts.Title
         private float _panelDistance;
         private int _currentPanelIndex = 0; // 現在のパネルインデックス
 
+        private Vector2 _dragStartPos;
+        private float _swipeThreshold = 100f; // スワイプ判定距離(px)
+        private float _followLimit = 150f;    // ドラッグ中の追従最大距離(px)
+
+        private Vector3 _initialPos;          // ドラッグ開始時の位置
+        private bool isDragging = false;
+
         void Start()
         {
             // 最初の2つのパネル間の距離を計算
@@ -23,14 +31,89 @@ namespace App.Scripts.Title
                     _selectPanels[1].transform.position
                 );
             }
-
             _currentPanelIndex = 0;
             UpdateArrowState();
         }
 
-        void FixedUpdate()
+        void Update()
         {
-            //指でスライドしたときにも画面遷移できるようにする
+            if (isMove) return;
+
+            // ===== スマホタッチ =====
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        StartDrag(touch.position);
+                        break;
+
+                    case TouchPhase.Moved:
+                        DragMove(touch.position);
+                        break;
+
+                    case TouchPhase.Ended:
+                        DragEnd(touch.position);
+                        break;
+                }
+            }
+            // ===== マウス操作 =====
+            else
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StartDrag(Input.mousePosition);
+                }
+                else if (Input.GetMouseButton(0))
+                {
+                    DragMove(Input.mousePosition);
+                }
+                else if (Input.GetMouseButtonUp(0))
+                {
+                    DragEnd(Input.mousePosition);
+                }
+            }
+        }
+
+        void StartDrag(Vector2 pos)
+        {
+            isDragging = true;
+            _dragStartPos = pos;
+            _initialPos = transform.position;
+        }
+
+        void DragMove(Vector2 currentPos)
+        {
+            if (!isDragging) return;
+
+            float diffX = currentPos.x - _dragStartPos.x;
+
+            float followX = Mathf.Clamp(diffX, -_followLimit, _followLimit);
+
+            transform.position = _initialPos + new Vector3(followX, 0, 0);
+        }
+
+        void DragEnd(Vector2 endPos)
+        {
+            if (!isDragging) return;
+
+            isDragging = false;
+
+            float diffX = endPos.x - _dragStartPos.x;
+
+            if (Mathf.Abs(diffX) >= _swipeThreshold)
+            {
+                if (diffX < 0)
+                    Onclick("right");
+                else
+                    Onclick("left");
+            }
+            else
+            {
+                transform.DOMove(_initialPos, 0.25f).SetEase(Ease.OutQuad);
+            }
         }
 
         public void Onclick(string _direction)
