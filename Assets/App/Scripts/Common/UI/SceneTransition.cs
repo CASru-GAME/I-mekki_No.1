@@ -10,19 +10,22 @@ namespace App.Scripts.Common.UI
     {
         public static SceneTransition Instance;
 
-        [SerializeField] private GameObject[] _bar = new GameObject[11];
+        [SerializeField] private RectTransform[] _bars;
         [SerializeField] private Image _fadeImage;
         [SerializeField] private Image _blockerImage;
-        private float moveDistance;
+        [SerializeField] private TransitionColorChange _colorChanger;
+
         private float duration = 0.5f;
         private float delay = 0.1f;
-        private Vector3[] startPos;
+
+        private float startAnchoredX;
+        private float safeWidth;
+
         private Sequence barSeq;
         private Sequence fadeSeq;
 
         private bool isActive = false;
-
-        [SerializeField] private TransitionColorChange _colorChanger;
+        private RectTransform canvasRect;
 
         void Awake()
         {
@@ -38,15 +41,44 @@ namespace App.Scripts.Common.UI
 
         void Start()
         {
-            RectTransform canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
-            moveDistance = canvasRect.rect.width * 1.5f;
-
-            startPos = new Vector3[_bar.Length];
-
-            for (int i = 0; i < _bar.Length; i++)
+            Canvas canvas = GetComponentInParent<Canvas>();
+            if (canvas == null)
             {
-                if (_bar[i] == null) continue;
-                startPos[i] = _bar[i].transform.position;
+                Debug.LogError("SceneTransition: Canvas not found.");
+                return;
+            }
+
+            canvasRect = canvas.GetComponent<RectTransform>();
+
+            UpdateBarSize();
+
+            if (_bars.Length > 0 && _bars[0] != null)
+            {
+                startAnchoredX = _bars[0].anchoredPosition.x;
+            }
+        }
+
+        void OnRectTransformDimensionsChange()
+        {
+            if (canvasRect == null) return;
+            UpdateBarSize();
+        }
+
+        void UpdateBarSize()
+        {
+            float canvasWidth = canvasRect.rect.width;
+
+            // 画面外まで覆う安全幅
+            safeWidth = canvasWidth * 1.5f;
+
+            foreach (var bar in _bars)
+            {
+                if (bar == null) continue;
+
+                bar.SetSizeWithCurrentAnchors(
+                    RectTransform.Axis.Horizontal,
+                    safeWidth
+                );
             }
         }
 
@@ -54,33 +86,34 @@ namespace App.Scripts.Common.UI
         {
             barSeq?.Kill();
             barSeq = DOTween.Sequence().SetUpdate(true);
+            float canvasHalf = canvasRect.rect.width / 2f;
 
-            if(type == 0)
+            if (type == 0) // 閉じる
             {
-                //閉じる
-                for (int i = 0; i < _bar.Length; i++)
+                for (int i = 0; i < _bars.Length; i++)
                 {
-                    Transform t = _bar[i].transform;
+                    if (_bars[i] == null) continue;
+
+                    float barHalf = _bars[i].rect.width / 2f;
+                    float targetX = barHalf;
 
                     barSeq.Insert(
                         i * delay,
-                        t.DOMoveX(startPos[i].x + moveDistance, duration)
-                        .SetEase(Ease.OutCubic)
+                        _bars[i].DOAnchorPosX(targetX, duration)
+                            .SetEase(Ease.OutCubic)
                     );
                 }
             }
-
-            if(type == 1)
+            else // 開く
             {
-                //開く
-                for (int i = 0; i < _bar.Length; i++)
+                for (int i = 0; i < _bars.Length; i++)
                 {
-                    Transform t = _bar[i].transform;
+                    if (_bars[i] == null) continue;
 
                     barSeq.Insert(
                         i * delay,
-                        t.DOMoveX(startPos[i].x, duration)
-                        .SetEase(Ease.InCubic)
+                        _bars[i].DOAnchorPosX(startAnchoredX, duration)
+                            .SetEase(Ease.InCubic)
                     );
                 }
 
@@ -89,7 +122,6 @@ namespace App.Scripts.Common.UI
                     _blockerImage.raycastTarget = false;
                     isActive = false;
                 });
-
             }
         }
 
@@ -98,18 +130,13 @@ namespace App.Scripts.Common.UI
             fadeSeq?.Kill();
             fadeSeq = DOTween.Sequence().SetUpdate(true);
 
-            if(type == 0)
+            if (type == 0)
             {
-                fadeSeq.Append(
-                    _fadeImage.DOFade(1f, 2f)
-                );
+                fadeSeq.Append(_fadeImage.DOFade(1f, 2f));
             }
-
-            if(type == 1)
+            else
             {
-                fadeSeq.Append(
-                    _fadeImage.DOFade(0f, 2f)
-                );
+                fadeSeq.Append(_fadeImage.DOFade(0f, 2f));
                 fadeSeq.OnComplete(() =>
                 {
                     _blockerImage.raycastTarget = false;
@@ -120,27 +147,28 @@ namespace App.Scripts.Common.UI
 
         public void LoadSceneWithTransition(string sceneName, int colorFlag)
         {
-            _colorChanger.ChangeColor(colorFlag);
+            if (_colorChanger != null)
+            {
+                _colorChanger.ChangeColor(colorFlag);
+            }
+
             StartCoroutine(TransitionAndLoad(sceneName));
         }
 
         private IEnumerator TransitionAndLoad(string sceneName)
         {
-            if(isActive) yield break;
+            if (isActive) yield break;
+
             isActive = true;
             _blockerImage.raycastTarget = true;
 
-            // 閉じる
             BarTransition(0);
 
-            // アニメーションが終わるまで待機
-            float waitTime = duration + (_bar.Length - 1) * delay;
+            float waitTime = duration + (_bars.Length - 1) * delay;
             yield return new WaitForSecondsRealtime(waitTime);
-            Debug.Log($"Transition complete. Loading scene: {sceneName}");
-            // シーン読み込み
+
             yield return SceneManager.LoadSceneAsync(sceneName);
 
-            // 開く
             BarTransition(1);
         }
     }

@@ -1150,18 +1150,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2a47fd06a8d649bdf07be8ea0aff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::App.Scripts.Common.SceneTransition
-  _bar:
-  - {fileID: 749613110}
-  - {fileID: 1387935260}
-  - {fileID: 757622932}
-  - {fileID: 2040865059}
-  - {fileID: 253640347}
-  - {fileID: 882470555}
-  - {fileID: 1596030748}
-  - {fileID: 2052166536}
-  - {fileID: 1655386857}
-  - {fileID: 999954730}
-  - {fileID: 1356400491}
+  _bars:
+  - {fileID: 749613111}
+  - {fileID: 1387935261}
+  - {fileID: 757622933}
+  - {fileID: 2040865060}
+  - {fileID: 253640348}
+  - {fileID: 882470556}
+  - {fileID: 1596030749}
+  - {fileID: 2052166537}
+  - {fileID: 1655386858}
+  - {fileID: 999954731}
+  - {fileID: 1356400494}
   _fadeImage: {fileID: 46883957}
   _blockerImage: {fileID: 1016786071}
   _colorChanger: {fileID: 853731066}
