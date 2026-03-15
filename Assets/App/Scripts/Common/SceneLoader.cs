@@ -47,6 +47,7 @@ namespace App.Common
         {
             //タイトル用のBGMを止める
             titleBGM.Stop();
+            _PlayerStatistics.AddClearedStageNum(1);
 
             //シーン切り替えの色の設定
             colorFlag = (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Easy ? 1
