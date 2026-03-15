@@ -7160,7 +7160,8 @@ MonoBehaviour:
   _titleText: {fileID: 911202774}
   _descriptionText: {fileID: 1936726641}
   _illustrationImage: {fileID: 111181576}
-  _testBool: 0
+  _isTest: 0
+  _sePlayer: {fileID: 644963252}
 --- !u!1 &1224794223
 GameObject:
   m_ObjectHideFlags: 0
@@ -8650,6 +8651,7 @@ MonoBehaviour:
   - {fileID: 1484130326}
   - {fileID: 1882507296}
   - {fileID: 2144489988}
+  _sePlayer: {fileID: 644963252}
 --- !u!224 &1355829279
 RectTransform:
   m_ObjectHideFlags: 0
