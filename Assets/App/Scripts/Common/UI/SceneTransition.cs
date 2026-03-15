@@ -136,7 +136,7 @@ namespace App.Scripts.Common.UI
             // アニメーションが終わるまで待機
             float waitTime = duration + (_bar.Length - 1) * delay;
             yield return new WaitForSecondsRealtime(waitTime);
-
+            Debug.Log($"Transition complete. Loading scene: {sceneName}");
             // シーン読み込み
             yield return SceneManager.LoadSceneAsync(sceneName);
 

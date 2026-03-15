@@ -7,12 +7,14 @@ public class Goal : MonoBehaviour
     [SerializeField] private GameObject Player;
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private TileBase goalTile; // ゴールタイルの種類を指定
+    private bool goalReached = false;
     
     private Vector3 posPlayer;
     private Vector3 goalPosition;
 
     void Start()
     {
+        goalReached = false;
         // 指定されたタイルの種類を検索してワールド座標を取得
         if (tilemap != null && goalTile != null)
         {
@@ -41,11 +43,14 @@ public class Goal : MonoBehaviour
     void FixedUpdate()
     {
         posPlayer = Player.transform.position;
-        if (goalPosition.x < posPlayer.x)
+        if (goalPosition.x < posPlayer.x && !goalReached)
         {
+            goalReached = true;
             Debug.Log("Goal Triggered");
             // ゲームクリアの処理を呼び出す
             App.Common._Data._PlayerStatistics.SetGameCleared(true);
         }
     }
+
+    
 }

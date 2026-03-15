@@ -45,9 +45,15 @@ namespace App.Common
 
         public void LoadNextWithFlagInGameScene(int difficulty)
         {
+            Debug.Log($"Loading next scene with difficulty: {difficulty}");
+            Debug.Log($"Current stage: {_GameStatus._stage}, Current game status: {_GameStatus._gameStatus}");
             //タイトル用のBGMを止める
             titleBGM.Stop();
-            _PlayerStatistics.AddClearedStageNum(1);
+            if (_GameStatus._gameStatus == _GameStatus.gameStatus.InGame)
+            {
+                _PlayerStatistics.AddClearedStageNum(1);
+            }
+            _PlayerStatistics.ResetGameCleared();
 
             //シーン切り替えの色の設定
             colorFlag = (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Easy ? 1
