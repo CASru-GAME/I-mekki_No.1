@@ -3401,15 +3401,15 @@ MonoBehaviour:
   sceneNames:
     TitleScene: TitleScene
     DifficultySelectScene: DifficultyScene
-    InGameSceneEasyOne: DemoGameScene
-    InGameSceneEasyTwo: DemoGameScene
-    InGameSceneEasyThree: DemoGameScene
-    InGameSceneNormalOne: DemoGameScene
-    InGameSceneNormalTwo: DemoGameScene
-    InGameSceneNormalThree: DemoGameScene
-    InGameSceneHardOne: DemoGameScene
-    InGameSceneHardTwo: DemoGameScene
-    InGameSceneHardThree: DemoGameScene
+    InGameSceneEasyOne: EasyGameScene1
+    InGameSceneEasyTwo: EasyGameScene2
+    InGameSceneEasyThree: EasyGameScene3
+    InGameSceneNormalOne: NormalGameScene1
+    InGameSceneNormalTwo: NormalGameScene2
+    InGameSceneNormalThree: NormalGameScene3
+    InGameSceneHardOne: HardGameScene1
+    InGameSceneHardTwo: HardGameScene2
+    InGameSceneHardThree: HardGameScene3
     ResultScene: ResultScene
 --- !u!4 &2065987302
 Transform:
