@@ -35,12 +35,23 @@ namespace App.Common
         public void LoadDifficultySelectScene()
         {
             colorFlag = 0;
+            titleBGM.Play();
 
             _GameStatus._stage = _GameStatus.stage.BeforeStage;
             _GameStatus._gameStatus = _GameStatus.gameStatus.SelectDifficulty;
             _PlayerStatus.ClearAll();
             _PlayerStatistics.ClearStageData();
             SceneTransition.Instance.LoadSceneWithTransition(sceneNames.DifficultySelectScene, colorFlag);
+        }
+
+        public void LoadResultScene()
+        {
+            colorFlag = 0;
+
+            _GameStatus._stage = _GameStatus.stage.BeforeStage;
+            _GameStatus._gameStatus = _GameStatus.gameStatus.Result;
+            _PlayerStatus.ClearAll();
+            SceneTransition.Instance.LoadSceneWithTransition(sceneNames.ResultScene, colorFlag);
         }
 
         public void LoadNextWithFlagInGameScene(int difficulty)

@@ -43,7 +43,7 @@ namespace App.Common._Data
             _gameCleared = gameCleared;
             SceneLoader.Instance.LoadNextWithFlagInGameScene((int)_GameStatus._difficulty);
             //SceneTransition.Instance.LoadSceneWithTransition(SceneLoader.Instance.sceneNames.ResultScene, 0);
-            SceneLoader.Instance.GetTitleBGM().Play();
+            //SceneLoader.Instance.GetTitleBGM().Play();
         }
         static public void ResetGameCleared()
         {

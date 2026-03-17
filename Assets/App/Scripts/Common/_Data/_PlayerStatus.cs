@@ -25,7 +25,7 @@ namespace App.Common._Data
             if(_hp <= 0)
             {
                 _hp = 0;
-                _PlayerStatistics.SetGameCleared(false);
+                SceneLoader.Instance.LoadResultScene();
             }
         }
     }
