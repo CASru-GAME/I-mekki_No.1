@@ -17,6 +17,33 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/App/Scenes/ResultScene.unity
     guid: e3656c082a16c43419cc58b011b2151b
+  - enabled: 1
+    path: Assets/App/Scenes/NormalGameScenes/NormalGameScene1.unity
+    guid: a4102cc372987d94c8eb3d1a8006fa08
+  - enabled: 1
+    path: Assets/App/Scenes/NormalGameScenes/NormalGameScene2.unity
+    guid: d1d169f3d9a0cc84c97a0a70d7b70b87
+  - enabled: 1
+    path: Assets/App/Scenes/NormalGameScenes/NormalGameScene3.unity
+    guid: d1c4a6a674d2a8d43af3d56ff1536245
+  - enabled: 1
+    path: Assets/App/Scenes/HardGameScenes/HardGameScene1.unity
+    guid: 8a6e65a3654ae4d49b0e5e088712a493
+  - enabled: 1
+    path: Assets/App/Scenes/HardGameScenes/HardGameScene2.unity
+    guid: fd19bb3e7fdbbd14eb00d4437447e965
+  - enabled: 1
+    path: Assets/App/Scenes/HardGameScenes/HardGameScene3.unity
+    guid: 4c66e92a00a28f641869b3c13e1dcded
+  - enabled: 1
+    path: Assets/App/Scenes/EasyGameScenes/EasyGameScene1.unity
+    guid: 19a4f967668110648816920079ec84d3
+  - enabled: 1
+    path: Assets/App/Scenes/EasyGameScenes/EasyGameScene2.unity
+    guid: 7ed01c5531c15f046aa672d29878d724
+  - enabled: 1
+    path: Assets/App/Scenes/EasyGameScenes/EasyGameScene3.unity
+    guid: dc958cce661a28442bcba0c5cd0d179c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
