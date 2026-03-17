@@ -10,13 +10,21 @@ namespace App.Game.Field
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            TryCollect(collision);
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            TryCollect(collision);
+        }
+
+        private void TryCollect(Collider2D collision)
+        {
             if (collision.GetComponent<App.Game.Player.Player>() == null) return;
 
-            // 接触点ベースでセル取得（ズレ対策）
             Vector2 hitPoint = collision.ClosestPoint(transform.position);
             Vector3Int cell = tilemap.WorldToCell(hitPoint);
 
-            // そのセルにタイルが無ければ、周囲も探索（境界ヒット対策）
             if (!tilemap.HasTile(cell))
             {
                 bool found = false;
@@ -32,8 +40,6 @@ namespace App.Game.Field
             }
 
             CollectCoin(cell);
-
-            //効果音を再生
             collision.GetComponent<App.Game.Player.PlayerSE>().PlayCoin();
         }
 
