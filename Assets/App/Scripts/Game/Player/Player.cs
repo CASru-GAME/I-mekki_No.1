@@ -78,12 +78,12 @@ namespace App.Game.Player
             jump.FixedUpdate();
             //playerDamage.FixedUpdate();
 
-            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")){
+            /*if(animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")){
                 Debug.Log("Jumping");
             }
             if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dash")){
                 Debug.Log("Dashing");
-            }
+            }*/
         }
     }
 }
