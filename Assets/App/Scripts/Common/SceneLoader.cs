@@ -92,6 +92,7 @@ namespace App.Common
             }
             else
             {
+                _PlayerStatistics.SetGameAsCleared();
                 _GameStatus._stage = _GameStatus.stage.BeforeStage;
                 _GameStatus._gameStatus = _GameStatus.gameStatus.Result;
                 SceneTransition.Instance.LoadSceneWithTransition(sceneNames.ResultScene, colorFlag);
