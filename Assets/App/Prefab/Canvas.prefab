@@ -1495,7 +1495,7 @@ GameObject:
   - component: {fileID: 4395545832418927933}
   - component: {fileID: 3534163990276944374}
   - component: {fileID: 2287825501075869036}
-  - component: {fileID: 1453076948976741947}
+  - component: {fileID: 3544840124831869959}
   m_Layer: 5
   m_Name: Retire
   m_TagString: Untagged
@@ -1605,10 +1605,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1453076948976741947}
-        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
-        m_MethodName: LoadNextScene
-        m_Mode: 5
+      - m_Target: {fileID: 3544840124831869959}
+        m_TargetAssemblyTypeName: App.Scripts.Common.UI.LoadScene, Assembly-CSharp
+        m_MethodName: LoadDifficultySelectScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1617,7 +1617,7 @@ MonoBehaviour:
           m_StringArgument: ResultScene
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1453076948976741947
+--- !u!114 &3544840124831869959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1626,22 +1626,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3623629203501894242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5353acce401a7c44896c5f00bd7b2eaf, type: 3}
+  m_Script: {fileID: 11500000, guid: ea53144f968a9f14ab31dda1071f27ef, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  sceneNames:
-    TitleScene: TitleScene
-    DifficultySelectScene: DifficultySelectScene
-    InGameSceneEasyOne: InGameSceneEasy1
-    InGameSceneEasyTwo: InGameSceneEasy2
-    InGameSceneEasyThree: InGameSceneEasy3
-    InGameSceneNormalOne: InGameSceneNormal1
-    InGameSceneNormalTwo: InGameSceneNormal2
-    InGameSceneNormalThree: InGameSceneNormal3
-    InGameSceneHardOne: InGameSceneHard1
-    InGameSceneHardTwo: InGameSceneHard2
-    InGameSceneHardThree: InGameSceneHard3
-    ResultScene: ResultScene
+  m_EditorClassIdentifier: Assembly-CSharp::App.Scripts.Common.UI.LoadScene
 --- !u!1 &3672816196595963337
 GameObject:
   m_ObjectHideFlags: 0
