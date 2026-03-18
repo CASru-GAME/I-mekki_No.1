@@ -2243,8 +2243,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235292559}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.5}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1028956403}
@@ -2256,11 +2256,11 @@ RectTransform:
   - {fileID: 1284465966}
   - {fileID: 1795849819}
   - {fileID: 778934683}
-  m_Father: {fileID: 1784005324}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 359.7, y: 580.1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1245353209
@@ -4813,6 +4813,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 426146960463128289, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6279041238382560327, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4895,10 +4899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6279041238382560327, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1235292560}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 101213120726222605, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
       insertIndex: -1
@@ -4923,11 +4924,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::App.Common.SE.SEPlayer
   audioSource: {fileID: 882823684}
   seClip: {fileID: 8300000, guid: 125dcfa08ca01ce4ebd2028c8ce6bc70, type: 3}
---- !u!224 &1784005324 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6279041238382560327, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
-  m_PrefabInstance: {fileID: 1784005316}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1795849818
 GameObject:
   m_ObjectHideFlags: 0
@@ -5140,6 +5136,17 @@ Transform:
   - {fileID: 772674085}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1936838009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 340215458672473284, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 1784005316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1968894952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5197,6 +5204,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85cdb42957a2e85489c360e15c2d241f, type: 3}
+--- !u!114 &2112012442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6443311849344207553, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 1784005316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2132087879
 GameObject:
   m_ObjectHideFlags: 0
@@ -5401,6 +5419,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8913541979626108633, guid: 81b1f321b70ef3a4780f68b5966487f2, type: 3}
+      propertyPath: SEVolumeSlider
+      value: 
+      objectReference: {fileID: 2112012442}
+    - target: {fileID: 8913541979626108633, guid: 81b1f321b70ef3a4780f68b5966487f2, type: 3}
+      propertyPath: BGMVolumeSlider
+      value: 
+      objectReference: {fileID: 1936838009}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5420,3 +5446,4 @@ SceneRoots:
   - {fileID: 1108240588}
   - {fileID: 16509403}
   - {fileID: 1245353209}
+  - {fileID: 1235292560}
