@@ -26,5 +26,11 @@ namespace App.Scripts.Common.UI
         {
             SceneLoader.Instance.LoadNextWithFlagInGameScene(difficulty);
         }
+
+        public void LoadResultScene()
+        {
+            Time.timeScale = 1f; // ゲームの時間を通常に戻す
+            SceneLoader.Instance.LoadResultScene();
+        }
     }
 }

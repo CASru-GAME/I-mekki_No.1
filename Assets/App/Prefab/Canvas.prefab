@@ -379,7 +379,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3213470978679740479}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -1607,7 +1607,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3544840124831869959}
         m_TargetAssemblyTypeName: App.Scripts.Common.UI.LoadScene, Assembly-CSharp
-        m_MethodName: LoadDifficultySelectScene
+        m_MethodName: LoadResultScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2704,7 +2704,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8573128359099086118}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
