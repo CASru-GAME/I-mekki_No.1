@@ -3,7 +3,6 @@ using UnityEngine.Tilemaps;
 
 public class Goal : MonoBehaviour
 {
-    [SerializeField] private string ResultSceneName = "ResultScene";
     [SerializeField] private GameObject Player;
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private TileBase goalTile; // ゴールタイルの種類を指定
