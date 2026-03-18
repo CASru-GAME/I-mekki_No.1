@@ -45,6 +45,11 @@ namespace App.Common._Data
             //SceneTransition.Instance.LoadSceneWithTransition(SceneLoader.Instance.sceneNames.ResultScene, 0);
             //SceneLoader.Instance.GetTitleBGM().Play();
         }
+        static public void SetGameAsCleared()
+        {
+            _gameCleared = true;
+            UnityEngine.Debug.Log("Game cleared status set to true.");
+        }
         static public void ResetGameCleared()
         {
             _gameCleared = false;
