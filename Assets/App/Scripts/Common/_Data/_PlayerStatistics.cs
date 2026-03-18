@@ -47,7 +47,7 @@ namespace App.Common._Data
         }
         static public void ResetGameCleared()
         {
-            _gameCleared = false;
+            //_gameCleared = false;
             UnityEngine.Debug.Log("Game cleared status reset to false.");
         }
     }
