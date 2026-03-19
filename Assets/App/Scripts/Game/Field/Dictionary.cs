@@ -32,6 +32,7 @@ namespace App.Game.Field
 
             _PlayerStatistics.AddDictionaryNum(1);
             _PlayerStatistics.isDictionaryOpen[dictionaryNumber] = true;
+            _JsonDataManager.SaveDictionaryData();
             gameObject.SetActive(false);
 
             collision.GetComponent<App.Game.Player.PlayerSE>().PlayDictionary();
