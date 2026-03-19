@@ -1,12 +1,10 @@
 using System;
-using System.IO;
 using UnityEngine;
 
 namespace App.Common._Data
 {
     public static class _JsonDataManager
     {
-        private const string FileName = "isDictionaryOpen.json";
         private const string PlayerPrefsKey = "isDictionaryOpen_json";
 
         private static _DictionaryWrapper dictionaryWrapper = new _DictionaryWrapper();
@@ -14,54 +12,27 @@ namespace App.Common._Data
         public static void SaveDictionaryData()
         {
             Debug.Log("Saving dictionary data...");
-            dictionaryWrapper.isDictionaryOpen = CopyOrCreateArray(_PlayerStatistics.isDictionaryOpen);
 
+            dictionaryWrapper.isDictionaryOpen = CopyOrCreateArray(_PlayerStatistics.isDictionaryOpen);
             string json = JsonUtility.ToJson(dictionaryWrapper, true);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
             PlayerPrefs.SetString(PlayerPrefsKey, json);
             PlayerPrefs.Save();
-            Debug.Log("Dictionary data saved to PlayerPrefs (WebGL).");
-#else
-            string filePath = Path.Combine(Application.persistentDataPath, FileName);
-            string directoryPath = Path.GetDirectoryName(filePath);
 
-            if (!string.IsNullOrEmpty(directoryPath) && !Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
-
-            File.WriteAllText(filePath, json);
-            Debug.Log("Dictionary data saved to: " + filePath);
-#endif
+            Debug.Log("Dictionary data saved to PlayerPrefs.");
         }
 
         public static void LoadDictionaryData()
         {
             Debug.Log("Loading dictionary data...");
-            string json = null;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-            if (PlayerPrefs.HasKey(PlayerPrefsKey))
+            if (!PlayerPrefs.HasKey(PlayerPrefsKey))
             {
-                json = PlayerPrefs.GetString(PlayerPrefsKey);
-            }
-#else
-            string filePath = Path.Combine(Application.persistentDataPath, FileName);
-            string directoryPath = Path.GetDirectoryName(filePath);
-
-            if (!string.IsNullOrEmpty(directoryPath) && !Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
+                InitializeDefaultAndSave();
+                return;
             }
 
-            if (File.Exists(filePath))
-            {
-                json = File.ReadAllText(filePath);
-                Debug.Log("Dictionary data loaded from: " + filePath);
-            }
-#endif
-
+            string json = PlayerPrefs.GetString(PlayerPrefsKey);
             var loadedWrapper = string.IsNullOrEmpty(json)
                 ? null
                 : JsonUtility.FromJson<_DictionaryWrapper>(json);
@@ -72,8 +43,7 @@ namespace App.Common._Data
                 return;
             }
 
-            int targetLength = _PlayerStatistics.DictionaryNumMax;
-            EnsurePlayerStatisticsArray(targetLength);
+            EnsurePlayerStatisticsArray(_PlayerStatistics.DictionaryNumMax);
 
             int copyLength = Mathf.Min(_PlayerStatistics.isDictionaryOpen.Length, loadedWrapper.isDictionaryOpen.Length);
             Array.Copy(loadedWrapper.isDictionaryOpen, _PlayerStatistics.isDictionaryOpen, copyLength);
@@ -84,7 +54,7 @@ namespace App.Common._Data
             }
 
             dictionaryWrapper.isDictionaryOpen = CopyOrCreateArray(_PlayerStatistics.isDictionaryOpen);
-            Debug.Log("Dictionary data loaded.");
+            Debug.Log("Dictionary data loaded from PlayerPrefs.");
         }
 
         private static void InitializeDefaultAndSave()
@@ -98,6 +68,7 @@ namespace App.Common._Data
 
             dictionaryWrapper.isDictionaryOpen = CopyOrCreateArray(_PlayerStatistics.isDictionaryOpen);
             SaveDictionaryData();
+
             Debug.Log("Dictionary data was missing/invalid. Initialized with defaults.");
         }
 
