@@ -45,7 +45,7 @@ namespace App.Game.Player
             moveright = new MoveRight(gameobject, speed, offScreenTimeout, camera, outofscreenaddspeed);
             playerLayer = LayerMask.NameToLayer("Player");
             enemyLayer  = LayerMask.NameToLayer("Enemy");
-            playerDamage = new _PlayerDamage(playerLayer, enemyLayer, invincibleTime, flashDuration, GetComponent<SpriteRenderer>(), playerSE);
+            playerDamage = new _PlayerDamage(playerLayer, enemyLayer, invincibleTime, flashDuration, GetComponent<SpriteRenderer>(), playerSE, this);
             stompEnemy = new _StompEnemy(playerCollider.bounds.size.y, playerDamage);
             playerSE.Bind(jump, dash);
         }
@@ -61,7 +61,7 @@ namespace App.Game.Player
             await dash.PerformDash(context);
         }
 
-        public void OnTriggerEnter2D(Collider2D collisionInfo)
+        public void OnTriggerStay2D(Collider2D collisionInfo)
         {
             GameObject stompedEnemy = stompEnemy.OnCollisionEnemy(transform.position.y, collisionInfo);
             if (stompedEnemy != null)
