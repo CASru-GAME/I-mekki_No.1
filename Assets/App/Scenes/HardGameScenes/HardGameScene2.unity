@@ -554,7 +554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f4ec6257102b149bbe29329814e5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResultSceneName: ResultScene
   Player: {fileID: 1487837486}
   tilemap: {fileID: 35199463}
   goalTile: {fileID: 11400000, guid: 826c90ed77edf68489afad9ca41b3b40, type: 2}
@@ -6257,6 +6256,10 @@ PrefabInstance:
       propertyPath: speed
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3526238242613676849, guid: 81b1f321b70ef3a4780f68b5966487f2, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 70860906cf57d364f988d5fdb03dd43f, type: 3}
     - target: {fileID: 6408582701041207864, guid: 81b1f321b70ef3a4780f68b5966487f2, type: 3}
       propertyPath: m_Name
       value: Main Camera
