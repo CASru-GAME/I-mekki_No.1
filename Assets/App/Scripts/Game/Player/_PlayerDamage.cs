@@ -1,6 +1,6 @@
 using UnityEngine;
 using App.Common._Data;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace App.Game.Player
 {
@@ -12,8 +12,11 @@ namespace App.Game.Player
         private float flashDuration;
         private SpriteRenderer spriteRenderer;
         private PlayerSE se;
+        private MonoBehaviour coroutineRunner;
+        private bool isInvincible;
+        private Coroutine damageCoroutine;
 
-        public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration,SpriteRenderer spriteRenderer, PlayerSE se)
+        public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration, SpriteRenderer spriteRenderer, PlayerSE se, MonoBehaviour coroutineRunner)
         {
             this.playerLayer = playerLayer;
             this.enemyLayer = enemyLayer;
@@ -21,43 +24,60 @@ namespace App.Game.Player
             this.flashDuration = flashDuration;
             this.spriteRenderer = spriteRenderer;
             this.se = se;
+            this.coroutineRunner = coroutineRunner;
         }
+
         public void TakeDamage()
         {
+            if (isInvincible || coroutineRunner == null)
+            {
+                return;
+            }
+
             Debug.Log("Player Damaged");
             _PlayerStatus.SubHp();
 
-            //プレイヤーを無敵状態にする
-            InvincibilityCoroutine();
-
-            //プレイヤーを点滅させる
-            FlashPlayer(this.spriteRenderer);
+            if (damageCoroutine != null)
+            {
+                coroutineRunner.StopCoroutine(damageCoroutine);
+            }
+            damageCoroutine = coroutineRunner.StartCoroutine(DamageCoroutine());
 
             se.PlayDamage();
         }
 
-        public async Task InvincibilityCoroutine()
+        private IEnumerator DamageCoroutine()
         {
-            // プレイヤーを無敵状態にする
+            isInvincible = true;
             Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
-            // 無敵状態の持続時間を待つ
-            await Task.Delay((int)(invincibleTime * 1000));
-            // プレイヤーの無敵状態を解除する
-            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
-        }
-        public async void FlashPlayer(SpriteRenderer spriteRenderer)
-        {
-            float flashDuration = this.flashDuration; // 点滅の間隔
-            int flashCount = (int)((invincibleTime / flashDuration)/2); // 点滅の回数
 
-            for (int i = 0; i < flashCount; i++)
+            float elapsed = 0f;
+            float blinkInterval = Mathf.Max(0.01f, flashDuration);
+            bool halfTransparent = true;
+
+            while (elapsed < invincibleTime)
             {
-                // プレイヤーの透明度を切り替える
-                spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f); // 半透明
-                await Task.Delay((int)(flashDuration * 1000)); // 点滅の間隔を待つ
-                spriteRenderer.color = new Color(1f, 1f, 1f, 1f); // 元の色に戻す
-                await Task.Delay((int)(flashDuration * 1000)); // 点滅の間隔を待つ
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.color = halfTransparent
+                        ? new Color(1f, 1f, 1f, 0.5f)
+                        : new Color(1f, 1f, 1f, 1f);
+                }
+
+                float wait = Mathf.Min(blinkInterval, invincibleTime - elapsed);
+                yield return new WaitForSeconds(wait);
+                elapsed += wait;
+                halfTransparent = !halfTransparent;
             }
+
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+            }
+
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+            isInvincible = false;
+            damageCoroutine = null;
         }
     }
 }
