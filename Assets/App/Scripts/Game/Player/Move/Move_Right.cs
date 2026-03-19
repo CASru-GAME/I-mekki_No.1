@@ -11,6 +11,7 @@ namespace App.Game.Player.Move
         private int count=0;
         private float offScreenTimeout;
         private float offScreenspeed;
+        private bool playerdead = false;
         public MoveRight(GameObject player, float speed, float offScreentimeout, GameObject camera, float offScreenspeed)
         {
             this.speed = speed;
@@ -33,6 +34,14 @@ namespace App.Game.Player.Move
                 }
             }else{
                 count=0;
+            }
+            //落下したときの処理
+            if(camera.transform.position.y - 3.0 > rb.transform.position.y){
+                if(_PlayerStatus.SubHp(playerdead)){
+                    playerdead = true;
+                }
+                Debug.Log("Player fell off the screen! HP: " + _PlayerStatus.GetHp());
+                
             }
         }
     }
