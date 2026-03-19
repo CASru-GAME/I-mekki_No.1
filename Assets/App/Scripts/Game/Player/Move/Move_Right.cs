@@ -19,6 +19,7 @@ namespace App.Game.Player.Move
             this.camera = camera;
             this.offScreenspeed = offScreenspeed;
             this.offScreenTimeout = offScreentimeout;
+            playerdead = false;
         }
 
         public void Move()
