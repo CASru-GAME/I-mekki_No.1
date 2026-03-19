@@ -131,7 +131,7 @@ namespace App.Game.Player.Move
 
             // プレイヤーの足元にレイキャストを飛ばして地面に接触しているか確認
             Vector2 origin = new Vector2(player.transform.position.x, player.transform.position.y - collider.bounds.extents.y - 0.1f);
-            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 0.2f);
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 0.02f);
             Debug.DrawRay(origin, Vector2.down * 0.2f, Color.red);
 
             if (hit.collider != null && !hit.collider.gameObject.CompareTag("Player"))

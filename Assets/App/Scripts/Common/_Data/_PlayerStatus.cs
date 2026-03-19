@@ -19,14 +19,18 @@ namespace App.Common._Data
         {
             _hp++;
         }
-        static public void SubHp()
+        static public bool SubHp(bool isdead = false)
         {
-            _hp--;
-            if(_hp <= 0)
-            {
-                _hp = 0;
-                SceneLoader.Instance.LoadResultScene();
+            if(!isdead){
+                _hp--;
+                if(_hp <= 0)
+                {
+                    _hp = 0;
+                    SceneLoader.Instance.LoadResultScene();
+                    return true;
+                }
             }
+            return false;
         }
     }
 }
