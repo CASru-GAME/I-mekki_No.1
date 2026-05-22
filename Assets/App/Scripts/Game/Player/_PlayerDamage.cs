@@ -25,6 +25,8 @@ namespace App.Game.Player
             this.spriteRenderer = spriteRenderer;
             this.se = se;
             this.coroutineRunner = coroutineRunner;
+
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
         }
 
         public void TakeDamage()
@@ -34,7 +36,6 @@ namespace App.Game.Player
                 return;
             }
 
-            Debug.Log("Player Damaged");
             _PlayerStatus.SubHp();
 
             if (damageCoroutine != null)

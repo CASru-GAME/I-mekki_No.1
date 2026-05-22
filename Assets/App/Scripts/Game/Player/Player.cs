@@ -63,6 +63,7 @@ namespace App.Game.Player
 
         public void OnTriggerStay2D(Collider2D collisionInfo)
         {
+            Debug.Log("OnTriggerStay2D called");
             GameObject stompedEnemy = stompEnemy.OnCollisionEnemy(transform.position.y, collisionInfo);
             if (stompedEnemy != null)
             {
