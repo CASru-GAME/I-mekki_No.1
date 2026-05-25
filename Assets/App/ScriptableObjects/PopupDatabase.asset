@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652b4dcbac6d2db4cb4b1a904c2d5737, type: 3}
+  m_Name: PopupDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::App.Game.UI.PopupDatabase
+  _items:
+  - popupText: "\u305A\u304B\u30931\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30932\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30933\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30934\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30935\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30936\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30937\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30938\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u30939\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309310\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309311\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309312\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309313\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309314\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309315\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309316\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309317\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309318\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309319\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309320\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309321\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u30B8\u30E3\u30F3\u30D7\u5F37\u5316"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "HP\u56DE\u5FA9"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u7121\u6575\u72B6\u614B"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
