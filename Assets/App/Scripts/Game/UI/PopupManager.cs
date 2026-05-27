@@ -4,21 +4,18 @@ namespace App.Game.UI
 {
     public class PopupManager : MonoBehaviour
     {
-        public static PopupManager Instance;
-
         [SerializeField] private PopupText _popupPrefab;
 
         [SerializeField] private Transform _popupRoot;
 
-        [SerializeField] private Vector3 _popupOffset = new Vector3(0f, 1.5f, 0f);
+        [SerializeField] private Vector3 _popupOffset = new Vector3(-10f, 1.5f, 0f);
         [SerializeField] private PopupDatabase _popupDatabase;
+        public PopupDatabase PopupDatabase => _popupDatabase;
 
         private Camera _mainCamera;
 
         private void Awake()
         {
-            Instance = this;
-
             _mainCamera = Camera.main;
 
             // popupRoot未設定時は自分を使用
@@ -30,8 +27,9 @@ namespace App.Game.UI
 
         private void Start()
         {
-            PopupItem _item = _popupDatabase.Items[21];
-            ShowPopup(Vector3.zero, _item.PopupText, _item.TextColor);
+            //ポッポアップのデモ、トリガーは他スクリプトの予定
+            //PopupItem _item = _popupDatabase.Items[21];
+            //ShowPopup(Vector3.zero, _item.PopupText, _item.TextColor);
         }
 
         // ポップアップ表示
@@ -48,7 +46,6 @@ namespace App.Game.UI
 
             // UI座標設定
             RectTransform _rect = _popup.GetComponent<RectTransform>();
-
             _rect.position = _screenPos;
 
             // 表示

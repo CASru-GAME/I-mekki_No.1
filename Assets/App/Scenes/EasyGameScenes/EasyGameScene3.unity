@@ -128,6 +128,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _popupManager
+      value: 
+      objectReference: {fileID: 1359254289}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: dictionaryNumber
       value: 4
       objectReference: {fileID: 0}
@@ -2241,6 +2245,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _popupManager
+      value: 
+      objectReference: {fileID: 1359254289}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: dictionaryNumber
       value: 5
       objectReference: {fileID: 0}
@@ -2526,6 +2534,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::App.Common.SE.SEPlayer
   audioSource: {fileID: 882823684}
   seClip: {fileID: 8300000, guid: 125dcfa08ca01ce4ebd2028c8ce6bc70, type: 3}
+--- !u!114 &1359254289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4001092124632073769, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 1359254286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359254287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ef1de0f6a65ac47a372e832fc3a2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Game.UI.PopupManager
 --- !u!114 &1359254290 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 340215458672473284, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
@@ -4899,6 +4918,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _popupManager
+      value: 
+      objectReference: {fileID: 1359254289}
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: dictionaryNumber
       value: 6

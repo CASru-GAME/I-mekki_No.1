@@ -1,4 +1,5 @@
 using App.Common._Data;
+using App.Game.UI;
 using UnityEngine;
 
 namespace App.Game.Field
@@ -6,6 +7,7 @@ namespace App.Game.Field
     public class Dictionary : MonoBehaviour
     {
         [SerializeField] private int dictionaryNumber;
+        [SerializeField] private PopupManager _popupManager;
 
         public void Start()
         {
@@ -32,6 +34,15 @@ namespace App.Game.Field
 
             _PlayerStatistics.AddDictionaryNum(1);
             _PlayerStatistics.isDictionaryOpen[dictionaryNumber] = true;
+
+            //取得ポップアップの表示
+            if(_popupManager != null)
+            {
+                var dictionaryPos = transform.position;
+                PopupItem _item = _popupManager.PopupDatabase.Items[dictionaryNumber];
+                _popupManager.ShowPopup(dictionaryPos, _item.PopupText, _item.TextColor);
+            }
+
             _JsonDataManager.SaveDictionaryData();
             gameObject.SetActive(false);
 

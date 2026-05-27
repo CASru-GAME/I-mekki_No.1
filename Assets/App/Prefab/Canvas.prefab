@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 426146960463128289}
   - component: {fileID: 6444535808004357612}
   - component: {fileID: 8111688840241627544}
+  - component: {fileID: 4001092124632073769}
   - component: {fileID: -1844171624696216550}
   m_Layer: 5
   m_Name: Canvas
@@ -131,6 +132,22 @@ MonoBehaviour:
   dictionaryNumber: {fileID: 1856667564819285863}
   coinNumber: {fileID: 3235433177948060511}
   lifeNumber: {fileID: 5534760908745184037}
+--- !u!114 &4001092124632073769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101213120726222605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ef1de0f6a65ac47a372e832fc3a2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Game.UI.PopupManager
+  _popupPrefab: {fileID: 8749152783917867710, guid: 12d18f4c40d2fda47a0c196b2c275394, type: 3}
+  _popupRoot: {fileID: 0}
+  _popupOffset: {x: 0, y: 1.5, z: 0}
+  _popupDatabase: {fileID: 11400000, guid: 23730ec0946184449aa4074e2d1cb76a, type: 2}
 --- !u!114 &-1844171624696216550
 MonoBehaviour:
   m_ObjectHideFlags: 0

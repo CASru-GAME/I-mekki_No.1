@@ -23,8 +23,6 @@ namespace App.Game.UI
             _text.text = message;
             _text.color = color;
 
-            _rectTransform.anchoredPosition = Vector2.zero;
-
             // alpha初期化
             Color c = _text.color;
             c.a = 1f;
@@ -34,7 +32,7 @@ namespace App.Game.UI
 
             // 上移動
             seq.Join(
-                _rectTransform.DOAnchorPosY(_moveY, _duration)
+                _rectTransform.DOAnchorPosY(_moveY, _duration).SetRelative()
                 .SetEase(Ease.OutCubic)
             );
 
