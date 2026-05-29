@@ -9,7 +9,7 @@ namespace App.Game.UI
         [SerializeField] private TextMeshProUGUI _text;
 
         [SerializeField] private float _moveY = 80f;
-        [SerializeField] private float _duration = 1.5f;
+        [SerializeField] private float _duration = 2.0f;
 
         private RectTransform _rectTransform;
 

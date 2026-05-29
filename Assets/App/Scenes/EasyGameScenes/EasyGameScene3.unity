@@ -128,6 +128,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _notification
+      value: 
+      objectReference: {fileID: 1421246958}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: _popupManager
       value: 
       objectReference: {fileID: 1359254289}
@@ -2245,6 +2249,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _notification
+      value: 
+      objectReference: {fileID: 1421246958}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: _popupManager
       value: 
       objectReference: {fileID: 1359254289}
@@ -2642,6 +2650,11 @@ RectTransform:
   m_AnchoredPosition: {x: -412, y: -11.000026}
   m_SizeDelta: {x: 1150, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1421246958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4963242269823783013, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 1359254286}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1487837486 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 148909227661816904, guid: a383aedecb47fd54fbef7229eb8d8a45, type: 3}
