@@ -2435,6 +2435,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4001092124632073769, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+      propertyPath: _popupRoot
+      value: 
+      objectReference: {fileID: 1421246959}
     - target: {fileID: 6279041238382560327, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2653,6 +2657,11 @@ RectTransform:
 --- !u!1 &1421246958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4963242269823783013, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 1359254286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1421246959 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4339870018561506666, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
   m_PrefabInstance: {fileID: 1359254286}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1487837486 stripped
