@@ -218,6 +218,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _notification
+      value: 
+      objectReference: {fileID: 1178787442}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _popupManager
+      value: 
+      objectReference: {fileID: 622251741}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: dictionaryNumber
       value: 16
       objectReference: {fileID: 0}
@@ -1243,6 +1251,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::App.Common.SE.SEPlayer
   audioSource: {fileID: 882823684}
   seClip: {fileID: 8300000, guid: 125dcfa08ca01ce4ebd2028c8ce6bc70, type: 3}
+--- !u!114 &622251741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4001092124632073769, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 622251738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622251739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ef1de0f6a65ac47a372e832fc3a2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Game.UI.PopupManager
 --- !u!114 &622251742 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 340215458672473284, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
@@ -2515,6 +2534,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1178787442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4963242269823783013, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 622251738}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1245353209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2523,6 +2547,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _notification
+      value: 
+      objectReference: {fileID: 1178787442}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _popupManager
+      value: 
+      objectReference: {fileID: 622251741}
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: dictionaryNumber
       value: 17

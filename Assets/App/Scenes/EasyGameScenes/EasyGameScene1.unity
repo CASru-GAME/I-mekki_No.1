@@ -127,6 +127,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _notification
+      value: 
+      objectReference: {fileID: 1612888608}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _popupManager
+      value: 
+      objectReference: {fileID: 1784005319}
     - target: {fileID: 4512347508324238043, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: m_Name
       value: Dictionary
@@ -520,7 +528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f4ec6257102b149bbe29329814e5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResultSceneName: ResultScene
   Player: {fileID: 1487837486}
   tilemap: {fileID: 35199463}
   goalTile: {fileID: 11400000, guid: 826c90ed77edf68489afad9ca41b3b40, type: 2}
@@ -2272,6 +2279,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _notification
+      value: 
+      objectReference: {fileID: 1612888608}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
+      propertyPath: _popupManager
+      value: 
+      objectReference: {fileID: 1784005319}
+    - target: {fileID: 3994475529472775959, guid: 8f61af1ebf470c2478a54216ad4db782, type: 3}
       propertyPath: dictionaryNumber
       value: 1
       objectReference: {fileID: 0}
@@ -2673,6 +2688,11 @@ RectTransform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 148909227661816904, guid: a383aedecb47fd54fbef7229eb8d8a45, type: 3}
   m_PrefabInstance: {fileID: 37305201766056933}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1612888608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4963242269823783013, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 1784005316}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1664391284
 GameObject:
@@ -4924,6 +4944,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::App.Common.SE.SEPlayer
   audioSource: {fileID: 882823684}
   seClip: {fileID: 8300000, guid: 125dcfa08ca01ce4ebd2028c8ce6bc70, type: 3}
+--- !u!114 &1784005319 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4001092124632073769, guid: 7cc518f794cf5674c8ea71fc2775291e, type: 3}
+  m_PrefabInstance: {fileID: 1784005316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784005317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ef1de0f6a65ac47a372e832fc3a2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::App.Game.UI.PopupManager
 --- !u!1 &1795849818
 GameObject:
   m_ObjectHideFlags: 0
