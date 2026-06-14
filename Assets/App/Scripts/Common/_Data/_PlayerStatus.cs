@@ -2,6 +2,7 @@ namespace App.Common._Data
 {
     static class _PlayerStatus
     {
+        private const int MaxHp = 3;
         static private int _hp;
         static public void SetHp(int hp)
         {
@@ -13,11 +14,18 @@ namespace App.Common._Data
         }
         static public void ClearAll()
         {
-            _hp = 3;
+            RecoverAllHp();
+        }
+        static public void RecoverAllHp()
+        {
+            _hp = MaxHp;
         }
         static public void AddHp()
         {
-            _hp++;
+            if (_hp < MaxHp)
+            {
+                _hp++;
+            }
         }
         static public bool SubHp(bool isdead = false)
         {
