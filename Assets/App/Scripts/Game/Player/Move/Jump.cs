@@ -24,6 +24,7 @@ namespace App.Game.Player.Move
         private float maxjumptime;
         private float jumpstarttime;
         private float maxjump;
+        private float minjump;
         private float gravity;
         private float jumprangetime;
         private Animator animator;
