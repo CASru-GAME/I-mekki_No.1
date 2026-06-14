@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::App.Game.Item.ItemEffectDatabase
   effects:
   - {fileID: 11400000, guid: 99ca22d1816e8fa49ae6b13f9f19b392, type: 2}
+  - {fileID: 11400000, guid: 870e82ed7859e244cb82060a351bd90f, type: 2}
