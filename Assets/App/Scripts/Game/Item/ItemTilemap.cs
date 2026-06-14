@@ -51,9 +51,20 @@ namespace App.Game.Item
                 return;
             }
 
-            ItemEffectContext context = new ItemEffectContext(player.gameObject, tilemap, cell);
+            ItemEffectRunner runner = GetOrAddRunner(player.gameObject);
+            ItemEffectContext context = new ItemEffectContext(player.gameObject, tilemap, cell, runner);
             effect.Apply(context);
             RemoveTile(cell);
+        }
+
+        private ItemEffectRunner GetOrAddRunner(GameObject player)
+        {
+            if (!player.TryGetComponent(out ItemEffectRunner runner))
+            {
+                runner = player.AddComponent<ItemEffectRunner>();
+            }
+
+            return runner;
         }
 
         private bool TryGetTouchedCell(Collider2D collision, out Vector3Int cell)
