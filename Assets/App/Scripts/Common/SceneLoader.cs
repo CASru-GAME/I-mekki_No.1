@@ -73,7 +73,7 @@ namespace App.Common
                       : (_GameStatus.difficulty)difficulty == _GameStatus.difficulty.Hard ? 3
                       : 0;
 
-            _PlayerStatus.ClearAll();
+            _PlayerStatus.RecoverAllHp();
             _GameStatus._gameStatus = _GameStatus.gameStatus.InGame;
             if (_GameStatus._stage == _GameStatus.stage.BeforeStage)
             {
