@@ -31,7 +31,18 @@ namespace App.Game.Player.Move
         Rigidbody2D rb;
         private int count2 = 0;
         private bool inwater;
-        public Jump(Animator animator,GameObject player, float maxjump, float minjump, float jumprange, bool inwater, float maxjumptime = 0.1f, float jumprangetime = 0.05f)
+
+        //アイテム関連の変数
+        private float itemmaxjumpheight;
+        private float itemminjumpheight;
+        private float itemactiveTime;
+        private bool itemactive = false;
+        private float originalMaxJump;
+        private float originalMinJump;
+        private float originalFisrtJumpVelocity;
+        private float itemendtime;
+
+        public Jump(Animator animator,GameObject player, float maxjump, float minjump, float jumprange, bool inwater,float itemmaxjumpheight = 40f, float itemminjumpheight = 10f, float itemactiveTime = 9f, float maxjumptime = 0.1f, float jumprangetime = 0.05f)
         {
             this.player = player;
             rb = player.GetComponent<Rigidbody2D>();
@@ -45,6 +56,9 @@ namespace App.Game.Player.Move
             this.jumprangetime = jumprangetime;
             this.animator = animator;
             this.inwater = inwater;
+            this.itemmaxjumpheight = itemmaxjumpheight;
+            this.itemminjumpheight = itemminjumpheight;
+            this.itemactiveTime = itemactiveTime;
         }
         public event System.Action OnJumpStarted;
         public event System.Action OnStompJump;
@@ -163,7 +177,13 @@ namespace App.Game.Player.Move
         }
         public void FixedUpdate()
         {
-            
+            //アイテムの効果が切れる時間をチェック
+            if(itemactive && Time.time > itemendtime){
+                maxjump = originalMaxJump;
+                minjump = originalMinJump;
+                FisrtJumpVelocity = originalFisrtJumpVelocity;
+                itemactive = false;
+            }
             
             if(isJumping)
             {
@@ -221,5 +241,19 @@ namespace App.Game.Player.Move
                 animator.SetBool("Jump", false);
             }
         }
+
+        public void ItemActive()
+        {
+            // ジャンプのアイテムが有効になったときの処理をここに追加
+            originalMaxJump = maxjump;
+            originalMinJump = minjump;
+            originalFisrtJumpVelocity = FisrtJumpVelocity;
+            maxjump = itemmaxjumpheight;
+            minjump = itemminjumpheight;
+            FisrtJumpVelocity = Mathf.Sqrt(2 * gravity * minjump);
+            itemactive = true;
+            itemendtime = Time.time + itemactiveTime;
+        }
+        
     }
 }

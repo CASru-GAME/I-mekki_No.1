@@ -20,6 +20,9 @@ namespace App.Game.Player
         [SerializeField] private float offScreenTimeout = 2f;
         [SerializeField] private GameObject camera;
         [SerializeField] private bool inwater = false;
+        [SerializeField] private float Itemmaxjumpheight = 40f;
+        [SerializeField] private float Itemminjumpheight = 10f;
+        [SerializeField] private float ItemactiveTime = 9f;
         private Dash dash;
         private Jump jump;
         private MoveRight moveright;
@@ -40,7 +43,7 @@ namespace App.Game.Player
             }
             playerSE = GetComponent<PlayerSE>();
             animator = GetComponent<Animator>();
-            jump = new Jump(animator, gameobject, maxjumpheight, minjumpheight, maxJumpCount, inwater);
+            jump = new Jump(animator, gameobject, maxjumpheight, minjumpheight, maxJumpCount, inwater, Itemmaxjumpheight, Itemminjumpheight, ItemactiveTime);
             dash = new Dash(rb, jump, airTime, speed, inwater, animator);
             moveright = new MoveRight(gameobject, speed, offScreenTimeout, camera, outofscreenaddspeed);
             playerLayer = LayerMask.NameToLayer("Player");
