@@ -1,5 +1,6 @@
 using UnityEngine;
 using App.Common._Data;
+using App.Game.Item;
 using System.Collections;
 
 namespace App.Game.Player
@@ -15,6 +16,8 @@ namespace App.Game.Player
         private MonoBehaviour coroutineRunner;
         private bool isInvincible;
         private Coroutine damageCoroutine;
+        private Coroutine invincibleCoroutine;
+        private float effectTime = 6.0f;
 
         public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration, SpriteRenderer spriteRenderer, PlayerSE se, MonoBehaviour coroutineRunner)
         {
@@ -79,6 +82,39 @@ namespace App.Game.Player
             Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
             isInvincible = false;
             damageCoroutine = null;
+        }
+
+        // 無敵状態の処理
+        private IEnumerator InvincibleCoroutine()
+        {
+            isInvincible = true;
+
+            Debug.Log("Active invinciblility");
+            
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
+
+            yield return new WaitForSeconds(effectTime);
+
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+            isInvincible = false;
+            damageCoroutine = null;
+
+            Debug.Log("End invinciblility");
+        }
+
+        public void StartInvincibility()
+        {
+            if (isInvincible || coroutineRunner == null)
+            {
+                return;
+            }
+
+            if (invincibleCoroutine != null)
+            {
+                coroutineRunner.StopCoroutine(invincibleCoroutine);
+            }
+
+            invincibleCoroutine = coroutineRunner.StartCoroutine(InvincibleCoroutine());
         }
     }
 }
