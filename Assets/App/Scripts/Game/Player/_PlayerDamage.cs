@@ -18,7 +18,7 @@ namespace App.Game.Player
         private Coroutine damageCoroutine;
         private bool isItemInvincible;
         private Coroutine invincibleCoroutine;
-        private float effectTime = 6.0f;
+        private float effectTime = 5.0f;
 
         public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration, SpriteRenderer spriteRenderer, PlayerSE se, MonoBehaviour coroutineRunner)
         {
@@ -35,7 +35,7 @@ namespace App.Game.Player
 
         public void TakeDamage()
         {
-            if (isInvincible || coroutineRunner == null)
+            if (isInvincible || isItemInvincible || coroutineRunner == null)
             {
                 return;
             }
@@ -80,12 +80,17 @@ namespace App.Game.Player
                 spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
             }
 
-            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
             isInvincible = false;
             damageCoroutine = null;
+
+            if (!isItemInvincible)
+            {
+                Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+            }
         }
 
         // アイテムによる無敵状態の処理
+        // ダメージ無敵とアイテム無敵が競合した場合は、アイテム無敵の発動を優先
         private IEnumerator InvincibleCoroutine()
         {
             isItemInvincible = true;
@@ -109,9 +114,21 @@ namespace App.Game.Player
 
         public void StartInvincibility()
         {
-            if (isItemInvincible || coroutineRunner == null)
+            if (coroutineRunner == null)
             {
                 return;
+            }
+
+            if (damageCoroutine != null)
+            {
+                coroutineRunner.StopCoroutine(damageCoroutine);
+                damageCoroutine = null;
+                isInvincible = false;
+
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.color = Color.white;
+                }
             }
 
             if (invincibleCoroutine != null)
