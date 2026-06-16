@@ -1142,7 +1142,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1487837490}
         m_TargetAssemblyTypeName: App.Game.Player.Player, Assembly-CSharp
-        m_MethodName: StartDebugInvincibility
+        m_MethodName: ActiveInvincibility
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

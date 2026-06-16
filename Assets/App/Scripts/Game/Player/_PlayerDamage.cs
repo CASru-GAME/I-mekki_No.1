@@ -16,6 +16,7 @@ namespace App.Game.Player
         private MonoBehaviour coroutineRunner;
         private bool isInvincible;
         private Coroutine damageCoroutine;
+        private bool isItemInvincible;
         private Coroutine invincibleCoroutine;
         private float effectTime = 6.0f;
 
@@ -84,27 +85,31 @@ namespace App.Game.Player
             damageCoroutine = null;
         }
 
-        // 無敵状態の処理
+        // アイテムによる無敵状態の処理
         private IEnumerator InvincibleCoroutine()
         {
-            isInvincible = true;
+            isItemInvincible = true;
 
             Debug.Log("Active invinciblility");
             
             Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
 
+            //エフェクトの表示
+
             yield return new WaitForSeconds(effectTime);
 
+            //エフェクトの非表示
+
             Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
-            isInvincible = false;
-            damageCoroutine = null;
+            isItemInvincible = false;
+            invincibleCoroutine = null;
 
             Debug.Log("End invinciblility");
         }
 
         public void StartInvincibility()
         {
-            if (isInvincible || coroutineRunner == null)
+            if (isItemInvincible || coroutineRunner == null)
             {
                 return;
             }
