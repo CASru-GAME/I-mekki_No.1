@@ -1,31 +1,34 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class ShowBarrier : MonoBehaviour
+namespace App.Game.Item
 {
-    [SerializeField] private float duration = 0.5f;
-    private Vector3 defaultScale;
-    private SpriteRenderer spriteRenderer;
-
-    void Start()
+    public class ShowBarrier : MonoBehaviour
     {
-        defaultScale = transform.localScale;
-        transform.localScale = Vector3.zero;
+        [SerializeField] private float duration = 0.5f;
+        private Vector3 defaultScale;
+        private SpriteRenderer spriteRenderer;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        void Start()
+        {
+            defaultScale = transform.localScale;
+            transform.localScale = Vector3.zero;
 
-        Sequence seq = DOTween.Sequence();
+            spriteRenderer = GetComponent<SpriteRenderer>();
 
-        seq.Append(transform.DOScale(defaultScale*1.1f, duration * 0.7f)
-            .SetEase(Ease.OutBack));
+            Sequence seq = DOTween.Sequence();
 
-        seq.Append(transform.DOScale(defaultScale, duration * 0.3f)
-            .SetEase(Ease.OutQuad));
-    }
+            seq.Append(transform.DOScale(defaultScale*1.1f, duration * 0.7f)
+                .SetEase(Ease.OutBack));
 
-    public void DeleteBarrier()
-    {
-        spriteRenderer.DOFade(0f, duration*0.5f)
-            .OnComplete(() => Destroy(gameObject));
+            seq.Append(transform.DOScale(defaultScale, duration * 0.3f)
+                .SetEase(Ease.OutQuad));
+        }
+
+        public void DeleteBarrier()
+        {
+            spriteRenderer.DOFade(0f, duration*0.5f)
+                .OnComplete(() => Destroy(transform.parent.gameObject));
+        }
     }
 }
