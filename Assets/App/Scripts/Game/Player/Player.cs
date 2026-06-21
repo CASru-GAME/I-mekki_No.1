@@ -20,9 +20,9 @@ namespace App.Game.Player
         [SerializeField] private float offScreenTimeout = 2f;
         [SerializeField] private GameObject camera;
         [SerializeField] private bool inwater = false;
-        [SerializeField] private float Itemmaxjumpheight = 40f;
-        [SerializeField] private float Itemminjumpheight = 10f;
-        [SerializeField] private float ItemactiveTime = 9f;
+        [SerializeField] private float Itemmaxjumpheight = 6f;
+        [SerializeField] private float Itemminjumpheight = 3f;
+        [SerializeField] private float ItemactiveTime = 4f;
         private Dash dash;
         private Jump jump;
         private MoveRight moveright;
@@ -93,6 +93,10 @@ namespace App.Game.Player
         public void ActiveInvincibility()
         {
             playerDamage.StartInvincibility();
+        }
+        public void ActivateJumpEffect()
+        {
+            jump.ItemActive();
         }
     }
 }
