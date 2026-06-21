@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8899f5443723c8848a15deb2a3eb7637, type: 3}
   m_Name: InvincibleItemEffect
   m_EditorClassIdentifier: Assembly-CSharp::App.Game.Item.Effects.InvincibleItemEffect
-  itemId: 1
+  itemId: 4
   icon: {fileID: 446052973098331738, guid: f4c74de3243098645be250b13198dd98, type: 3}
   effectDuration: 0
   soundEffect: {fileID: 8300000, guid: 3cc3f327236441142b194a3c0ec98661, type: 3}
