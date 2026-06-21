@@ -89,7 +89,11 @@ namespace App.Game.Player
                 Debug.Log("Dashing");
             }*/
         }
-        
+
+        public void ActiveInvincibility()
+        {
+            playerDamage.StartInvincibility();
+        }
         public void ActivateJumpEffect()
         {
             jump.ItemActive();
