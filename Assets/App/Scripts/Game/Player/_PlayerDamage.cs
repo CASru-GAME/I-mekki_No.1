@@ -1,5 +1,6 @@
 using UnityEngine;
 using App.Common._Data;
+using App.Game.Item;
 using System.Collections;
 
 namespace App.Game.Player
@@ -15,6 +16,9 @@ namespace App.Game.Player
         private MonoBehaviour coroutineRunner;
         private bool isInvincible;
         private Coroutine damageCoroutine;
+        private bool isItemInvincible;
+        private Coroutine invincibleCoroutine;
+        private float effectTime = 5.0f;
 
         public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration, SpriteRenderer spriteRenderer, PlayerSE se, MonoBehaviour coroutineRunner)
         {
@@ -31,7 +35,7 @@ namespace App.Game.Player
 
         public void TakeDamage()
         {
-            if (isInvincible || coroutineRunner == null)
+            if (isInvincible || isItemInvincible || coroutineRunner == null)
             {
                 return;
             }
@@ -76,9 +80,63 @@ namespace App.Game.Player
                 spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
             }
 
-            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
             isInvincible = false;
             damageCoroutine = null;
+
+            if (!isItemInvincible)
+            {
+                Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+            }
+        }
+
+        // アイテムによる無敵状態の処理
+        // ダメージ無敵とアイテム無敵が競合した場合は、アイテム無敵の発動を優先
+        private IEnumerator InvincibleCoroutine()
+        {
+            isItemInvincible = true;
+
+            Debug.Log("Active invinciblility");
+            
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
+
+            //エフェクトの表示
+
+            yield return new WaitForSeconds(effectTime);
+
+            //エフェクトの非表示
+
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+            isItemInvincible = false;
+            invincibleCoroutine = null;
+
+            Debug.Log("End invinciblility");
+        }
+
+        public void StartInvincibility()
+        {
+            if (coroutineRunner == null)
+            {
+                return;
+            }
+
+            if (damageCoroutine != null)
+            {
+                coroutineRunner.StopCoroutine(damageCoroutine);
+                damageCoroutine = null;
+                isInvincible = false;
+
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.color = Color.white;
+                }
+            }
+
+            if (invincibleCoroutine != null)
+            {
+                coroutineRunner.StopCoroutine(invincibleCoroutine);
+            }
+
+            invincibleCoroutine = coroutineRunner.StartCoroutine(InvincibleCoroutine());
         }
     }
 }

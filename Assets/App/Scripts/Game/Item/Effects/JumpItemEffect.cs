@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace App.Game.Item.Effects
 {
@@ -7,13 +8,17 @@ namespace App.Game.Item.Effects
         menuName = "Assets/App/ScriptableObject/ItemEffects/Jump")]
     public class JumpItemEffect : ItemEffectBase
     {
-        
+        [FormerlySerializedAs("maxJumpHeight")]
+        [SerializeField] private float maxJumpHeightBonus = 1f;
+        [FormerlySerializedAs("minJumpHeight")]
+        [SerializeField] private float minJumpHeightBonus = 0.3f;
 
         public override void Apply(ItemEffectContext context)
         {
-            //Debug.Log(message, context.Player);
-            context.Player.GetComponent<global::App.Game.Player.Player>()?.ActivateJumpEffect();
-            Debug.Log("Jump effect applied.", context.Player);
+            context.Player.GetComponent<global::App.Game.Player.Player>()?.ActivateJumpEffect(
+                EffectDuration,
+                maxJumpHeightBonus,
+                minJumpHeightBonus);
         }
     }
 }

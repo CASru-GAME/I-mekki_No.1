@@ -37,6 +37,62 @@ namespace App.Game.Item
             runningEffects.Remove(key);
         }
 
+        public void ShowActiveIcon(string itemId, Sprite icon, float duration)
+        {
+            if (string.IsNullOrEmpty(itemId) || icon == null || duration <= 0f)
+            {
+                return;
+            }
+
+            ActiveItemIconDisplay display = GetComponent<ActiveItemIconDisplay>();
+            if (display == null)
+            {
+                display = gameObject.AddComponent<ActiveItemIconDisplay>();
+            }
+
+            display.Show(itemId, icon, duration);
+            RunOrRestart($"icon:{itemId}", HideActiveIconAfter(display, itemId, duration));
+        }
+
+        public void ConfigureActiveIconDisplay(
+            Vector2 offset,
+            float iconSize,
+            float spacing,
+            int sortingOrderOffset,
+            Vector2 timerOffset,
+            int timerFontSize,
+            float timerCharacterSize,
+            Color timerColor,
+            Font timerFont)
+        {
+            ActiveItemIconDisplay display = GetComponent<ActiveItemIconDisplay>();
+            if (display == null)
+            {
+                display = gameObject.AddComponent<ActiveItemIconDisplay>();
+            }
+
+            display.Configure(
+                offset,
+                iconSize,
+                spacing,
+                sortingOrderOffset,
+                timerOffset,
+                timerFontSize,
+                timerCharacterSize,
+                timerColor,
+                timerFont);
+        }
+
+        private IEnumerator HideActiveIconAfter(ActiveItemIconDisplay display, string itemId, float duration)
+        {
+            yield return new WaitForSeconds(duration);
+
+            if (display != null)
+            {
+                display.Hide(itemId);
+            }
+        }
+
         private IEnumerator RunAndClear(string key, IEnumerator routine)
         {
             yield return routine;

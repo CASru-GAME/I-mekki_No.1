@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using App.Game.Item;
 using App.Game.Player.Move;
 
 namespace App.Game.Player
@@ -23,6 +24,16 @@ namespace App.Game.Player
         [SerializeField] private float Itemmaxjumpheight = 6f;
         [SerializeField] private float Itemminjumpheight = 3f;
         [SerializeField] private float ItemactiveTime = 4f;
+        [Header("Active Item Icon")]
+        [SerializeField] private Vector2 activeItemIconOffset = new Vector2(0.35f, 0.35f);
+        [SerializeField] private float activeItemIconSize = 0.32f;
+        [SerializeField] private float activeItemIconSpacing = 0.08f;
+        [SerializeField] private int activeItemIconSortingOrderOffset = 10;
+        [SerializeField] private Vector2 activeItemTimerOffset = new Vector2(0f, -0.34f);
+        [SerializeField] private int activeItemTimerFontSize = 32;
+        [SerializeField] private float activeItemTimerCharacterSize = 0.06f;
+        [SerializeField] private Color activeItemTimerColor = Color.white;
+        [SerializeField] private Font activeItemTimerFont;
         private Dash dash;
         private Jump jump;
         private MoveRight moveright;
@@ -66,7 +77,6 @@ namespace App.Game.Player
 
         public void OnTriggerStay2D(Collider2D collisionInfo)
         {
-            Debug.Log("OnTriggerStay2D called");
             GameObject stompedEnemy = stompEnemy.OnCollisionEnemy(transform.position.y, collisionInfo);
             if (stompedEnemy != null)
             {
@@ -83,16 +93,49 @@ namespace App.Game.Player
             //playerDamage.FixedUpdate();
 
             /*if(animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")){
-                Debug.Log("Jumping");
             }
             if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dash")){
-                Debug.Log("Dashing");
             }*/
         }
         
+        public void ActivateJumpEffect(float duration = 0f, float maxJumpHeightBonus = 0f, float minJumpHeightBonus = 0f)
+
+        public void ActiveInvincibility()
+        {
+            playerDamage.StartInvincibility();
+        }
         public void ActivateJumpEffect()
         {
-            jump.ItemActive();
+            jump.ItemActive(duration, maxJumpHeightBonus, minJumpHeightBonus);
+        }
+
+        public void ConfigureActiveItemIconDisplay(ItemEffectRunner runner)
+        {
+            if (runner == null)
+            {
+                return;
+            }
+
+            runner.ConfigureActiveIconDisplay(
+                activeItemIconOffset,
+                activeItemIconSize,
+                activeItemIconSpacing,
+                activeItemIconSortingOrderOffset,
+                activeItemTimerOffset,
+                activeItemTimerFontSize,
+                activeItemTimerCharacterSize,
+                activeItemTimerColor,
+                activeItemTimerFont);
+        }
+
+        public void PlayItemSound(ItemEffectBase effect)
+        {
+            if (effect == null || !effect.HasSoundEffect || playerSE == null)
+            {
+                return;
+            }
+
+            playerSE.PlayItem(effect.SoundEffect, effect.SoundEffectVolume);
         }
     }
 }

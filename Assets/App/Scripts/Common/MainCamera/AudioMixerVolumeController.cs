@@ -39,7 +39,6 @@ namespace App.Common.MainCamera
 
         public void LoadVolume()
         {
-            Debug.Log("Loading volume settings...");
 
             _masterLinear = PlayerPrefs.GetFloat(MASTERVOLUMEKEY, DefaultLinearVolume);
             _bgmLinear = PlayerPrefs.GetFloat(BGMVOLUMEKEY, DefaultLinearVolume);
@@ -92,7 +91,6 @@ namespace App.Common.MainCamera
 
         public void SetBGMVolume(float volume)
         {
-            Debug.Log($"SetBGMVolume called with volume: {volume}");
             var v = new Volume(volume);
             _bgmLinear = v.CurrentValue;
             TrySetMixerFloat(BgmParam, ConvertLinearToDecibel(_bgmLinear));
@@ -100,7 +98,6 @@ namespace App.Common.MainCamera
 
         public void SetSEVolume(float volume)
         {
-            Debug.Log($"SetSEVolume called with volume: {volume}");
             var v = new Volume(volume);
             _seLinear = v.CurrentValue;
             TrySetMixerFloat(SeParam, ConvertLinearToDecibel(_seLinear));
