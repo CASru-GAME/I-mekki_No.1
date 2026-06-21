@@ -30,7 +30,6 @@ namespace App.Game.Player.Move
                 count++;
                 if(count>offScreenTimeout/Time.fixedDeltaTime){
                     _PlayerStatus.SubHp();
-                    Debug.Log("Player fell off the screen! HP: " + _PlayerStatus.GetHp());
                     count=0;
                 }
             }else{
@@ -41,7 +40,6 @@ namespace App.Game.Player.Move
                 if(_PlayerStatus.SubHp(playerdead)){
                     playerdead = true;
                 }
-                Debug.Log("Player fell off the screen! HP: " + _PlayerStatus.GetHp());
                 
             }
         }

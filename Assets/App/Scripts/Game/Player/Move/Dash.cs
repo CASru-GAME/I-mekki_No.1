@@ -99,7 +99,6 @@ namespace App.Game.Player.Move
         }
         public void CancelDash()
         {
-            Debug.Log("Dash canceled due to wall collision.");
             // ダッシュをキャンセルするための処理
             if (seq != null && seq.IsActive())
             {
@@ -134,7 +133,6 @@ namespace App.Game.Player.Move
                 // 壁に接触したらダッシュをキャンセル
             if (IsTouchingWall())
             {
-                Debug.Log("Wall detected, canceling dash.");
                 CancelDash();
             }
             }

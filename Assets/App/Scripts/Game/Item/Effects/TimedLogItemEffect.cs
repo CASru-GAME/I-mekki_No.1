@@ -17,9 +17,7 @@ namespace App.Game.Item.Effects
 
         private IEnumerator EffectCoroutine(ItemEffectContext context)
         {
-            Debug.Log("Timed item effect started.", context.Player);
             yield return new WaitForSeconds(duration);
-            Debug.Log("Timed item effect ended.", context.Player);
         }
     }
 }

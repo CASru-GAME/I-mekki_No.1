@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: JumpItemEffect
   m_EditorClassIdentifier: Assembly-CSharp::App.Game.Item.Effects.JumpItemEffect
   itemId: 3
+  icon: {fileID: 446052973098331738, guid: f4c74de3243098645be250b13198dd98, type: 3}
+  effectDuration: 4
+  soundEffect: {fileID: 8300000, guid: 3cc3f327236441142b194a3c0ec98661, type: 3}
+  soundEffectVolume: 1
+  maxJumpHeightBonus: 1
+  minJumpHeightBonus: 0.3

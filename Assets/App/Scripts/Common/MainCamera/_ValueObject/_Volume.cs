@@ -24,7 +24,6 @@ namespace App.Common.MainCamera.ValueObject
 
         public void Dump(string message)
         {
-            UnityEngine.Debug.Log($"Message : {message}, Volume: {CurrentValue}.");
         }
     }
 }

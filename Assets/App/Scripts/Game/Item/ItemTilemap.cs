@@ -52,8 +52,16 @@ namespace App.Game.Item
             }
 
             ItemEffectRunner runner = GetOrAddRunner(player.gameObject);
+            player.ConfigureActiveItemIconDisplay(runner);
             ItemEffectContext context = new ItemEffectContext(player.gameObject, tilemap, cell, runner);
             effect.Apply(context);
+            player.PlayItemSound(effect);
+
+            if (effect.ShowsActiveIcon)
+            {
+                runner.ShowActiveIcon(effect.ItemId, effect.Icon, effect.EffectDuration);
+            }
+
             RemoveTile(cell);
         }
 

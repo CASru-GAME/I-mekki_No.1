@@ -75,3 +75,5 @@ crashlytics-build.properties
 /Assets/App/Audio/BGM/
 /Assets/App/Audio/SE/
 /Assets/App/Fonts
+
+debug.log

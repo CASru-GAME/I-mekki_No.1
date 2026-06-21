@@ -31,7 +31,6 @@ public class Goal : MonoBehaviour
                         // セルの中心のワールド座標を取得
                         goalPosition = tilemap.GetCellCenterWorld(cellPosition);
                         
-                        Debug.Log($"Goal tile found at: {goalPosition}");
                         break;
                     }
                 }
@@ -45,7 +44,6 @@ public class Goal : MonoBehaviour
         if (goalPosition.x < posPlayer.x && !goalReached)
         {
             goalReached = true;
-            Debug.Log("Goal Triggered");
             // ゲームクリアの処理を呼び出す
             App.Common._Data._PlayerStatistics.SetGameCleared(true);
         }

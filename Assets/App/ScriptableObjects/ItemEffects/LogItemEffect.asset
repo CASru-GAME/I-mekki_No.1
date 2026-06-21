@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: LogItemEffect
   m_EditorClassIdentifier: Assembly-CSharp::App.Game.Item.Effects.LogItemEffect
   itemId: 1
-  message: Item effect triggered.
+  icon: {fileID: 0}
+  effectDuration: 0
+  soundEffect: {fileID: 8300000, guid: 3cc3f327236441142b194a3c0ec98661, type: 3}
+  soundEffectVolume: 1

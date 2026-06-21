@@ -25,7 +25,6 @@ public class _StompEnemy
             enemyHeight = collisionInfo.bounds.size.y;
             if(enemyY - enemyHeight / 2 < pleyerY - playerheight / 2)
             {
-                Debug.Log("Enemy Stomped");
                 return enemy;
             }else{
                 playerDamage.TakeDamage();

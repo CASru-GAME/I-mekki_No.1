@@ -56,8 +56,6 @@ namespace App.Common
 
         public void LoadNextWithFlagInGameScene(int difficulty)
         {
-            Debug.Log($"Loading next scene with difficulty: {difficulty}");
-            Debug.Log($"Current stage: {_GameStatus._stage}, Current game status: {_GameStatus._gameStatus}");
             _GameStatus._difficulty = (_GameStatus.difficulty)difficulty;
             //タイトル用のBGMを止める
             titleBGM.Stop();
