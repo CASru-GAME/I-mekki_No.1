@@ -52,6 +52,7 @@ namespace App.Game.Player.Move
             mass = rb.mass;
             this.FisrtJumpVelocity = Mathf.Sqrt(2 * gravity * minjump);
             this.maxjump = maxjump;
+            this.minjump = minjump;
             this.jumprange = jumprange;
             this.maxjumptime = maxjumptime;
             this.jumprangetime = jumprangetime;
@@ -109,7 +110,6 @@ namespace App.Game.Player.Move
             // ジャンプボタンを離したら上昇終了
                 if (context.phase == InputActionPhase.Canceled)
                 {
-                    //Debug.Log(Time.time - lastJumpTime);
                     isJumping = false;
                     count = 0;
                     /*float holdtime = Time.time - lastJumpTime;
@@ -151,7 +151,6 @@ namespace App.Game.Player.Move
 
             if (hit.collider != null && !hit.collider.gameObject.CompareTag("Player"))
             {
-                //Debug.Log(hit.collider.gameObject.name);
                 return true;
             }
             return false;
@@ -189,7 +188,6 @@ namespace App.Game.Player.Move
             if(isJumping)
             {
                 count ++;
-                //Debug.Log(Time.time - jumpstarttime);
                 if(Time.time - jumpstarttime > maxjumptime){
                     float jumpVelocity = Mathf.Sqrt(2 * gravity * maxjump);
                     rb.AddForce(new Vector2(0, rb.mass * (jumpVelocity - rb.linearVelocity.y)), ForceMode2D.Impulse);
@@ -230,7 +228,6 @@ namespace App.Game.Player.Move
                 }else{
                     if(IsGrounded()){
                         intheair = false;
-                        Debug.Log("Landed");
                         count2 = 0;
                     }
                 }
@@ -243,17 +240,24 @@ namespace App.Game.Player.Move
             }
         }
 
-        public void ItemActive()
+        public void ItemActive(float duration = 0f, float maxJumpHeightBonus = 0f, float minJumpHeightBonus = 0f)
         {
             // ジャンプのアイテムが有効になったときの処理をここに追加
-            originalMaxJump = maxjump;
-            originalMinJump = minjump;
-            originalFisrtJumpVelocity = FisrtJumpVelocity;
-            maxjump = itemmaxjumpheight;
-            minjump = itemminjumpheight;
+            if (!itemactive)
+            {
+                originalMaxJump = maxjump;
+                originalMinJump = minjump;
+                originalFisrtJumpVelocity = FisrtJumpVelocity;
+            }
+
+            float baseMaxJump = itemactive ? originalMaxJump : maxjump;
+            float baseMinJump = itemactive ? originalMinJump : minjump;
+            maxjump = baseMaxJump + maxJumpHeightBonus;
+            minjump = baseMinJump + minJumpHeightBonus;
             FisrtJumpVelocity = Mathf.Sqrt(2 * gravity * minjump);
             itemactive = true;
-            itemendtime = Time.time + itemactiveTime;
+            float activeDuration = duration > 0f ? duration : itemactiveTime;
+            itemendtime = Time.time + activeDuration;
         }
         
     }

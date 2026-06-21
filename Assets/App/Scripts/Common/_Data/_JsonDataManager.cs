@@ -11,7 +11,6 @@ namespace App.Common._Data
 
         public static void SaveDictionaryData()
         {
-            Debug.Log("Saving dictionary data...");
 
             dictionaryWrapper.isDictionaryOpen = CopyOrCreateArray(_PlayerStatistics.isDictionaryOpen);
             string json = JsonUtility.ToJson(dictionaryWrapper, true);
@@ -19,12 +18,10 @@ namespace App.Common._Data
             PlayerPrefs.SetString(PlayerPrefsKey, json);
             PlayerPrefs.Save();
 
-            Debug.Log("Dictionary data saved to PlayerPrefs.");
         }
 
         public static void LoadDictionaryData()
         {
-            Debug.Log("Loading dictionary data...");
 
             if (!PlayerPrefs.HasKey(PlayerPrefsKey))
             {
@@ -54,7 +51,6 @@ namespace App.Common._Data
             }
 
             dictionaryWrapper.isDictionaryOpen = CopyOrCreateArray(_PlayerStatistics.isDictionaryOpen);
-            Debug.Log("Dictionary data loaded from PlayerPrefs.");
         }
 
         private static void InitializeDefaultAndSave()
@@ -69,7 +65,6 @@ namespace App.Common._Data
             dictionaryWrapper.isDictionaryOpen = CopyOrCreateArray(_PlayerStatistics.isDictionaryOpen);
             SaveDictionaryData();
 
-            Debug.Log("Dictionary data was missing/invalid. Initialized with defaults.");
         }
 
         private static void EnsurePlayerStatisticsArray(int length)

@@ -35,5 +35,21 @@ namespace App.Game.Player
         public void PlayDamage() => seSource.PlayOneShot(damageClip);
         public void PlayCoin()   => seSource.PlayOneShot(coinClip);
         public void PlayDictionary() => seSource.PlayOneShot(dictionaryClip);
+
+        public void PlayItem(AudioClip clip, float volume = 1f)
+        {
+            if (clip == null || volume <= 0f)
+            {
+                return;
+            }
+
+            if (seSource != null)
+            {
+                seSource.PlayOneShot(clip, volume);
+                return;
+            }
+
+            AudioSource.PlayClipAtPoint(clip, transform.position, volume);
+        }
     }
 }

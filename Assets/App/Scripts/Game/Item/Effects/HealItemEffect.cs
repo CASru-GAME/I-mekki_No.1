@@ -11,7 +11,6 @@ namespace App.Game.Item.Effects
         public override void Apply(ItemEffectContext context)
         {
             _PlayerStatus.AddHp();
-            Debug.Log($"Player healed. HP: {_PlayerStatus.GetHp()}", context.Player);
         }
     }
 }

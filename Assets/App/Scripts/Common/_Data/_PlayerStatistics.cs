@@ -21,22 +21,18 @@ namespace App.Common._Data
             _dictionaryNum = 0;
             _clearedStageNum = 0;
             _gameCleared = false;
-            UnityEngine.Debug.Log("Player statistics cleared: Coins, DictionaryNum, ClearedStageNum reset to 0.");
         }
         static public void AddCoins(int coins)
         {
             _coins += coins;
-            UnityEngine.Debug.Log($"Coins added: {coins}, Total: {_coins}");
         }
         static public void AddDictionaryNum(int dictionaryNum)
         {
             _dictionaryNum += dictionaryNum;
-            UnityEngine.Debug.Log($"Dictionary items added: {dictionaryNum}, Total: {_dictionaryNum}");
         }
         static public void AddClearedStageNum(int clearedStageNum)
         {
             _clearedStageNum += clearedStageNum;
-            UnityEngine.Debug.Log($"Cleared stages added: {clearedStageNum}, Total: {_clearedStageNum}");
         }
         static public void SetGameCleared(bool gameCleared)
         {
@@ -48,12 +44,10 @@ namespace App.Common._Data
         static public void SetGameAsCleared()
         {
             _gameCleared = true;
-            UnityEngine.Debug.Log("Game cleared status set to true.");
         }
         static public void ResetGameCleared()
         {
             _gameCleared = false;
-            UnityEngine.Debug.Log("Game cleared status reset to false.");
         }
     }
 }

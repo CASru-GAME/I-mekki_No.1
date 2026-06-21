@@ -132,7 +132,6 @@ namespace App.Scripts.Title
             // 右矢印：最後のパネルなら非表示
             _rightArrow.SetActive(_currentPanelIndex < _selectPanels.Length - 1);
 
-            Debug.Log("Current Panel Index: " + _currentPanelIndex);
         }
     }
 }

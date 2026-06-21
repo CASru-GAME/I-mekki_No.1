@@ -11,10 +11,6 @@ namespace App.Scripts.Common.UI
             {
                 SceneTransition.Instance.LoadSceneWithTransition(sceneName, 0);
             }
-            else
-            {
-                Debug.Log("シーン名が入力されていません");
-            }
         }
 
         public void LoadDifficultySelectScene()

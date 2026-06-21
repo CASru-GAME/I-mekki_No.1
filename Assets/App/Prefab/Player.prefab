@@ -211,6 +211,18 @@ MonoBehaviour:
   offScreenTimeout: 2
   camera: {fileID: 0}
   inwater: 0
+  Itemmaxjumpheight: 6
+  Itemminjumpheight: 3
+  ItemactiveTime: 4
+  activeItemIconOffset: {x: 0.2, y: 0.2}
+  activeItemIconSize: 0.32
+  activeItemIconSpacing: 0.08
+  activeItemIconSortingOrderOffset: 10
+  activeItemTimerOffset: {x: 0, y: -0.34}
+  activeItemTimerFontSize: 32
+  activeItemTimerCharacterSize: 0.06
+  activeItemTimerColor: {r: 1, g: 1, b: 1, a: 1}
+  activeItemTimerFont: {fileID: 12800000, guid: eb6fb50a4574b7241a76ff816f59b636, type: 3}
 --- !u!61 &7347454654028596185
 BoxCollider2D:
   m_ObjectHideFlags: 0
