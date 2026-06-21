@@ -99,6 +99,12 @@ namespace App.Game.Player
         }
         
         public void ActivateJumpEffect(float duration = 0f, float maxJumpHeightBonus = 0f, float minJumpHeightBonus = 0f)
+
+        public void ActiveInvincibility()
+        {
+            playerDamage.StartInvincibility();
+        }
+        public void ActivateJumpEffect()
         {
             jump.ItemActive(duration, maxJumpHeightBonus, minJumpHeightBonus);
         }
