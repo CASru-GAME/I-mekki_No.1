@@ -11,7 +11,7 @@ namespace App.Scripts.Title
         [SerializeField] private int _showNum=1;
         private bool[] _isDictionaryOpen => _PlayerStatistics.isDictionaryOpen;
         [SerializeField] private GameObject[] _dictionary = new GameObject[21];
-        private int _dictionarylength = _PlayerStatistics.DictionaryNumMax;
+        private int _dictionarylength = 27; //= _PlayerStatistics.DictionaryNumMax;
 
         [SerializeField] private DictionaryDatabase _database;
         [SerializeField] private TMPro.TMP_Text _titleText;
