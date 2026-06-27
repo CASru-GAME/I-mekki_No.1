@@ -8,9 +8,12 @@ namespace App.Game.Item.Effects
         menuName = "Assets/App/ScriptableObject/ItemEffects/Heal")]
     public class HealItemEffect : ItemEffectBase
     {
+        [SerializeField] private GameObject effectPrefab;
+
         public override void Apply(ItemEffectContext context)
         {
             _PlayerStatus.AddHp();
+            context.Runner.SpawnOneShotEffect(effectPrefab);
         }
     }
 }

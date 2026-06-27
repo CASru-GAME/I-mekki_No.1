@@ -8,6 +8,7 @@ namespace App.Game.Item.Effects
         menuName = "Assets/App/ScriptableObject/ItemEffects/Jump")]
     public class JumpItemEffect : ItemEffectBase
     {
+        [SerializeField] private GameObject effectPrefab;
         [FormerlySerializedAs("maxJumpHeight")]
         [SerializeField] private float maxJumpHeightBonus = 1f;
         [FormerlySerializedAs("minJumpHeight")]
@@ -19,6 +20,7 @@ namespace App.Game.Item.Effects
                 EffectDuration,
                 maxJumpHeightBonus,
                 minJumpHeightBonus);
+            context.Runner.ShowFootEffectForDuration(ItemId, effectPrefab, EffectDuration);
         }
     }
 }

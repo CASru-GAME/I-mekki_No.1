@@ -7,6 +7,9 @@ namespace App.Game.Item
     public class ItemEffectRunner : MonoBehaviour
     {
         private readonly Dictionary<string, Coroutine> runningEffects = new Dictionary<string, Coroutine>();
+        private readonly Dictionary<string, GameObject> activeEffectObjects = new Dictionary<string, GameObject>();
+        private const int FrontEffectSortingOrderOffset = 2;
+        private const int BackEffectSortingOrderOffset = -1;
 
         public Coroutine Run(IEnumerator routine)
         {
@@ -54,6 +57,72 @@ namespace App.Game.Item
             RunOrRestart($"icon:{itemId}", HideActiveIconAfter(display, itemId, duration));
         }
 
+        public void SpawnOneShotEffect(GameObject effectPrefab)
+        {
+            SpawnOneShotEffect(effectPrefab, BackEffectSortingOrderOffset, false);
+        }
+
+        public void SpawnOneShotEffect(GameObject effectPrefab, int sortingOrderOffset, bool preservePrefabWorldPosition)
+        {
+            if (effectPrefab == null)
+            {
+                return;
+            }
+
+            CreateAttachedEffect(effectPrefab, sortingOrderOffset, false, preservePrefabWorldPosition);
+        }
+
+        public void ShowEffectForDuration(string key, GameObject effectPrefab, float duration)
+        {
+            ShowEffectForDuration(key, effectPrefab, duration, BackEffectSortingOrderOffset, false, false);
+        }
+
+        public void ShowEffectForDuration(
+            string key,
+            GameObject effectPrefab,
+            float duration,
+            int sortingOrderOffset,
+            bool preservePrefabWorldScale,
+            bool preservePrefabWorldPosition)
+        {
+            if (string.IsNullOrEmpty(key) || effectPrefab == null || duration <= 0f)
+            {
+                return;
+            }
+
+            DestroyActiveEffect(key);
+
+            GameObject effectObject = CreateAttachedEffect(
+                effectPrefab,
+                sortingOrderOffset,
+                preservePrefabWorldScale,
+                preservePrefabWorldPosition);
+            activeEffectObjects[key] = effectObject;
+            RunOrRestart($"effect:{key}", HideEffectAfter(key, effectObject, duration));
+        }
+
+        public void ShowBarrierEffectForDuration(string key, GameObject effectPrefab, float duration)
+        {
+            ShowEffectForDuration(
+                key,
+                effectPrefab,
+                duration,
+                FrontEffectSortingOrderOffset,
+                true,
+                true);
+        }
+
+        public void ShowFootEffectForDuration(string key, GameObject effectPrefab, float duration)
+        {
+            ShowEffectForDuration(
+                key,
+                effectPrefab,
+                duration,
+                BackEffectSortingOrderOffset,
+                false,
+                true);
+        }
+
         public void ConfigureActiveIconDisplay(
             Vector2 offset,
             float iconSize,
@@ -91,6 +160,119 @@ namespace App.Game.Item
             {
                 display.Hide(itemId);
             }
+        }
+
+        private GameObject CreateAttachedEffect(
+            GameObject effectPrefab,
+            int sortingOrderOffset,
+            bool preservePrefabWorldScale,
+            bool preservePrefabWorldPosition)
+        {
+            GameObject effectObject = Instantiate(effectPrefab, transform, false);
+            PreservePrefabWorldTransform(
+                effectObject.transform,
+                preservePrefabWorldScale,
+                preservePrefabWorldPosition);
+
+            ConfigureEffectSorting(effectObject, sortingOrderOffset);
+            return effectObject;
+        }
+
+        private void PreservePrefabWorldTransform(
+            Transform effectTransform,
+            bool preserveWorldScale,
+            bool preserveWorldPosition)
+        {
+            if (!preserveWorldScale && !preserveWorldPosition)
+            {
+                return;
+            }
+
+            Vector3 parentScale = transform.lossyScale;
+
+            if (preserveWorldPosition)
+            {
+                Vector3 localPosition = effectTransform.localPosition;
+                effectTransform.localPosition = new Vector3(
+                    DivideSafely(localPosition.x, parentScale.x),
+                    DivideSafely(localPosition.y, parentScale.y),
+                    DivideSafely(localPosition.z, parentScale.z));
+            }
+
+            if (preserveWorldScale)
+            {
+                Vector3 localScale = effectTransform.localScale;
+                effectTransform.localScale = new Vector3(
+                    DivideSafely(localScale.x, parentScale.x),
+                    DivideSafely(localScale.y, parentScale.y),
+                    DivideSafely(localScale.z, parentScale.z));
+            }
+        }
+
+        private float DivideSafely(float value, float divisor)
+        {
+            return Mathf.Approximately(divisor, 0f) ? value : value / divisor;
+        }
+
+        private void ConfigureEffectSorting(GameObject effectObject, int sortingOrderOffset)
+        {
+            SpriteRenderer playerRenderer = GetComponent<SpriteRenderer>();
+            if (playerRenderer == null)
+            {
+                return;
+            }
+
+            int sortingOrder = playerRenderer.sortingOrder + sortingOrderOffset;
+
+            foreach (Renderer renderer in effectObject.GetComponentsInChildren<Renderer>(true))
+            {
+                renderer.sortingLayerID = playerRenderer.sortingLayerID;
+                renderer.sortingOrder = sortingOrder;
+            }
+        }
+
+        private IEnumerator HideEffectAfter(string key, GameObject effectObject, float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            HideEffect(key, effectObject);
+        }
+
+        private void DestroyActiveEffect(string key)
+        {
+            if (!activeEffectObjects.TryGetValue(key, out GameObject effectObject))
+            {
+                return;
+            }
+
+            if (effectObject != null)
+            {
+                Destroy(effectObject);
+            }
+
+            activeEffectObjects.Remove(key);
+        }
+
+        private void HideEffect(string key, GameObject effectObject)
+        {
+            if (activeEffectObjects.TryGetValue(key, out GameObject activeEffectObject) && activeEffectObject != effectObject)
+            {
+                return;
+            }
+
+            if (effectObject != null)
+            {
+                ShowBarrier barrier = effectObject.GetComponentInChildren<ShowBarrier>();
+                if (barrier != null)
+                {
+                    barrier.DeleteBarrier();
+                }
+                else
+                {
+                    Destroy(effectObject);
+                }
+            }
+
+            activeEffectObjects.Remove(key);
         }
 
         private IEnumerator RunAndClear(string key, IEnumerator routine)
