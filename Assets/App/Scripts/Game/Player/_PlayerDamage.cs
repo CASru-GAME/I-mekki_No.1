@@ -18,7 +18,6 @@ namespace App.Game.Player
         private Coroutine damageCoroutine;
         private bool isItemInvincible;
         private Coroutine invincibleCoroutine;
-        private float effectTime = 5.0f;
 
         public _PlayerDamage(int playerLayer, int enemyLayer, float invincibleTime, float flashDuration, SpriteRenderer spriteRenderer, PlayerSE se, MonoBehaviour coroutineRunner)
         {
@@ -91,7 +90,7 @@ namespace App.Game.Player
 
         // アイテムによる無敵状態の処理
         // ダメージ無敵とアイテム無敵が競合した場合は、アイテム無敵の発動を優先
-        private IEnumerator InvincibleCoroutine()
+        private IEnumerator InvincibleCoroutine(float duration)
         {
             isItemInvincible = true;
 
@@ -101,7 +100,7 @@ namespace App.Game.Player
 
             //エフェクトの表示
 
-            yield return new WaitForSeconds(effectTime);
+            yield return new WaitForSeconds(duration);
 
             //エフェクトの非表示
 
@@ -112,9 +111,9 @@ namespace App.Game.Player
             Debug.Log("End invinciblility");
         }
 
-        public void StartInvincibility()
+        public void StartInvincibility(float duration)
         {
-            if (coroutineRunner == null)
+            if (coroutineRunner == null || duration <= 0f)
             {
                 return;
             }
@@ -136,7 +135,7 @@ namespace App.Game.Player
                 coroutineRunner.StopCoroutine(invincibleCoroutine);
             }
 
-            invincibleCoroutine = coroutineRunner.StartCoroutine(InvincibleCoroutine());
+            invincibleCoroutine = coroutineRunner.StartCoroutine(InvincibleCoroutine(duration));
         }
     }
 }

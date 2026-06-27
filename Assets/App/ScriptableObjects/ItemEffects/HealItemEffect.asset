@@ -17,3 +17,4 @@ MonoBehaviour:
   effectDuration: 0
   soundEffect: {fileID: 8300000, guid: 3cc3f327236441142b194a3c0ec98661, type: 3}
   soundEffectVolume: 1
+  effectPrefab: {fileID: 4382839276635002955, guid: 343a96cf8f78a6749a9071d6fe3c7800, type: 3}
