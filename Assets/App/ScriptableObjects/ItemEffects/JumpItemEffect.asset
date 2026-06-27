@@ -17,5 +17,6 @@ MonoBehaviour:
   effectDuration: 4
   soundEffect: {fileID: 8300000, guid: 3cc3f327236441142b194a3c0ec98661, type: 3}
   soundEffectVolume: 1
+  effectPrefab: {fileID: 3231471936845279031, guid: 1a337ac95b399c945b97ae0b8db72aaa, type: 3}
   maxJumpHeightBonus: 1
   minJumpHeightBonus: 0.3
