@@ -15,6 +15,7 @@ namespace App.Game.UI
 
         private float _offsetXRatio = 2.0f; // 画面幅の150%だけ右に置いておく
 
+
         private Vector2 _shownPos;
         private Vector2 _hiddenPos;
 
