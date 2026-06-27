@@ -2947,7 +2947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::App.Game.Item.ItemTilemap
   tilemap: {fileID: 1333389743}
-  itemId: 1
+  itemId: 4
   effectDatabase: {fileID: 11400000, guid: 4318c20ad04d2974e97b913fbd866b1e, type: 2}
 --- !u!19719996 &1333389741
 TilemapCollider2D:
