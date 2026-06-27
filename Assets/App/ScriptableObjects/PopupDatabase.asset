@@ -55,9 +55,19 @@ MonoBehaviour:
     textColor: {r: 0, g: 0, b: 0, a: 0}
   - popupText: "\u305A\u304B\u309321\u767A\u898B\uFF01"
     textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309322\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309323\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309325\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309326\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "\u305A\u304B\u309327\u767A\u898B\uFF01"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
   - popupText: "\u30B8\u30E3\u30F3\u30D7\u5F37\u5316"
     textColor: {r: 0, g: 0, b: 0, a: 0}
-  - popupText: "HP\u56DE\u5FA9"
-    textColor: {r: 0, g: 0, b: 0, a: 0}
   - popupText: "\u7121\u6575\u72B6\u614B"
+    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - popupText: "HP\u56DE\u5FA9"
     textColor: {r: 0, g: 0, b: 0, a: 0}
