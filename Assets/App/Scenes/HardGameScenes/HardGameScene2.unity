@@ -2959,7 +2959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::App.Game.Item.ItemTilemap
   tilemap: {fileID: 1152217560}
-  itemId: 1
+  itemId: 4
   effectDatabase: {fileID: 11400000, guid: 4318c20ad04d2974e97b913fbd866b1e, type: 2}
 --- !u!19719996 &1152217558
 TilemapCollider2D:
@@ -3784,16 +3784,6 @@ Tilemap:
   m_GameObject: {fileID: 1591496681}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 22, y: -3, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 3
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 52, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -3822,19 +3812,19 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 4b4bb8a5ac27bde4d8cf29df26275985, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 2eb3f12843cc5b24f8850692acb0e650, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 446052973098331738, guid: f4c74de3243098645be250b13198dd98, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: -4599823298548724438, guid: c5b0b10b530dfd748b5c3442e9994a94, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data:
       e00: 1
       e01: 0
@@ -3853,7 +3843,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
