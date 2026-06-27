@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/App/Scenes/DifficultyScene.unity
     guid: daeaa71384ef51a4a8a1330dda9f83a3
   - enabled: 1
-    path: Assets/App/Scenes/DemoGameScene.unity
-    guid: 801d7b1a1ceb0ed4dbf022f955f150dc
-  - enabled: 1
     path: Assets/App/Scenes/ResultScene.unity
     guid: e3656c082a16c43419cc58b011b2151b
   - enabled: 1
